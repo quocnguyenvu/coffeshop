@@ -1,0 +1,81 @@
+#wrapper {
+  width: 100%;
+  position: relative;
+}
+#banner {
+  background-image: url("../../assets/bg/contact-header-img.jpg");
+  background-position: center center;
+  background-size: cover;
+  height: 450px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#banner .overlay {
+  position: absolute;
+  inset: 0;
+  background-color: #1a1a1a;
+  opacity: 0.5;
+  transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+}
+#banner .title,
+#banner .icon {
+  position: relative;
+  z-index: 9;
+  transform: translateY(50px);
+}
+#banner .title {
+  font-size: 60px;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+#banner .icon img {
+  width: 30px;
+}
+#products {
+  padding: 120px 0;
+}
+#products .list-products {
+  --f-columns: 3;
+  --f-gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(-1 * var(--f-gap));
+  margin-bottom: calc(-1 * var(--f-gap));
+}
+#products .list-products > .product {
+  margin-left: var(--f-gap);
+  margin-bottom: var(--f-gap);
+  width: calc((100% / var(--f-columns) - var(--f-gap)));
+}
+
+#products .product .product-kind,
+#products .product .product-price {
+  font-size: 16px;
+  color: #797c7f;
+  margin-bottom: 10px;
+}
+#products .product .product-name {
+  font-size: 24px;
+  color: #333333;
+  margin-bottom: 15px;
+}
+#products .product-image {
+  width: 100%;
+  overflow: hidden;
+}
+#products .product img {
+  transition: all 0.25s linear;
+}
+#products .product:hover img {
+  transform: scale(1.1);
+  transition: all 0.25s linear;
+}
+#products .product .product-rate {
+  display: flex;
+  gap: 8px;
+}

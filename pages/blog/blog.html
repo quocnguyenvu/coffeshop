@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="../../assets/font/stylesheet.css">
+    <link rel="stylesheet" href="../../styles/global.css" />
+    <link rel="stylesheet" href="./blog.css" />
+  </head>
+  <body>
+    <style>
+      #header {
+        position: fixed;
+        width: 100%;
+        z-index: 999;
+      }
+    </style>
+
+    <div id="header" w3-include-html="../../components/header.html"></div>
+    <main id="wrapper">
+      <section id="banner">
+        <div class="overlay"></div>
+        <div class="title">Blogs</div>
+        <div class="icon">
+          <span>
+            <img src="../../assets/icons/arrow-down.svg" alt="Arrow down" />
+          </span>
+        </div>
+      </section>
+      <section id="content">
+        <div id="container">
+          <div class="left-side">
+            <div class="blog-item">
+              <a href="">
+                <div class="blog-img">
+                  <img
+                    src="../../assets/blog/images-27-min-1-840x840.jpg"
+                    data-aos="zoom-in"
+                    data-aos-duration="2000"
+                    alt=""
+                  />
+                </div>
+                <div
+                  class="blog-info"
+                  data-aos="fade-up"
+                  data-aos-duration="2000"
+                >
+                  <div class="dash"></div>
+                  <div class="info">
+                    <div class="sub-title">
+                      <span>TIP & TRICK</span> <span> - May 12, 2020 </span>
+                    </div>
+                    <div class="title">
+                      The Main Differences Between Cappuccino and Latte
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="blog-item">
+              <a href="">
+                <div class="blog-img">
+                  <img
+                    src="../../assets/blog/images-52-min-840x560.jpg"
+                    data-aos="zoom-in"
+                    data-aos-duration="2000"
+                    alt=""
+                  />
+                </div>
+                <div
+                  class="blog-info"
+                  data-aos="fade-up"
+                  data-aos-duration="2000"
+                >
+                  <div class="dash"></div>
+                  <div class="info">
+                    <div class="sub-title">
+                      <span>TIP & TRICK</span> <span> - May 12, 2020 </span>
+                    </div>
+                    <div class="title">
+                      10 Simple Rules for Serving Coffee Drinks
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="right-side">
+            <div class="blog-item">
+              <a href="">
+                <div class="blog-img">
+                  <img
+                    src="../../assets/blog/images-53-min-840x560.jpg"
+                    alt=""
+                    data-aos="zoom-in"
+                    data-aos-duration="2000"
+                  />
+                </div>
+                <div
+                  class="blog-info"
+                  data-aos="fade-up"
+                  data-aos-duration="2000"
+                >
+                  <div class="dash"></div>
+                  <div class="info">
+                    <div class="sub-title">
+                      <span>TIP & TRICK</span> <span> - May 12, 2020 </span>
+                    </div>
+                    <div class="title">Why Does Coffee Invigorate?</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="blog-item">
+              <a href="">
+                <div class="blog-img">
+                  <img
+                    src="../../assets/blog/images-28-min-1-840x840.jpg"
+                    data-aos="zoom-in"
+                    data-aos-duration="2000"
+                    alt=""
+                  />
+                </div>
+                <div
+                  class="blog-info"
+                  data-aos="fade-up"
+                  data-aos-duration="2000"
+                >
+                  <div class="dash"></div>
+                  <div class="info">
+                    <div class="sub-title">
+                      <span>TIP & TRICK</span> <span> - May 12, 2020 </span>
+                    </div>
+                    <div class="title">
+                      How to Whip Milk for Latte and Cappuccino?
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+      w3.includeHTML();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+export const BlogsPage = () => <>Blogs Page</>

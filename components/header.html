@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      #header {
+        position: absolute;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        transition: all 0.25s linear;
+        padding: 30px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+      header {
+        display: flex;
+        align-items: center;
+      }
+      header #container {
+        display: flex;
+        align-items: center;
+      }
+      header ul {
+        list-style: none;
+        display: flex;
+        gap: 10px;
+      }
+      header ul li a {
+        text-decoration: none;
+        color: #ffffff;
+        text-transform: uppercase;
+        font-size: 14px;
+        padding: 10px 20px;
+        position: relative;
+      }
+      header ul li a::before {
+        content: "";
+        position: absolute;
+        height: 2px;
+        width: 0;
+        background-color: #b98d58;
+        transition: all 0.25s linear;
+        left: 0;
+        bottom: 0;
+      }
+
+      header ul li a:hover::before{
+        width: 100%;
+        transition: all 0.25s linear;
+      }
+      header nav {
+        width: 40%;
+        display: flex;
+        justify-content: flex-start;
+      }
+      header .logo {
+        width: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      header .header-inner {
+        width: 40%;
+        display: flex;
+        justify-content: flex-end;
+      }
+      header .header-inner > span {
+        cursor: pointer;
+      }
+    </style>
+    <header>
+      <div id="container">
+        <nav>
+          <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/pages/blog/blog.html">Blogs</a></li>
+            <li><a href="/pages/shop/shop.html">Shop</a></li>
+            <li><a href="/pages/contact/contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="logo">
+          <img src="/assets/logo/logo.png" alt="" />
+        </div>
+        <div class="header-inner">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="30px"
+              viewBox="0 0 512 512"
+            >
+              <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+              <path
+                d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM64 256c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H96c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"
+                fill="#ffffff"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>
