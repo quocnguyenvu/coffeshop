@@ -1,5 +1,9 @@
-
+import { Header } from "../../../components/Header"
 
 export const HomePage = () => {
-    // const {data, isLoading, isError} = useProduct(3, SORT_API.NEWEST);
+    return (
+        <main>
+            <Header/>
+        </main>
+    )
 }
