@@ -14,7 +14,7 @@ const BillDetail = require('../models/billDetail');
 const Token = require('../models/Token');
 
 const uploadImage = require('../utils/uploadImage');
-const { protect } = require('../middlewares/admin/auth');
+const { protect } = require('../middlewares/auth');
 
 const {
   response: { createSuccessMessage, updateSuccessMessage, deleteSuccessMessage, failMessage },
