@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const CategorySchema = new mongoose.Schema({
-  name: {
+  code: {
     type: String,
     required: true,
     unique: true,
   },
 
-  img: {
+  name: {
     type: String,
-    default: 'https://picsum.photos/200',
+    required: true,
   },
 
   description: {

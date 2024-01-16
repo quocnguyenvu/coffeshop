@@ -3,7 +3,6 @@ const remove_Id = require('../utils/remove_Id');
 
 const Category = require('../models/Category');
 const Product = require('../models/Product');
-const Tag = require('../models/Tag');
 
 const Response = require('../helpers/response.helper');
 const uploadImage = require('../utils/uploadImage');
@@ -19,7 +18,6 @@ exports.getAll = async (req, res, next) => {
     categoryId,
     price_gte,
     price_lte,
-    tagId,
     _sort,
     _order,
     new: currentNew,
@@ -39,15 +37,6 @@ exports.getAll = async (req, res, next) => {
       if (!category) throw new Error(failMessage);
       queryObj = {
         categoryId,
-      };
-    }
-
-    if (tagId) {
-      const tag = await Tag.findById(tagId);
-      if (!tag) throw new Error(failMessage);
-      queryObj = {
-        ...queryObj,
-        tagId,
       };
     }
 
@@ -83,13 +72,13 @@ exports.getAll = async (req, res, next) => {
 
     if (_sort && _order)
       products = await Product.find({ ...queryObj })
-        .populate(['categoryId', 'tagId'])
+        .populate(['categoryId'])
         .sort({
           [_sort]: _order === 'asc' ? 1 : -1,
         });
     // .skip((_page - 1) * _limit)
     // .limit(_limit);
-    else products = await Product.find({ ...queryObj }).populate(['categoryId', 'tagId']);
+    else products = await Product.find({ ...queryObj }).populate(['categoryId']);
     // .skip((_page - 1) * _limit)
     // .limit(_limit);
 
@@ -103,7 +92,6 @@ exports.getAll = async (req, res, next) => {
 
     products = products.slice((_page - 1) * _limit, (_page - 1) * _limit + _limit).map((item) => {
       item._doc.categoryId._doc.id = item._doc.categoryId._id;
-      item._doc.tagId._doc.id = item._doc.tagId._id;
       return item;
     });
 
@@ -123,13 +111,12 @@ exports.getProduct = async (req, res, next) => {
       params: { productId },
     } = req;
 
-    const product = await Product.findById(productId).populate('categoryId tagId');
+    const product = await Product.findById(productId).populate('categoryId');
     if (!product) throw new Error(failMessage);
 
     // Add Id
     product._doc.id = product._id;
     product._doc.categoryId._doc.id = product._doc.categoryId._id;
-    product._doc.tagId._doc.id = product._doc.tagId._id;
 
     return Response.success(res, { product });
   } catch (error) {
@@ -151,7 +138,6 @@ exports.addProduct = async (req, res, next) => {
         // size,
         total,
         unit,
-        tagId,
         shortDes,
         des,
       },
@@ -164,12 +150,11 @@ exports.addProduct = async (req, res, next) => {
       !categoryId ||
       !unit ||
       // !status ||
-      !price ||
+      !price
       // !rate ||
       // !shortDes ||
       // !des ||
       // !sale ||
-      !tagId
     )
       throw new Error(failMessage);
 
@@ -181,8 +166,7 @@ exports.addProduct = async (req, res, next) => {
       categoryId: category._id,
       name,
       price: parseInt(price),
-      unit,
-      tagId,
+      unit
     };
 
     if (des) obj = { ...obj, des };
@@ -203,7 +187,6 @@ exports.addProduct = async (req, res, next) => {
         // size,
         // // sale: parseInt(sale),
         // // rate: parseInt(rate),
-        // tagId,
         // shortDes,
         // des,
         ...obj,
@@ -218,16 +201,14 @@ exports.addProduct = async (req, res, next) => {
         // size,
         // // sale: parseInt(sale),
         // // rate: parseInt(rate),
-        // tagId,
         // shortDes,
         // des,
         ...obj,
       });
 
-    product = await Product.findById(product._id).populate('categoryId tagId');
+    product = await Product.findById(product._id).populate('categoryId');
     product._doc.id = product._id;
     product._doc.categoryId._doc.id = product._doc.categoryId._id;
-    product._doc.tagId._doc.id = product._doc.tagId._id;
 
     return Response.success(res, { message: createSuccessMessage, product });
   } catch (error) {
@@ -250,7 +231,6 @@ exports.updateProduct = async (req, res, next) => {
         sale,
         unit,
         // rate,
-        tagId,
         shortDes,
         des,
         total,
@@ -268,9 +248,8 @@ exports.updateProduct = async (req, res, next) => {
       // !status ||
       !price ||
       // !rate ||
-      !shortDes ||
+      !shortDes
       // !des ||
-      !tagId
     )
       throw new Error(failMessage);
 
@@ -285,7 +264,6 @@ exports.updateProduct = async (req, res, next) => {
       price: parseInt(price),
       sale: parseFloat(sale),
       unit,
-      tagId,
       shortDes,
     };
 
@@ -313,7 +291,6 @@ exports.updateProduct = async (req, res, next) => {
         // sale: parseFloat(sale),
         // // rate: parseInt(rate),
         // size,
-        // tagId,
         // shortDes,
         // des,
         ...obj,
@@ -332,16 +309,14 @@ exports.updateProduct = async (req, res, next) => {
         // sale: parseFloat(sale),
         // // rate: parseInt(rate),
         // size,
-        // tagId,99999999999
         // shortDes,
         // des,
         ...obj,
       });
 
-    product = await Product.findById(product._id).populate('categoryId tagId');
+    product = await Product.findById(product._id).populate('categoryId');
     product._doc.id = product._id;
     product._doc.categoryId._doc.id = product._doc.categoryId._id;
-    product._doc.tagId._doc.id = product._doc.tagId._id;
 
     return Response.success(res, { message: updateSuccessMessage, product });
   } catch (error) {

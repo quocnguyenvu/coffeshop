@@ -1,11 +1,7 @@
 const Bill = require('../models/bill');
 const User = require('../models/User');
-const Cart = require('../models/Cart');
-const CartDetail = require('../models/CartDetail');
 const BillDetail = require('../models/billDetail');
 const Product = require('../models/Product');
-const DiscountCode = require('../models/DiscountCode');
-const DiscountCodeDetail = require('../models/DiscountCodeDetail');
 
 const Response = require('../helpers/response.helper');
 const constant = require('../constants/index');
@@ -163,7 +159,7 @@ exports.getDetail = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   try {
     const {
-      // body: { name, address, phoneNumber, shipPayment, VAT, discountCodeId },
+      // body: { name, address, phoneNumber, shipPayment, VAT },
       body: { name, address, phoneNumber, total, codeName },
       user,
     } = req;
@@ -182,12 +178,6 @@ exports.create = async (req, res, next) => {
     // shipPayment = parseInt(shipPayment);
     // VAT = !VAT || isNaN(VAT) ? 10 : parseInt(VAT);
 
-    const cart = await Cart.findOne({ userId: user._id });
-    if (!cart) throw new Error(failMessage);
-
-    const cartDetails = await CartDetail.find({ cartId: cart._id });
-    if (!cartDetails) throw new Error(failMessage);
-
     let bill = await Bill.create({
       userId: user._id,
       // payment,
@@ -199,43 +189,6 @@ exports.create = async (req, res, next) => {
       // total: parseFloat(currentTotal),
     });
     // let total = 0;
-    for (let cartDetail of cartDetails) {
-      const product = await Product.findById(cartDetail.productId);
-      if (!product) throw new Error(failMessage);
-      // total += product.price * cartDetail.quantity;
-
-      await BillDetail.create({
-        quantity: cartDetail.quantity,
-        billId: bill._id,
-        productId: product._id,
-      });
-
-      await CartDetail.findByIdAndDelete(cartDetail._id);
-    }
-    await Cart.findByIdAndDelete(cart._id);
-
-    if (codeName) {
-      const discountCode = await DiscountCode.findOne({ codeName });
-      if (!discountCode) throw new Error(failMessage);
-
-      const discountCodeDetail = await DiscountCodeDetail.findOne({
-        discountCodeId: discountCode._id,
-        userId: user._id,
-      });
-      if (discountCodeDetail) {
-        if (discountCodeDetail > 1)
-          await DiscountCodeDetail.findByIdAndUpdate(discountCodeDetail._id, {
-            $inc: { total: -1 },
-          });
-        else await DiscountCodeDetail.findByIdAndDelete(discountCodeDetail._id);
-      } else {
-        if (
-          discountCode.total <= 0 ||
-          !(discountCode.dateCreate <= Date.now() <= discountCode.dateExpire)
-        )
-          throw new Error('Xin lôi bạn không thê áp mã giảm giá này');
-      }
-    }
 
     // total += total * VAT * 0.01;
     // bill = await Bill.findByIdAndUpdate(bill._id, {

@@ -8,6 +8,7 @@ const {
   updateStatus,
   delete: currentDelete,
 } = require('../../controllers/user.controller');
+const { login } = require('../../controllers/user/auth.controller');
 
 // @route   GET api/admin/user?q=&_limit=&_page=
 // @desc    Get All
@@ -28,5 +29,10 @@ router.patch('/:userId', updateStatus);
 // @desc    Delete
 // @access  Private
 router.delete('/:userId', currentDelete);
+
+// @route   POST api/user/auth/login
+// @desc    Đăng nhập
+// @access  Public
+router.post('/login', login);
 
 module.exports = router;

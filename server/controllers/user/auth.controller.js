@@ -1,75 +1,55 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const User = require("../../models/User");
+const sendEmail = require("../../utils/sendEmail");
+const Response = require("../../helpers/response.helper");
 
-const User = require('../../models/User');
-
-const sendEmail = require('../../utils/sendEmail');
-
-const Response = require('../../helpers/response.helper');
 const {
-  response: { createSuccessMessage, updateSuccessMessage, deleteSuccessMessage, failMessage },
-} = require('../../constants');
+  response: { failMessage },
+} = require("../../constants");
 
 exports.login = async (req, res, next) => {
   const { phoneNumber, password } = req.body;
-
-  console.log(req.body);
-
   try {
     const user = await User.findOne({ phoneNumber });
 
     if (!user) {
-      throw new Error('Số điện thoại không tồn tại');
+      return res.status(400).json({ error: "Số điện thoại không tồn tại" });
     }
 
-    if (user.status && user.status === 'blocked')
-      throw new Error(
-        'Rất tiếc tài khoản của bạn hiện đang bị khóa, vì vậy bạn không thể đăng nhập được.'
-      );
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    // Add id
-    user._doc.id = user._id;
-
-    // if (!user.isVerified) throw new Error("Tài khoản chưa được xác nhận");
-
-    // Result: boolean
-    const result = await bcrypt.compare(password, user.password);
-
-    if (!result) {
-      throw new Error('Bạn nhập sai mật khẩu');
+    if (!isPasswordValid) {
+      return res.status(400).json({ error: "Mật khẩu không đúng" });
     }
 
     const payload = {
-      user: {
-        id: user.id,
-      },
+      user,
     };
 
-    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 360000 }, (err, token) => {
-      if (err) throw err;
-      return Response.success(res, {
-        token,
-        user: { ...user._doc, password: '' },
-      });
-    });
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" },
+      (err, token) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: "Lỗi server" });
+        }
 
-    return true;
+        return res.json({ token });
+      }
+    );
   } catch (error) {
-    console.log(error.message);
     return next(error);
   }
 };
 
 exports.register = async (req, res, next) => {
-  console.log(req.body, 'abc');
   const {
     firstName,
     lastName,
     phoneNumber,
-    // address,
-    // birthday,
-    // avatar,
-    // gender,
     email,
     password,
     confirm_password,
@@ -81,18 +61,18 @@ exports.register = async (req, res, next) => {
     }
 
     if (confirm_password !== password) {
-      throw new Error('Mật khẩu không trùng khớp');
+      throw new Error("Mật khẩu không trùng khớp");
     }
 
-    let user = await User.findOne({ email: email }, { phoneNumber: phoneNumber });
+    let user = await User.findOne(
+      { email: email },
+      { phoneNumber: phoneNumber }
+    );
 
     if (user) {
-      throw new Error('Số điện thoại hoặc email đã tồn tại');
+      throw new Error("Số điện thoại hoặc email đã tồn tại");
     } else user = null;
 
-    // const dateParts = birthday.split("/");
-
-    // Tạo ra salt mã hóa
     const salt = await bcrypt.genSalt(10);
     const generatedPass = await bcrypt.hash(password, salt);
 
@@ -101,28 +81,21 @@ exports.register = async (req, res, next) => {
       lastName,
       fullName: `${firstName} ${lastName}`,
       phoneNumber,
-      // address,
       password: generatedPass,
-      // gender: gender === "Nam",
       email,
-      role: 'user',
-      status: 'activated',
-      // birthday: new Date(
-      //   parseInt(dateParts[2], 10),
-      //   parseInt(dateParts[1], 10) - 1,
-      //   parseInt(dateParts[0], 10)
-      // ),
+      role: "user",
+      status: "activated",
       dateCreate: new Date(),
     });
 
     const message = `<p>Hello ${firstName} ${lastName},</p><p>Bạn đã đăng kí tài khoản thành công</p>`;
     await sendEmail({
       email: email,
-      subject: 'Success Register',
+      subject: "Success Register",
       message,
     });
 
-    return Response.success(res, { message: 'Tạo tài khoản thành công' });
+    return Response.success(res, { message: "Tạo tài khoản thành công" });
   } catch (error) {
     console.log(error.message);
     return next(error);

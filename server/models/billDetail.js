@@ -7,7 +7,7 @@ const BillDetailSchema = new mongoose.Schema({
   },
   billId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Cart',
+    ref: 'Bill',
     required: true,
   },
   productId: {

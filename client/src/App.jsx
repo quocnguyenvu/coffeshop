@@ -18,6 +18,7 @@ import { BlogEdit } from "./pages/Admin/Blog/edit";
 import { Dashboard } from "./pages/Admin/Dashboard";
 
 import "./App.css";
+import { Login } from "./pages/Admin/Login";
 
 function App() {
   return (
@@ -47,6 +48,9 @@ function App() {
 
         <Route path="order/list" element={<OrderList />} />
       </Route>
+
+      <Route path="login" element={<Login/>} />
+
     </Routes>
   );
 }

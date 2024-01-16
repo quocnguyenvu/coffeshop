@@ -7,8 +7,6 @@ const constant = require('../constants/index');
 const sendEmail = require('../utils/sendEmail');
 
 const User = require('../models/User');
-const Cart = require('../models/Cart');
-const CartDetail = require('../models/CartDetail');
 const Bill = require('../models/bill');
 const BillDetail = require('../models/billDetail');
 const Token = require('../models/Token');
@@ -267,17 +265,6 @@ exports.delete = async (req, res, next) => {
     const user = await User.findById(userId);
     if (!user) throw new Error(failMessage);
 
-    // Xóa tất cả liên quan tới User trong CSDL
-
-    // - Giỏ hàng - Chi tiết giỏ hàng
-    const cart = await Cart.findOne({ userId: user._id });
-    if (cart) {
-      const cartDetails = await CartDetail.find({ cartId: cart._id });
-      for (let cartDetail of cartDetails) await CartDetail.findByIdAndDelete(cartDetail._id);
-      await Cart.findByIdAndDelete(cart._id);
-    }
-
-    // - Hóa đơn - Chi tiết hóa đơn
     const bills = await Bill.find({ userId: user._id });
     if (bills) {
       for (let bill of bills) {
@@ -286,10 +273,6 @@ exports.delete = async (req, res, next) => {
         await Bill.findByIdAndDelete(bill._id);
       }
     }
-
-    // - Bình Luận - Đánh giá
-
-    // - Mã giảm giá
 
     await User.findByIdAndDelete(userId);
 
