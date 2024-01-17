@@ -51,7 +51,6 @@ exports.create = async (req, res, next) => {
     const {
       body: { code, name, description },
     } = req;
-    console.log("🚀 ~ code:", code)
     let category;
 
     if (!code || !name || !description) throw new Error(failMessage);

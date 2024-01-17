@@ -12,14 +12,14 @@ export const BlogList = () => {
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
+      title: "images",
+      dataIndex: "images",
+      key: "images",
     },
     {
       title: "Action",

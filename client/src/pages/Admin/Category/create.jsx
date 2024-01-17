@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosClient from "../../../api/axios";
 
 export const CategoryCreate = () => {
   const handleCreateCategory = async (e) => {
@@ -13,8 +13,8 @@ export const CategoryCreate = () => {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/category/create",
+      const response = await axiosClient.post(
+        "category/create",
         categoryData
       );
 

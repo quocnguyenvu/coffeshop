@@ -10,13 +10,11 @@ exports.protect = async (req, res, next) => {
     if (!token) throw new Error('Không tìm thấy token');
     const decode = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
 
-    const user = await User.findById(decode.user.id);
-    if (!user || user.role !== 'admin') throw new Error('Token không hợp lệ');
-    req.admin = user;
+    const user = await User.findById(decode.user._id);
+    if (!user) throw new Error('Token không hợp lệ hoặc đã hết hạn');
 
     return next();
   } catch (error) {
-    console.log(error);
     return Response.error(res, { message: error.message });
   }
 };

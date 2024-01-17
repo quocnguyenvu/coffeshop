@@ -23,8 +23,6 @@ app.use('/api', apiRoute);
 
 app.get('/', async (req, res) => {
   try {
-    // const bills = await Bill.find();
-    // const users = await User.find();
     const billDetails = await BillDetail.find();
     return res.send(JSON.stringify(billDetails));
   } catch (error) {
@@ -32,9 +30,5 @@ app.get('/', async (req, res) => {
   }
 });
 
-// app.get(
-//   "/addCategories",
-//   require("./controllers/user/addDb.controller").addProducts
-// );
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

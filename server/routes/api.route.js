@@ -10,8 +10,14 @@ const { login } = require('../controllers/user/auth.controller');
 // @access  Public
 router.post('/login', login);
 
+// Middlewares
+router.use(protect);
+
 // Category
 router.use('/category', require('./admin/category.route'));
+
+// Blog
+router.use('/blog', require('./admin/blog.route'));
 
 // Product
 router.use('/products', require('./admin/product.route'));
@@ -21,9 +27,6 @@ router.use('/bill', require('./admin/bill.route'));
 
 // Bill Detail
 router.use('/bill-detail', require('./admin/billDetail.route'));
-
-// Middlewares
-router.use(protect);
 
 router.get('/', (req, res) => {
    res.send('Admin');
