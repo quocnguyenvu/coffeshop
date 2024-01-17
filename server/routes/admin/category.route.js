@@ -13,27 +13,27 @@ const {
   delete: currentDelete,
 } = require('../../controllers/category.controller');
 
-// @route   GET api/admin/Category
+// @route   GET api/category
 // @desc    Get All
 // @access  Private
 router.get('/', getAll);
 
-// @route   GET api/admin/Category/:categoryId
+// @route   GET api/category/:categoryId
 // @desc    Get Detail
 // @access  Private
 router.get('/:categoryId', getDetail);
 
-// @route   POST api/admin/Category/create
+// @route   POST api/category/create
 // @desc    Create Category
 // @access  Private
-router.post('/', upload.single('img'), create);
+router.post('/create', create);
 
-// @route   POST api/admin/Category/update/:categoryId
+// @route   POST api/category/:categoryId
 // @desc    Update Category
 // @access  Private
-router.patch('/:categoryId', upload.single('img'), update);
+router.patch('/:categoryId', update);
 
-// @route   POST api/admin/Category/:categoryId
+// @route   POST api/category/:categoryId
 // @desc    Delete Category
 // @access  Private
 router.delete('/:categoryId', currentDelete);

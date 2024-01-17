@@ -46,33 +46,22 @@ exports.getDetail = async (req, res, next) => {
   }
 };
 
-// Need Test API
 exports.create = async (req, res, next) => {
   try {
     const {
-      file,
-      body: { name, description },
+      body: { code, name, description },
     } = req;
+    console.log("🚀 ~ code:", code)
     let category;
 
-    if (!name || !description) throw new Error(failMessage);
+    if (!code || !name || !description) throw new Error(failMessage);
 
-    if (file) {
-      const result = await uploadImage(file);
+    category = await Category.create({
+      code,
+      name,
+      description,
+    });
 
-      category = await Category.create({
-        name,
-        description,
-        img: result.url,
-      });
-    } else {
-      category = await Category.create({
-        name,
-        description,
-      });
-    }
-
-    // Add ID
     category._doc.id = category._id;
 
     return Response.success(res, { message: createSuccessMessage, category });

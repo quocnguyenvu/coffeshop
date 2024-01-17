@@ -1,16 +1,28 @@
-export const loginUser = async (credentials) => {
-  const response = await fetch("login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
+import axiosClient from "./axios";
 
-  if (!response.ok) {
+const loginUser = async (credentials) => {
+  const response = await axiosClient.post(
+    "login",
+    credentials
+  );
+
+  if (!response.token) {
     throw new Error("Invalid credentials");
   }
 
-  const data = await response.json();
-  return data.token;
+  return response.token;
+};
+
+export const useLoginMutation = () => {
+  const navigate = useNavigate();
+
+  return useMutation(loginUser, {
+    onSuccess: (token) => {
+      localStorage.setItem("token", token);
+
+      navigate("/admin");
+    },
+  });
 };

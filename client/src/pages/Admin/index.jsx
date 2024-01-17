@@ -5,8 +5,9 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme, Breadcrumb } from "antd";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Footer } from "antd/es/layout/layout";
+
 const { Header, Sider, Content } = Layout;
 
 export const AdminPage = () => {
@@ -16,14 +17,16 @@ export const AdminPage = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  let isAuth = false;
-  const userInfo = JSON.parse(localStorage.getItem("token"));
 
-  if (userInfo && userInfo.phoneNumber) {
-    if (userInfo.role !== "admin") {
-      isAuth = true
+  const isAuth = useMemo(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      return true;
     }
-  }
+
+    return false;
+  }, []);
 
   return isAuth ? (
     <Layout style={{ width: "100vw", height: "100vh" }}>

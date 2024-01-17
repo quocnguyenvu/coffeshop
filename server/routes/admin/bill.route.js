@@ -6,7 +6,6 @@ const {
   getAll,
   getAllByUser,
   getDetail,
-  updateBillDetail,
   updateStatus,
   delete: currentDelete,
 } = require('../../controllers/bill.controller');
