@@ -2,28 +2,23 @@ import { useState } from "react";
 import axiosClient from "../../../api/axios";
 
 export const BlogCreate = () => {
-  const [files, setFile] = useState();
-  console.log("🚀 ~ files:", files)
+  const [file, setFile] = useState();
 
   const handleCreateBlog = async (e) => {
     e.preventDefault();
 
     const { code, title, content, description } = e.target.elements;
 
-    const blogData = {
-      code: code.value,
-      name: name.value,
-      description: description.value,
-      content: content.value,
-      images: files,
-      title: title.value,
-    };
+    const blogData = new FormData();
+    blogData.append("code", code.value);
+    blogData.append("title", title.value);
+    blogData.append("content", content.value);
+    blogData.append("description", description.value);
+    blogData.append("thumbnail", file[0]);
+    console.log("🚀 ~ blogData:", blogData)
 
     try {
-      const response = await axiosClient.post(
-        "blog/create",
-        blogData
-      );
+      const response = await axiosClient.post("blog/create", blogData);
 
       console.log("Blog created successfully!", response.data);
     } catch (error) {

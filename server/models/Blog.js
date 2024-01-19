@@ -12,9 +12,9 @@ const BlogsSchema = new mongoose.Schema({
     required: true
   },
 
-  images: {
-    type: Array,
-    default: ['https://picsum.photos/200']
+  thumbnail: {
+    type: String,
+    default: 'https://picsum.photos/200'
   },
 
   description: {

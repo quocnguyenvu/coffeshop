@@ -7,7 +7,7 @@ export const Container = ({ children }) => {
         width: "100%",
         maxWidth: "1440px",
         marginLeft: "auto",
-        marginEight: "auto",
+        marginRight: "auto",
         padding: "0 20px",
       }}
     >

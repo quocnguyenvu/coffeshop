@@ -18,7 +18,8 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^6.21.1",
     "sass": "^1.69.7",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

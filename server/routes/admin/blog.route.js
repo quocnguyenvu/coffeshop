@@ -16,7 +16,7 @@ const {
 // @route   POST api/blog/create
 // @desc    Create Category
 // @access  Private
-router.post('/create',upload.array('images'), create);
+router.post('/create',upload.single('thumbnail'), create);
 
 module.exports = router;
 

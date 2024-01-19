@@ -2,7 +2,7 @@ const Response = require("../helpers/response.helper");
 const remove_Id = require("../utils/remove_Id");
 const uploadImage = require("../utils/uploadImage");
 
-const Blog = require('../models/Blog');
+const Blog = require("../models/Blog");
 const {
   response: {
     createSuccessMessage,
@@ -16,32 +16,32 @@ const {
 exports.create = async (req, res, next) => {
   try {
     const {
-      images,
+      file,
       body: { code, title, description, content },
     } = req;
-      console.log("🚀 ~ images:", images)
     let blog;
 
-    if (!code || !title || !description || !content) throw new Error(failMessage);
+    if (!code || !title || !description || !content)
+      throw new Error(failMessage);
 
-    if(images) {
-      const files = await uploadImage(images);
+    if (file) {
+      const result = await uploadImage(file);
+
       blog = await Blog.create({
         code,
         title,
         description,
         content,
-        images : files
+        thumbnail: result.url,
       });
     } else {
       blog = await Blog.create({
         code,
         title,
         description,
-        content
+        content,
       });
     }
-    console.log("🚀 ~ blog:", blog)
 
     blog._doc.id = blog._id;
 
