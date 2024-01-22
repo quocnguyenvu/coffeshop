@@ -1,62 +1,115 @@
-import { useState } from "react";
-import axiosClient from "../../../api/axios";
+import { useState } from 'react';
+import { Button, Form, Input, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import axiosClient from '../../../api/axios';
 
 export const BlogCreate = () => {
   const [file, setFile] = useState();
 
-  const handleCreateBlog = async (e) => {
-    e.preventDefault();
-
-    const { code, title, content, description } = e.target.elements;
+  const handleCreateBlog = async (values) => {
+    const { code, title, content, description } = values;
 
     const blogData = new FormData();
-    blogData.append("code", code.value);
-    blogData.append("title", title.value);
-    blogData.append("content", content.value);
-    blogData.append("description", description.value);
-    blogData.append("thumbnail", file[0]);
-    console.log("🚀 ~ blogData:", blogData)
+    blogData.append('code', code);
+    blogData.append('title', title);
+    blogData.append('content', content);
+    blogData.append('description', description);
+    blogData.append('thumbnail', file[0]);
 
     try {
-      const response = await axiosClient.post("blog/create", blogData);
+      const response = await axiosClient.post('blog/create', blogData);
 
-      console.log("Blog created successfully!", response.data);
+      console.log('Blog created successfully!', response.data);
     } catch (error) {
-      console.error("Error creating Blog:", error);
+      console.error('Error creating Blog:', error);
     }
   };
 
   return (
     <div>
       <h1>Blog Create</h1>
-      <form onSubmit={handleCreateBlog}>
-        <label>
-          Code:
-          <input type="text" name="code" />
-        </label>
-        <br />
-        <label>
-          Title:
-          <input type="text" name="title" />
-        </label>
-        <br />
-        <label>
-          Images:
-          <input type="file" name="images"  onChange={(evt) => setFile(evt.target.files)} />
-        </label>
-        <br />
-        <label>
-          Description:
-          <input type="text" name="description" />
-        </label>
-        <br />
-        <label>
-          Content:
-          <input type="text" name="content" />
-        </label>
-        <br />
-        <button type="submit">Create</button>
-      </form>
+      <Form
+        style={{ width: '100%', maxWidth: '600px', margin: 'auto' }}
+        name="vertical"
+        layout="vertical"
+        onFinish={handleCreateBlog}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="Code"
+          name="code"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your code!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Title"
+          name="title"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your title!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Description"
+          name="description"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your description!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Content"
+          name="content"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your content!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Image"
+          name="image"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your image!',
+            },
+          ]}
+        >
+         <input
+            type="file"
+            name="images"
+            onChange={(evt) => setFile(evt.target.files)}
+          />
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Create
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 };

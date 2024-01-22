@@ -4,7 +4,7 @@ import axiosClient from "./axios";
 
 const loginUser = async (credentials) => {
   const response = await axiosClient.post(
-    "login",
+    "/login",
     credentials
   );
 

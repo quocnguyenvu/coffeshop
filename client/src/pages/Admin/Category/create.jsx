@@ -1,49 +1,69 @@
-import axiosClient from "../../../api/axios";
+import axiosClient from '../../../api/axios';
+import { Button, Form, Input } from 'antd';
 
 export const CategoryCreate = () => {
-  const handleCreateCategory = async (e) => {
-    e.preventDefault();
-
-    const { code, name, description } = e.target.elements;
-
-    const categoryData = {
-      code: code.value,
-      name: name.value,
-      description: description.value,
-    };
-
+  const handleCreateCategory = async (values) => {
     try {
-      const response = await axiosClient.post(
-        "category/create",
-        categoryData
-      );
+      const response = await axiosClient.post('category/create', values);
 
-      console.log("Category created successfully!", response.data);
+      console.log('Category created successfully!', response.data);
     } catch (error) {
-      console.error("Error creating category:", error);
+      console.error('Error creating category:', error);
     }
   };
 
   return (
-    <div>
-      <h1>Category Create</h1>
-      <form onSubmit={handleCreateCategory}>
-        <label>
-          Code:
-          <input type="text" name="code" />
-        </label>
-        <br />
-        <label>
-          Name:
-          <input type="text" name="name" />
-        </label>
-        <br />
-        <label>
-          Description:
-          <input type="text" name="description" />
-        </label>
-        <button type="submit">Create</button>
-      </form>
-    </div>
+    <Form
+      style={{ width: '100%', maxWidth: '600px', margin: 'auto' }}
+      name="vertical"
+      layout="vertical"
+      onFinish={handleCreateCategory}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="Code"
+        name="code"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your code!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Category Name"
+        name="name"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your category name!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Description"
+        name="description"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your description!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Create
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };

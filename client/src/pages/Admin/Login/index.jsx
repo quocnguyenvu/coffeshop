@@ -1,17 +1,27 @@
-import { useLoginMutation } from "../../../api/login";
-import "./Login.scss";
+import axios from 'axios';
+import axiosClient from '../../../api/axios';
+import { useNavigate } from 'react-router-dom';
+import './Login.scss';
 
 export const Login = () => {
-  const { mutate } = useLoginMutation();
+  const navigate = useNavigate();
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
 
-    const phoneNumber = event.target[0].value;
-    const password = event.target[1].value;
+    const response = await axios.post('http://localhost:5000/api/login', {
+      phoneNumber: event.target.phoneNumber.value,
+      password: event.target.password.value,
+    });
 
-    mutate({ phoneNumber, password });
-  }
+    if (response.status === 200) {
+      localStorage.setItem('token', response.data.token);
+      axiosClient.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${response.data.token}`;
+      navigate('/admin');
+    }
+  };
 
   return (
     <div id="login">

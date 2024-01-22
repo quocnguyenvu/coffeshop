@@ -5,7 +5,7 @@ const { protect } = require('../middlewares/auth');
 
 const { login } = require('../controllers/user/auth.controller');
 
-// @route   POST api/user/login
+// @route   POST api/login
 // @desc    Đăng nhập
 // @access  Public
 router.post('/login', login);
