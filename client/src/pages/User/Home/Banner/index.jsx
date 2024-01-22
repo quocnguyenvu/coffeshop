@@ -7,9 +7,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-import slide1 from '../../assets/slide/slides1.jpg';
-import slide2 from '../../assets/slide/slides2.jpg';
-import slide3 from '../../assets/slide/slides3.jpg';
+import slide1 from '../../../../assets/slide/slides1.jpg';
+import slide2 from '../../../../assets/slide/slides2.jpg';
+import slide3 from '../../../../assets/slide/slides3.jpg';
 
 export const Banner = () => {
   return (
