@@ -1,0 +1,50 @@
+#home-plantations {
+  background-image: url('../../../../assets/bg/title-bg-01.jpg');
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  padding: 120px 0px 120px 0px;
+}
+
+#home-plantations .overlay {
+  position: absolute;
+  inset: 0;
+  background-color: #1a1a1a;
+  opacity: 0.5;
+  transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+}
+#home-plantations #container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#home-plantations .content {
+  width: 100%;
+  position: relative;
+  z-index: 9;
+  padding: 100px 0;
+}
+#home-plantations .content > div {
+  text-align: center;
+}
+#home-plantations .sub-title {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  opacity: 0.9;
+  color: #f9f9f9;
+}
+#home-plantations .title {
+  font-size: 57px;
+  font-weight: 500px;
+  margin-bottom: 20px;
+  color: #f9f9f9;
+}
+#home-plantations .description {
+  font-size: 18px;
+  color: #f9f9f9;
+}

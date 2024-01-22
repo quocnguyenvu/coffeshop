@@ -1,15 +1,21 @@
-import { Banner } from "./Banner"
-import { Header } from "../../../components/Header"
-import { OurCoffee } from "./OurCoffee"
-import { OurBlends } from "./OurBlends"
+import { Banner } from './Banner';
+import { Header } from '../../../components/Header';
+import { OurCoffee } from './OurCoffee';
+import { OurBlends } from './OurBlends';
+import { Footer } from '../../../components/Footer';
+import { Plantations } from './Plantations';
+
+import './Home.scss';
 
 export const HomePage = () => {
-    return (
-        <main>
-            <Header/>
-            <Banner/>
-            <OurCoffee/>
-            <OurBlends/>
-        </main>
-    )
-}
+  return (
+    <main>
+      <Header />
+      <Banner />
+      <OurCoffee />
+      <OurBlends />
+      <Plantations />
+      <Footer />
+    </main>
+  );
+};
