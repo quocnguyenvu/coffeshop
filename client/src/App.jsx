@@ -16,6 +16,8 @@ import { BlogCreate } from "./pages/Admin/Blog/create";
 import { BlogList } from "./pages/Admin/Blog/list";
 import { BlogEdit } from "./pages/Admin/Blog/edit";
 import { Dashboard } from "./pages/Admin/Dashboard";
+import { CategoryEdit } from "./pages/Admin/Category/edit";
+
 
 import "./App.css";
 import { Login } from "./pages/Admin/Login";
@@ -38,13 +40,17 @@ function App() {
 
         <Route path="blog/create" element={<BlogCreate />} />
         <Route path="blog/list" element={<BlogList />} />
-        <Route path="blog/edit/:id" element={<BlogEdit />} />
+        <Route path="blog/edit/:blogId" element={<BlogEdit />} />
 
         <Route path="product/create" element={<ProductCreate />} />
         <Route path="product/list" element={<ProductList />} />
+        <Route path="product/list" element={<ProductList />} />
+
 
         <Route path="category/create" element={<CategoryCreate />} />
         <Route path="category/list" element={<CategoryList />} />
+        <Route path="category/edit/:categoryId" element={<CategoryEdit />} />
+
 
         <Route path="order/list" element={<OrderList />} />
       </Route>

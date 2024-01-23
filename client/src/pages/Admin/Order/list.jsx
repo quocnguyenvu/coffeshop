@@ -1,9 +1,6 @@
 import { Space, Table } from "antd";
-// import { useOrders } from "../../../api/order";
 
 export const OrderList = () => {
-  // const { data } = useOrders()
-
   const columns = [
     {
       title: "Code",

@@ -14,9 +14,20 @@ const {
 } = require('../../controllers/blog.controller');
 
 // @route   POST api/blog/create
-// @desc    Create Category
+// @desc    Create Blog
 // @access  Private
 router.post('/create',upload.single('thumbnail'), create);
+
+// @route   GET api/blog
+// @desc    Get All Blogs
+// @access  Private
+router.get('/', getAll);
+
+// @route   GET api/blog/:blogId
+// @desc    Get Detail
+// @access  Private
+router.get('/:blogId', getDetail);
+
 
 module.exports = router;
 

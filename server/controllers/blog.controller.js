@@ -50,3 +50,41 @@ exports.create = async (req, res, next) => {
     return next(error);
   }
 };
+
+// get all
+exports.getAll = async (req, res, next) => {
+  try {
+    let blogs = await Blog.find();
+    if (!blogs) throw new Error(failMessage);
+    const count = await Blog.find().count();
+
+    for (let blog of blogs) {
+      const total = await Blog.find({ blogId: blog._id }).count();
+      blog._doc.totalProducts = total;
+    }
+
+    return Response.success(res, {
+      blogs: remove_Id(blogs),
+      total: count,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.getDetail = async (req, res, next) => {
+  try {
+    const {
+      params: { blogId },
+    } = req;
+
+    if (!blogId) throw new Error(failMessage);
+    const blog = await Blog.findById(blogId);
+    if (!blog) throw new Error(failMessage);
+    // Add ID
+    blog._doc.id = blog._id;
+    return Response.success(res, { blog });
+  } catch (error) {
+    return next(error);
+  }
+};

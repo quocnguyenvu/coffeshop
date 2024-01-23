@@ -51,10 +51,11 @@ exports.create = async (req, res, next) => {
     const {
       body: { code, name, description },
     } = req;
-
     let category;
 
-    if (!code || !name || !description) throw new Error(failMessage);
+    if (!code || !name || !description) {
+      throw new Error(failMessage);
+    }
 
     category = await Category.create({
       code,

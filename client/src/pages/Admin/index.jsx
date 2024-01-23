@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   UploadOutlined,
   UserOutlined,
@@ -8,14 +8,33 @@ import { Layout, Menu, theme, Breadcrumb } from 'antd';
 import { useMemo, useState } from 'react';
 import { Footer } from 'antd/es/layout/layout';
 
-const {  Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 
 export const AdminPage = () => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const pathSnippets = location.pathname.split('/').filter((i) => i);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  // const isTokenExpired = () => {
+  //   const token = localStorage.getItem('token');
+
+  //   if (token) {
+  //     try {
+  //       const decodedToken = decode(token);
+
+  //       return decodedToken.exp < Date.now() / 1000;
+  //     } catch (error) {
+  //       console.error('Error decoding token:', error);
+  //       return true;
+  //     }
+  //   }
+
+  //   return true; // Token does not exist
+  // };
 
   const isAuth = useMemo(() => {
     const token = localStorage.getItem('token');
@@ -116,8 +135,10 @@ export const AdminPage = () => {
           }}
         >
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            {pathSnippets.map((snippet, index) => {
+              const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+              return <Breadcrumb.Item key={url}>{snippet}</Breadcrumb.Item>;
+            })}
           </Breadcrumb>
           <div
             style={{
