@@ -1,35 +1,35 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const { protect } = require('../middlewares/auth');
+const { protect } = require("../middlewares/auth");
 
-const { login } = require('../controllers/user/auth.controller');
+const { login } = require("../controllers/user/auth.controller");
 
 // @route   POST api/login
 // @desc    Đăng nhập
 // @access  Public
-router.post('/login', login);
+router.post("/login", login);
 
 // Middlewares
 router.use(protect);
 
 // Category
-router.use('/category', require('./admin/category.route'));
+router.use("/category", require("./admin/category.route"));
 
 // Blog
-router.use('/blog', require('./admin/blog.route'));
+router.use("/blog", require("./admin/blog.route"));
 
 // Product
-router.use('/products', require('./admin/product.route'));
+router.use("/product", require("./admin/product.route"));
 
 // Bill
-router.use('/bill', require('./admin/bill.route'));
+router.use("/bill", require("./admin/bill.route"));
 
 // Bill Detail
-router.use('/bill-detail', require('./admin/billDetail.route'));
+router.use("/bill-detail", require("./admin/billDetail.route"));
 
-router.get('/', (req, res) => {
-   res.send('Admin');
+router.get("/", (req, res) => {
+  res.send("Admin");
 });
 
 module.exports = router;

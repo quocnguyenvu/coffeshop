@@ -1,11 +1,12 @@
 import axiosClient from '../../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import { BlogForm } from './form';
+import { toast } from 'react-toastify';
 
 export const BlogCreate = () => {
   const navigate = useNavigate();
   const handleCreateBlog = async (values, editorData, file) => {
-    const { code, title,  description } = values;
+    const { code, title, description } = values;
 
     const blogData = new FormData();
     blogData.append('code', code);
@@ -15,11 +16,11 @@ export const BlogCreate = () => {
     blogData.append('thumbnail', file[0]);
 
     try {
-      const response = await axiosClient.post('blog/create', blogData);
-      console.log('🚀 ~ response:', response);
+      await axiosClient.post('blog/create', blogData);
+      toast.success('Blog created successfully!');
       navigate('/admin/blog/list');
     } catch (error) {
-      console.error('Error creating Blog:', error);
+      toast.error('Blog created failed!');
     }
   };
 

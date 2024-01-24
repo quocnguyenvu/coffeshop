@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const CategorySchema = new mongoose.Schema({
   code: {
@@ -15,6 +15,11 @@ const CategorySchema = new mongoose.Schema({
   description: {
     type: String,
   },
+
+  dateCreated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-module.exports = mongoose.model('Category', CategorySchema, 'categories');
+module.exports = mongoose.model("Category", CategorySchema, "categories");

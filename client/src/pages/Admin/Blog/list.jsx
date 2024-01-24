@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Space, Table } from 'antd';
+import { Space, Table, Modal } from 'antd';
 import axiosClient from '../../../api/axios';
+import { toast } from 'react-toastify';
 
 export const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [selectedBlogId, setSelectedBlogId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBlogs = async () => {
       const response = await axiosClient.get('blog');
-      console.log("🚀 ~ response:", response)
       setBlogs(response.data.blogs);
     };
 
@@ -21,18 +23,30 @@ export const BlogList = () => {
     navigate(`/admin/blog/edit/${blog.id}`);
   };
 
-  const handleDelete = async (blogId) => {
-    try {
-      await axiosClient.delete(`blog/${blogId}`);
+  const showDeleteModal = (blogId) => {
+    setSelectedBlogId(blogId);
+    setDeleteModalVisible(true);
+  };
 
+  const handleDelete = async () => {
+    try {
+      await axiosClient.delete(`blog/${selectedBlogId}`);
       setBlogs((prevBlogs) =>
-        prevBlogs.filter((blog) => blog.id !== blogId),
+        prevBlogs.filter((blog) => blog.id !== selectedBlogId),
       );
 
-      console.log('Blog deleted successfully');
+      toast.success('Blog deleted successfully!');
     } catch (error) {
-      console.error('Error deleting blog:', error);
+      toast.error('Error deleting blog!');
+    } finally {
+      setDeleteModalVisible(false);
+      setSelectedBlogId(null);
     }
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteModalVisible(false);
+    setSelectedBlogId(null);
   };
 
   const columns = [
@@ -81,11 +95,26 @@ export const BlogList = () => {
       render: (text, record) => (
         <Space size="middle">
           <a onClick={() => openEditForm(record)}>Edit</a>
-          <a onClick={() => handleDelete(record.id)}>Delete</a>
+          <a onClick={() => showDeleteModal(record.id)}>Delete</a>
         </Space>
       ),
     },
   ];
 
-  return <Table columns={columns} dataSource={blogs} />;
+  return (
+    <>
+      <Table columns={columns} dataSource={blogs} />
+
+      <Modal
+        title="Confirm Delete"
+        visible={deleteModalVisible}
+        onOk={handleDelete}
+        onCancel={handleCancelDelete}
+        okText="Delete"
+        cancelText="Cancel"
+      >
+        <p>Are you sure you want to delete this blog?</p>
+      </Modal>
+    </>
+  );
 };

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axiosClient from '../../../api/axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BlogForm } from './form';
+import { toast } from 'react-toastify';
 
 export const BlogEdit = () => {
   const navigate = useNavigate();
@@ -45,9 +46,10 @@ export const BlogEdit = () => {
 
     try {
       await axiosClient.put(`blog/${blogId}`, updatedBlogData);
+      toast.success('Blog updated successfully!');
       navigate('/admin/blog/list');
     } catch (error) {
-      console.error('Error updating Blog:', error);
+      toast.error('Blog updated failed!');
     }
   };
 

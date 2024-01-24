@@ -1,8 +1,8 @@
-// CategoryEdit.jsx
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosClient from '../../../api/axios';
 import CategoryCommonForm from './Form';
+import { toast } from 'react-toastify';
 
 export const CategoryEdit = () => {
   const navigate = useNavigate();
@@ -37,11 +37,11 @@ export const CategoryEdit = () => {
     data.append('description', description);
 
     try {
-      const response = await axiosClient.put(`category/${categoryId}`, data);
-      console.log('🚀 ~ response:', response);
+      await axiosClient.put(`category/${categoryId}`, data);
+      toast.success('Category edited successfully!');
       navigate('/admin/category/list');
     } catch (error) {
-      console.error('Error editing category:', error);
+      toast.error('Category edited failed!');
     }
   };
 
@@ -51,7 +51,10 @@ export const CategoryEdit = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <CategoryCommonForm initialValues={category} onSubmit={handleEditCategory} />
+        <CategoryCommonForm
+          initialValues={category}
+          onSubmit={handleEditCategory}
+        />
       )}
     </div>
   );

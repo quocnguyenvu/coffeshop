@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Form, Input, Button, Select } from 'antd';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CKEditorComponent from '../../../components/CKeditor';
-import PropTypes from 'prop-types';
 
-export const BlogForm = ({ initialValues, onSubmit }) => {
+const ProductCommonForm = ({ initialValues, categories, onSubmit }) => {
   const navigate = useNavigate();
   const [file, setFile] = useState();
-  const [editorData, setEditorData] = useState(initialValues?.content || '');
+  const [categoryId, setCategoryId] = useState(
+    initialValues?.categoryId || 'Select category',
+  );
 
-  useEffect(() => {
-    setEditorData(initialValues?.content || '');
-  }, [initialValues]);
+  const [editorData, setEditorData] = useState(initialValues?.content || '');
 
   const handleEditorDataChange = (newData) => {
     setEditorData(newData);
@@ -19,20 +19,20 @@ export const BlogForm = ({ initialValues, onSubmit }) => {
 
   const handleFormSubmit = async (values) => {
     try {
-      await onSubmit(values, editorData, file);
-      navigate('/admin/blog/list');
+      await onSubmit(values, editorData, file, categoryId);
+      navigate('/admin/product/list');
     } catch (error) {
-      console.error('Error submitting Blog form:', error);
+      console.error('Error submitting Product form:', error);
     }
   };
 
   return (
     <Form
       style={{ width: '100%', maxWidth: '600px', margin: 'auto' }}
-      layout="vertical"
-      onFinish={handleFormSubmit}
-      autoComplete="off"
       initialValues={initialValues}
+      onFinish={handleFormSubmit}
+      layout="vertical"
+      autoComplete="off"
     >
       <Form.Item
         label="Code"
@@ -48,37 +48,55 @@ export const BlogForm = ({ initialValues, onSubmit }) => {
       </Form.Item>
 
       <Form.Item
-        label="Title"
-        name="title"
+        label="Name"
+        name="name"
         rules={[
           {
             required: true,
-            message: 'Please input your title!',
+            message: 'Please input your name!',
           },
         ]}
       >
         <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Price"
+        name="price"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your price!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Category"
+        name="categoryId"
+        rules={[
+          {
+            required: true,
+            message: 'Please select your category!',
+          },
+        ]}
+      >
+        <Select
+          defaultValue={categoryId}
+          style={{ width: 120 }}
+          onChange={(value) => setCategoryId(value)}
+          options={categories}
+        />
       </Form.Item>
 
       <Form.Item
         label="Description"
-        name="description"
         rules={[
           {
             required: true,
             message: 'Please input your description!',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="Content"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your content!',
           },
         ]}
       >
@@ -98,14 +116,17 @@ export const BlogForm = ({ initialValues, onSubmit }) => {
           },
         ]}
       >
-        <img
-          src={initialValues?.thumbnail}
-          alt="thumbnail"
-          style={{ width: '100px', height: '100px' }}
-        />
+        {initialValues.thumbnail && (
+          <img
+            src={initialValues.thumbnail}
+            alt="thumbnail"
+            style={{ width: '100px', height: '100px' }}
+          />
+        )}
         <input
           type="file"
           name="images"
+          multiple
           onChange={(evt) => setFile(evt.target.files)}
         />
       </Form.Item>
@@ -119,7 +140,10 @@ export const BlogForm = ({ initialValues, onSubmit }) => {
   );
 };
 
-BlogForm.propTypes = {
-  initialValues: PropTypes.object,
+export default ProductCommonForm;
+
+ProductCommonForm.propTypes = {
+  initialValues: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

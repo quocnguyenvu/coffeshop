@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Space, Table } from 'antd';
+import { Space, Table, Modal } from 'antd';
 import axiosClient from '../../../api/axios';
+import { toast } from 'react-toastify';
 
 export const CategoryList = () => {
   const [categories, setCategories] = useState([]);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,18 +23,31 @@ export const CategoryList = () => {
     navigate(`/admin/category/edit/${category.id}`);
   };
 
-  const handleDelete = async (categoryId) => {
+  const showDeleteModal = (categoryId) => {
+    setSelectedCategoryId(categoryId);
+    setDeleteModalVisible(true);
+  };
+
+  const handleDelete = async () => {
     try {
-      await axiosClient.delete(`category/${categoryId}`);
+      await axiosClient.delete(`category/${selectedCategoryId}`);
 
       setCategories((prevCategories) =>
-        prevCategories.filter((category) => category.id !== categoryId),
+        prevCategories.filter((category) => category.id !== selectedCategoryId),
       );
 
-      console.log('Category deleted successfully');
+      toast.success('Category deleted successfully!');
     } catch (error) {
-      console.error('Error deleting category:', error);
+      toast.error('Failed to delete category!');
+    } finally {
+      setDeleteModalVisible(false);
+      setSelectedCategoryId(null);
     }
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteModalVisible(false);
+    setSelectedCategoryId(null);
   };
 
   const columns = [
@@ -52,16 +68,36 @@ export const CategoryList = () => {
       key: 'description',
     },
     {
+      title: 'Date Created',
+      dataIndex: 'dateCreated',
+      key: 'dateCreated',
+    },
+    {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
           <a onClick={() => openEditForm(record)}>Edit</a>
-          <a onClick={() => handleDelete(record.id)}>Delete</a>
+          <a onClick={() => showDeleteModal(record.id)}>Delete</a>
         </Space>
       ),
     },
   ];
 
-  return <Table columns={columns} dataSource={categories} />;
+  return (
+    <>
+      <Table columns={columns} dataSource={categories} />
+
+      <Modal
+        title="Confirm Delete"
+        visible={deleteModalVisible}
+        onOk={handleDelete}
+        onCancel={handleCancelDelete}
+        okText="Delete"
+        cancelText="Cancel"
+      >
+        <p>Are you sure you want to delete this category?</p>
+      </Modal>
+    </>
+  );
 };
