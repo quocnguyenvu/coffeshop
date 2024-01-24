@@ -5,7 +5,7 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, theme, Breadcrumb } from 'antd';
-import { useMemo, useState } from 'react';
+import { useEffect,useMemo, useState } from 'react';
 import { Footer } from 'antd/es/layout/layout';
 import axios from 'axios';
 
@@ -20,24 +20,30 @@ export const AdminPage = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const isAuth = useMemo(async () => {
+  const checkToken = async () => {
     const token = localStorage.getItem('token');
+    if (!token) return false;
 
-    if (token) {
-      try {
-        const response = await axios.post('http://localhost:5000/verify', {token});
-
-        return response.data.isAuthenticated;
-      } catch (error) {
-        console.error('Error checking token:', error);
-        localStorage.removeItem('token');
-        return false;
-      }
-    } else {
-      localStorage.removeItem('token');
+    try {
+      const response = await axios.post('http://localhost:5000/verify', { token });
+      return response.data.isAuthenticated;
+    } catch (error) {
       return false;
     }
-  }, []);
+  };
+
+  const isAuth = useMemo(() => checkToken(), []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const authenticated = await isAuth;
+      if (!authenticated) {
+        navigate('/login');
+      }
+    };
+
+    fetchData();
+  }, [isAuth, navigate]);
 
   return isAuth ? (
     <Layout style={{ width: '100vw', height: '100vh' }}>

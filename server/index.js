@@ -26,18 +26,19 @@ app.post("/verify", async (req, res) => {
 
     if (token) {
       const decode = jwt.verify(token, process.env.JWT_SECRET);
-      console.log("🚀 ~ decode:", Date.now() / 1000);
-      if (decode.exp < Date.now() / 1000) throw new Error("Token đã hết hạn");
+      if (decode.exp < Date.now() / 1000) {
+        return res.json({ isAuthenticated: false, error: "Token hết hạn" });
+      }
 
       const user = await User.findById(decode.user._id);
-      if (!user) throw new Error("Token không hợp lệ hoặc đã hết hạn");
+      if (!user) {
+        return res.json({ isAuthenticated: false, error: "User không tồn tại" });
+      }
 
       return res.json({ isAuthenticated: true });
     }
   } catch (error) {
-    return res
-      .status(401)
-      .json({ isAuthenticated: false, error: "Invalid or expired token" });
+    return res.json({ isAuthenticated: false, error: "Invalid or expired token" });
   }
 });
 
