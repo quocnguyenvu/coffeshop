@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 
 exports.login = async (req, res, next) => {
-  console.log("🚀 ~ req:", req)
   const { phoneNumber, password } = req.body;
 
   try {
@@ -26,7 +25,7 @@ exports.login = async (req, res, next) => {
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: "1h" },
+      { expiresIn: "2 days" },
       (err, token) => {
         if (err) {
           console.error(err);

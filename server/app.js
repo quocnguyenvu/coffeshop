@@ -1,6 +1,6 @@
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 const sendEmail = async (options) => {
   const transporter = nodemailer.createTransport({
@@ -23,7 +23,7 @@ const sendEmail = async (options) => {
     html: options.message,
   });
 
-  console.log('Message sent: %s', info.messageId);
+  console.log("Message sent: %s", info.messageId);
 };
 
 module.exports = sendEmail;

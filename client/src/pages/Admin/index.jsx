@@ -7,6 +7,7 @@ import {
 import { Layout, Menu, theme, Breadcrumb } from 'antd';
 import { useMemo, useState } from 'react';
 import { Footer } from 'antd/es/layout/layout';
+import axios from 'axios';
 
 const { Sider, Content } = Layout;
 
@@ -19,31 +20,23 @@ export const AdminPage = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  // const isTokenExpired = () => {
-  //   const token = localStorage.getItem('token');
-
-  //   if (token) {
-  //     try {
-  //       const decodedToken = decode(token);
-
-  //       return decodedToken.exp < Date.now() / 1000;
-  //     } catch (error) {
-  //       console.error('Error decoding token:', error);
-  //       return true;
-  //     }
-  //   }
-
-  //   return true; // Token does not exist
-  // };
-
-  const isAuth = useMemo(() => {
+  const isAuth = useMemo(async () => {
     const token = localStorage.getItem('token');
 
     if (token) {
-      return true;
-    }
+      try {
+        const response = await axios.post('http://localhost:5000/verify', {token});
 
-    return false;
+        return response.data.isAuthenticated;
+      } catch (error) {
+        console.error('Error checking token:', error);
+        localStorage.removeItem('token');
+        return false;
+      }
+    } else {
+      localStorage.removeItem('token');
+      return false;
+    }
   }, []);
 
   return isAuth ? (
