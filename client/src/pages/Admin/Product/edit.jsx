@@ -50,14 +50,14 @@ export const ProductEdit = () => {
     fetchCategories();
   }, []);
 
-  const handleEditProduct = async (values, editorData, images, categoryId) => {
+  const handleEditProduct = async (values, description, images, categoryId) => {
     const { code, name, price } = values;
 
     try {
       await axiosClient.put(`product/${productId}`, {
         code,
         name,
-        description: editorData,
+        description,
         price,
         categoryId,
         images,

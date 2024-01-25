@@ -2,7 +2,7 @@ import ProductCommonForm from './form';
 import axiosClient from '../../../api/axios';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export const ProductCreate = () => {
   const navigate = useNavigate();
@@ -24,14 +24,19 @@ export const ProductCreate = () => {
     fetchCategories();
   }, []);
 
-  const handleCreateProduct = async (values, editorData, images, categoryId) => {
+  const handleCreateProduct = async (
+    values,
+    description,
+    images,
+    categoryId,
+  ) => {
     const { code, name, price } = values;
 
     try {
       await axiosClient.post('product/create', {
         code,
         name,
-        description: editorData,
+        description,
         price,
         categoryId,
         images,

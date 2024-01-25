@@ -11,17 +11,13 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
     initialValues?.categoryId || null,
   );
 
-  const [editorData, setEditorData] = useState(
+  const [description, setDescription] = useState(
     initialValues?.description || '',
   );
 
-  const handleEditorDataChange = (newData) => {
-    setEditorData(newData);
-  };
-
   const handleFormSubmit = async (values) => {
     try {
-      await onSubmit(values, editorData, images, categoryId);
+      await onSubmit(values, description, images, categoryId);
     } catch (error) {
       console.error('Error submitting Product form:', error);
     }
@@ -108,8 +104,8 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
           ]}
         >
           <CKEditorComponent
-            data={editorData}
-            onDataChange={handleEditorDataChange}
+            data={description}
+            onDataChange={(newData) => setDescription(newData)}
           />
         </Form.Item>
 

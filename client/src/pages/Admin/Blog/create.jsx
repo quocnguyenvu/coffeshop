@@ -6,7 +6,8 @@ import { toast } from 'react-toastify';
 export const BlogCreate = () => {
   const navigate = useNavigate();
 
-  const handleCreateBlog = async (values, editorData, images) => {
+  const handleCreateBlog = async (values, content, thumbnail) => {
+    console.log("🚀 ~ thumbnail:", thumbnail)
     const { code, title, description } = values;
 
     try {
@@ -14,8 +15,8 @@ export const BlogCreate = () => {
         code,
         title,
         description,
-        content: editorData,
-        thumbnail: images[0],
+        content,
+        thumbnail,
       });
       toast.success('Blog created successfully!');
       navigate('/admin/blog/list');

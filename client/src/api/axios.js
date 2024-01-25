@@ -1,7 +1,7 @@
 import axios from "axios";
 import queryString from "query-string";
 
-const apiURL = "http://localhost:5000/api";
+const apiURL = import.meta.env.VITE_API_URL;
 
 const axiosClient = axios.create({
   headers: { "content-type": "application/json" },

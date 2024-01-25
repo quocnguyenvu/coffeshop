@@ -9,7 +9,7 @@ export const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    const response = await axios.post('http://localhost:5000/api/login', {
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
       phoneNumber: event.target.phoneNumber.value,
       password: event.target.password.value,
     });

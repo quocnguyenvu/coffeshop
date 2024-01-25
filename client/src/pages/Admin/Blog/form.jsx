@@ -5,22 +5,19 @@ import PropTypes from 'prop-types';
 import CloudinarySingleUploader from '../../../components/CloudinarySingleUploader';
 
 export const BlogForm = ({ title, initialValues, onSubmit }) => {
-  const [image, setImage] = useState(
+  const [thumbnail, setThumbnail] = useState(
     initialValues?.thumbnail ? initialValues.thumbnail : null,
   );
-  const [editorData, setEditorData] = useState(initialValues?.content || '');
+  const [content, setContent] = useState(initialValues?.content || '');
 
   useEffect(() => {
-    setEditorData(initialValues?.content || '');
+    setContent(initialValues?.content || '');
   }, [initialValues]);
 
-  const handleEditorDataChange = (newData) => {
-    setEditorData(newData);
-  };
 
   const handleFormSubmit = async (values) => {
     try {
-      await onSubmit(values, editorData, image);
+      await onSubmit(values, content, thumbnail);
     } catch (error) {
       console.error('Error submitting Blog form:', error);
     }
@@ -95,13 +92,13 @@ export const BlogForm = ({ title, initialValues, onSubmit }) => {
           ]}
         >
           <CKEditorComponent
-            data={editorData}
-            onDataChange={handleEditorDataChange}
+            data={content}
+            onDataChange={(newData) => setContent(newData)}
           />
         </Form.Item>
 
         <Form.Item label="Thumbnail" name="thumbnail">
-          <CloudinarySingleUploader image={image} setImage={setImage} />
+          <CloudinarySingleUploader image={thumbnail} setImage={setThumbnail} />
         </Form.Item>
 
         <Form.Item>

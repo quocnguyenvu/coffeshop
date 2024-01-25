@@ -17,15 +17,15 @@ const CloudinaryMultipleUploader = ({ images, setImages }) => {
         Array.from(files).map(async (file) => {
           const formData = new FormData();
           formData.append('file', file);
-          formData.append('upload_preset', 'ml_default');
-
-          const response = await fetch(
-            'https://api.cloudinary.com/v1_1/dcn6yeznv/image/upload',
-            {
-              method: 'POST',
-              body: formData,
-            },
+          formData.append(
+            'upload_preset',
+            import.meta.env.VITE_CLOUDINARY_PRESET,
           );
+
+          const response = await fetch(import.meta.env.VITE_CLOUDINARY_URL, {
+            method: 'POST',
+            body: formData,
+          });
 
           const data = await response.json();
           return data.secure_url;

@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { CloudinaryContext } from 'cloudinary-react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
@@ -9,29 +9,20 @@ const CloudinarySingleUploader = ({ image, setImage }) => {
   const handleImageUpload = async (e) => {
     setLoading(true);
 
-    const files = e.target.files;
+    const file = e.target.files[0];
 
     try {
-      const uploadedImage = await Promise.all(
-        Array.from(files).map(async (file) => {
-          const formData = new FormData();
-          formData.append('file', file);
-          formData.append('upload_preset', 'ml_default');
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_PRESET);
 
-          const response = await fetch(
-            'https://api.cloudinary.com/v1_1/dcn6yeznv/image/upload',
-            {
-              method: 'POST',
-              body: formData,
-            },
-          );
+      const response = await fetch(import.meta.env.VITE_CLOUDINARY_URL, {
+        method: 'POST',
+        body: formData,
+      });
 
-          const data = await response.json();
-          return data.secure_url;
-        }),
-      );
-
-      setImage(uploadedImage);
+      const data = await response.json();
+      setImage(data.secure_url);
     } catch (error) {
       toast.error('Error uploading image!');
     } finally {
@@ -40,7 +31,7 @@ const CloudinarySingleUploader = ({ image, setImage }) => {
   };
 
   const handleImageDelete = () => {
-    setImage([]);
+    setImage(null);
   };
 
   return (
@@ -66,6 +57,6 @@ const CloudinarySingleUploader = ({ image, setImage }) => {
 export default CloudinarySingleUploader;
 
 CloudinarySingleUploader.propTypes = {
-  image: PropTypes.array,
+  image: PropTypes.string,
   setImage: PropTypes.func,
 };

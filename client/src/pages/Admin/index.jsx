@@ -2,9 +2,12 @@ import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  PicLeftOutlined,
+  AppstoreOutlined,
+  BlockOutlined,
+  CreditCardOutlined
 } from '@ant-design/icons';
-import { Layout, Menu, theme, Breadcrumb } from 'antd';
+import { Layout, Menu, theme, Breadcrumb, Button } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { Footer } from 'antd/es/layout/layout';
 import axios from 'axios';
@@ -25,9 +28,12 @@ export const AdminPage = () => {
     if (!token) return false;
 
     try {
-      const response = await axios.post('http://localhost:5000/verify', {
-        token,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/verify`,
+        {
+          token,
+        },
+      );
       return response.data.isAuthenticated;
     } catch (error) {
       return false;
@@ -46,6 +52,11 @@ export const AdminPage = () => {
 
     fetchData();
   }, [isAuth, navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
 
   return isAuth ? (
     <Layout style={{ width: '100vw', height: '100vh' }}>
@@ -68,7 +79,7 @@ export const AdminPage = () => {
             },
             {
               key: 'category',
-              icon: <VideoCameraOutlined />,
+              icon: <PicLeftOutlined />,
               label: 'Category',
               children: [
                 {
@@ -83,7 +94,7 @@ export const AdminPage = () => {
             },
             {
               key: 'product',
-              icon: <UploadOutlined />,
+              icon: <AppstoreOutlined />,
               label: 'Product',
               children: [
                 {
@@ -98,7 +109,7 @@ export const AdminPage = () => {
             },
             {
               key: 'blog',
-              icon: <UploadOutlined />,
+              icon: <BlockOutlined />,
               label: 'Blog',
               children: [
                 {
@@ -113,7 +124,7 @@ export const AdminPage = () => {
             },
             {
               key: 'order',
-              icon: <UploadOutlined />,
+              icon: <CreditCardOutlined />,
               label: 'Order',
             },
             {
@@ -134,20 +145,34 @@ export const AdminPage = () => {
             overflow: 'auto',
           }}
         >
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            {pathSnippets.map((snippet, index) => {
-              const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
-              return (
-                <Breadcrumb.Item key={url}>
-                  <span
-                    style={{ textTransform: 'capitalize', fontWeight: 'bold' }}
-                  >
-                    {snippet}
-                  </span>
-                </Breadcrumb.Item>
-              );
-            })}
-          </Breadcrumb>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Breadcrumb style={{ margin: '16px 0' }}>
+              {pathSnippets.map((snippet, index) => {
+                const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+                return (
+                  <Breadcrumb.Item key={url}>
+                    <span
+                      style={{
+                        textTransform: 'capitalize',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      {snippet}
+                    </span>
+                  </Breadcrumb.Item>
+                );
+              })}
+            </Breadcrumb>
+            <Button type="primary" onClick={handleLogout}>
+              Log out
+            </Button>
+          </div>
           <div
             style={{
               padding: 24,

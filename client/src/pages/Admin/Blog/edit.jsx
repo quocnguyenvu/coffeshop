@@ -32,7 +32,8 @@ export const BlogEdit = () => {
     fetchBlogData();
   }, [blogId]);
 
-  const handleEditBlog = async (values, editorData, images) => {
+  const handleEditBlog = async (values, content, thumbnail) => {
+    console.log("🚀 ~ thumbnail:", thumbnail)
     const { code, title, description } = values;
 
     try {
@@ -40,8 +41,8 @@ export const BlogEdit = () => {
         code,
         title,
         description,
-        content: editorData,
-        thumbnail: images[0],
+        content,
+        thumbnail,
       });
       toast.success('Blog updated successfully!');
       navigate('/admin/blog/list');
