@@ -24,24 +24,19 @@ export const ProductCreate = () => {
     fetchCategories();
   }, []);
 
-  const handleCreateProduct = async (values, editorData, files, categoryId) => {
+  const handleCreateProduct = async (values, editorData, images, categoryId) => {
     const { code, name, price } = values;
-    const data = new FormData();
-
-    data.append('code', code);
-    data.append('name', name);
-    data.append('description', editorData);
-    data.append('price', price);
-    data.append('categoryId', categoryId);
-
-    if (files) {
-      for (let i = 0; i < files.length; i++) {
-        data.append('images', files[i]);
-      }
-    }
 
     try {
-      await axiosClient.post('product/create', data);
+      await axiosClient.post('product/create', {
+        code,
+        name,
+        description: editorData,
+        price,
+        categoryId,
+        images,
+      });
+
       toast.success('Product created successfully!');
       navigate('/admin/product/list');
     } catch (error) {

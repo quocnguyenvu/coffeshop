@@ -31,14 +31,14 @@ export const CategoryEdit = () => {
 
   const handleEditCategory = async (values) => {
     const { code, name, description } = values;
-    const data = new FormData();
-
-    data.append('code', code);
-    data.append('name', name);
-    data.append('description', description);
 
     try {
-      await axiosClient.put(`category/${categoryId}`, data);
+      await axiosClient.put(`category/${categoryId}`, {
+        code,
+        name,
+        description,
+      });
+
       toast.success('Category edited successfully!');
       navigate('/admin/category/list');
     } catch (error) {

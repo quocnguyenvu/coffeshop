@@ -16,12 +16,12 @@ export const ProductEdit = () => {
     const fetchProductData = async () => {
       try {
         const response = await axiosClient.get(`product/${productId}`);
-        console.log(response.data.product.categoryId);
+
         setProductData({
           code: response.data.product.code,
           name: response.data.product.name,
           description: response.data.product.description,
-          categoryId: response.data.product.categoryId?.name,
+          categoryId: response.data.product.categoryId?._id,
           price: response.data.product.price,
           images: response.data.product.images,
         });
@@ -50,24 +50,19 @@ export const ProductEdit = () => {
     fetchCategories();
   }, []);
 
-  const handleEditProduct = async (values, editorData, files, categoryId) => {
+  const handleEditProduct = async (values, editorData, images, categoryId) => {
     const { code, name, price } = values;
-    const data = new FormData();
-
-    data.append('code', code);
-    data.append('name', name);
-    data.append('description', editorData);
-    data.append('price', price);
-    data.append('categoryId', categoryId);
-
-    if (files) {
-      for (let file of files) {
-        data.append('images', file);
-      }
-    }
 
     try {
-      await axiosClient.put(`product/${productId}`, data);
+      await axiosClient.put(`product/${productId}`, {
+        code,
+        name,
+        description: editorData,
+        price,
+        categoryId,
+        images,
+      });
+
       toast.success('Product updated successfully!');
       navigate('/admin/product/list');
     } catch (error) {

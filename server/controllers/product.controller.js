@@ -1,25 +1,12 @@
-const constant = require("../constants/index");
 const remove_Id = require("../utils/remove_Id");
-
+const Response = require("../helpers/response.helper");
 const Category = require("../models/Category");
 const Product = require("../models/Product");
-
-const Response = require("../helpers/response.helper");
-const uploadImage = require("../utils/uploadImage");
-
-const {
-  response: {
-    createSuccessMessage,
-    updateSuccessMessage,
-    deleteSuccessMessage,
-    failMessage,
-  },
-} = require("../constants");
 
 exports.getAll = async (req, res, next) => {
   try {
     let products = await Product.find().populate("categoryId");
-    if (!products) throw new Error(failMessage);
+    if (!products) throw new Error('Get all products failed!');
     const count = await Product.find().count();
 
     return Response.success(res, {
@@ -38,8 +25,7 @@ exports.getProduct = async (req, res, next) => {
     } = req;
 
     const product = await Product.findById(productId).populate("categoryId");
-    console.log("🚀 ~ product:", product)
-    if (!product) throw new Error(failMessage);
+    if (!product) throw new Error('Get product failed!');
 
     return Response.success(res, { product });
   } catch (error) {
@@ -50,14 +36,13 @@ exports.getProduct = async (req, res, next) => {
 exports.addProduct = async (req, res, next) => {
   try {
     const {
-      files,
-      body: { code, name, price, description, categoryId },
+      body: { code, name, price, description, categoryId, images },
     } = req;
 
     let product;
 
-    if (!code || !name || !price || !description)
-      throw new Error(failMessage);
+    if (!code || !name || !price || !description || images.length === 0)
+      throw new Error('Invalid product data');
 
     let category = null;
     if (categoryId && categoryId !== "null") {
@@ -67,36 +52,21 @@ exports.addProduct = async (req, res, next) => {
       }
     }
 
-    let obj = {
+    product = await Product.create({
       code,
       name,
       price: parseInt(price),
       description,
       categoryId: category ? category._id : null,
-    };
-
-    if (files) {
-      let resultUrls = [];
-      for (let file of files) {
-        const result = await uploadImage(file);
-        resultUrls.push(result.url);
-      }
-      product = await Product.create({
-        ...obj,
-        images: resultUrls,
-      });
-    } else {
-      product = await Product.create({
-        ...obj,
-      });
-    }
+      images,
+    });
 
     product = await Product.findById(product._id).populate("categoryId");
     if (product._doc.categoryId) {
       product._doc.categoryId._doc.id = product._doc.categoryId._id;
     }
 
-    return Response.success(res, { message: createSuccessMessage, product });
+    return Response.success(res, { message: 'Created product successfully!', product });
   } catch (error) {
     return next(error);
   }
@@ -106,12 +76,11 @@ exports.updateProduct = async (req, res, next) => {
   try {
     const {
       params: { productId },
-      files,
-      body: { code, name, price, description, categoryId },
+      body: { code, name, price, description, categoryId, images },
     } = req;
 
-    if (!code || !name || !price || !description)
-      throw new Error(failMessage);
+    if (!code || !name || !price || !description || images.length === 0)
+      throw new Error('Invalid product data');
 
     let category = null;
     if (categoryId && categoryId !== "null") {
@@ -121,38 +90,28 @@ exports.updateProduct = async (req, res, next) => {
       }
     }
 
-    let obj = {
+    let product = await Product.findById(productId);
+    if (!product) throw new Error('Get product failed!');
+
+    await Product.findByIdAndUpdate(productId, {
       code,
       name,
       price: parseInt(price),
       description,
       categoryId: category ? category._id : null,
-    };
-
-    let product = await Product.findById(productId);
-    if (!product) throw new Error(failMessage);
-
-    if (files) {
-      let resultUrls = [];
-      for (let file of files) {
-        const result = await uploadImage(file);
-        resultUrls.push(result.url);
-      }
-      obj.images = resultUrls;
-    }
-
-    await Product.findByIdAndUpdate(productId, obj);
+      images,
+    });
 
     product = await Product.findById(productId).populate("categoryId");
     if (product._doc.categoryId) {
       product._doc.categoryId._doc.id = product._doc.categoryId._id;
     }
 
-    return Response.success(res, { message: updateSuccessMessage, product });
+    return Response.success(res, { message: 'Updated product successfully!', product });
   } catch (error) {
     return next(error);
   }
-}
+};
 
 exports.deleteProduct = async (req, res, next) => {
   try {
@@ -161,9 +120,9 @@ exports.deleteProduct = async (req, res, next) => {
     } = req;
 
     const product = await Product.findById(productId);
-    if (!product) throw new Error(failMessage);
+    if (!product) throw new Error('Get product failed!');
     await Product.findByIdAndDelete(productId);
-    return Response.success(res, { message: "Xóa thành công" });
+    return Response.success(res, { message: 'Delete product successfully!'});
   } catch (error) {
     return next(error);
   }

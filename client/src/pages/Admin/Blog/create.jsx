@@ -5,18 +5,18 @@ import { toast } from 'react-toastify';
 
 export const BlogCreate = () => {
   const navigate = useNavigate();
-  const handleCreateBlog = async (values, editorData, file) => {
+
+  const handleCreateBlog = async (values, editorData, images) => {
     const { code, title, description } = values;
 
-    const blogData = new FormData();
-    blogData.append('code', code);
-    blogData.append('title', title);
-    blogData.append('content', editorData);
-    blogData.append('description', description);
-    blogData.append('thumbnail', file[0]);
-
     try {
-      await axiosClient.post('blog/create', blogData);
+      await axiosClient.post('blog/create', {
+        code,
+        title,
+        description,
+        content: editorData,
+        thumbnail: images[0],
+      });
       toast.success('Blog created successfully!');
       navigate('/admin/blog/list');
     } catch (error) {

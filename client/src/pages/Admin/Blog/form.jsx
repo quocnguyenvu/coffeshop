@@ -2,9 +2,12 @@ import { useState, useEffect } from 'react';
 import { Button, Form, Input } from 'antd';
 import CKEditorComponent from '../../../components/CKeditor';
 import PropTypes from 'prop-types';
+import CloudinarySingleUploader from '../../../components/CloudinarySingleUploader';
 
 export const BlogForm = ({ title, initialValues, onSubmit }) => {
-  const [file, setFile] = useState();
+  const [image, setImage] = useState(
+    initialValues?.thumbnail ? initialValues.thumbnail : null,
+  );
   const [editorData, setEditorData] = useState(initialValues?.content || '');
 
   useEffect(() => {
@@ -17,7 +20,7 @@ export const BlogForm = ({ title, initialValues, onSubmit }) => {
 
   const handleFormSubmit = async (values) => {
     try {
-      await onSubmit(values, editorData, file);
+      await onSubmit(values, editorData, image);
     } catch (error) {
       console.error('Error submitting Blog form:', error);
     }
@@ -97,26 +100,8 @@ export const BlogForm = ({ title, initialValues, onSubmit }) => {
           />
         </Form.Item>
 
-        <Form.Item
-          label="Thumbnail"
-          name="thumbnail"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Thumbnail!',
-            },
-          ]}
-        >
-          <img
-            src={initialValues?.thumbnail}
-            alt="thumbnail"
-            style={{ width: '100px', height: '100px' }}
-          />
-          <input
-            type="file"
-            name="images"
-            onChange={(evt) => setFile(evt.target.files)}
-          />
+        <Form.Item label="Thumbnail" name="thumbnail">
+          <CloudinarySingleUploader image={image} setImage={setImage} />
         </Form.Item>
 
         <Form.Item>

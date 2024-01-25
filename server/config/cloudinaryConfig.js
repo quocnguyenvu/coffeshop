@@ -1,4 +1,3 @@
-// Cloudinary - Dùng để upload file lên cloud
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({

@@ -16,7 +16,7 @@ const {
 // @route   POST api/blog/create
 // @desc    Create Blog
 // @access  Private
-router.post('/create',upload.single('thumbnail'), create);
+router.post('/create', create);
 
 // @route   GET api/blog
 // @desc    Get All Blogs
@@ -27,6 +27,16 @@ router.get('/', getAll);
 // @desc    Get Detail
 // @access  Private
 router.get('/:blogId', getDetail);
+
+// @route   PUT api/blog/:blogId
+// @desc    Update Blog
+// @access  Private
+router.put('/:blogId', update);
+
+// @route   DELETE api/blog/:blogId
+// @desc    Delete Blog
+// @access  Private
+router.delete('/:blogId', currentDelete);
 
 
 module.exports = router;

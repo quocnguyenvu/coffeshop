@@ -1,10 +1,6 @@
 const express = require("express");
-const multer = require("multer");
 const router = express.Router();
 
-const upload = multer({ dest: "public/uploads/categories" });
-
-// Controllers
 const {
   getAll,
   getDetail,
@@ -26,12 +22,12 @@ router.get("/:categoryId", getDetail);
 // @route   POST api/category/create
 // @desc    Create Category
 // @access  Private
-router.post("/create", upload.none(), create);
+router.post("/create", create);
 
 // @route   PUT api/category/:categoryId
 // @desc    Update Category
 // @access  Private
-router.put("/:categoryId", upload.none(), update);
+router.put("/:categoryId", update);
 
 // @route   POST api/category/:categoryId
 // @desc    Delete Category

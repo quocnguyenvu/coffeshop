@@ -28,8 +28,4 @@ router.use("/bill", require("./admin/bill.route"));
 // Bill Detail
 router.use("/bill-detail", require("./admin/billDetail.route"));
 
-router.get("/", (req, res) => {
-  res.send("Admin");
-});
-
 module.exports = router;

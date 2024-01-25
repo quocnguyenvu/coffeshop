@@ -8,14 +8,14 @@ export const CategoryCreate = () => {
 
   const handleCreateCategory = async (values) => {
     const { code, name, description } = values;
-    const data = new FormData();
-
-    data.append('code', code);
-    data.append('name', name);
-    data.append('description', description);
 
     try {
-      await axiosClient.post('category/create', data);
+      await axiosClient.post('category/create', {
+        code,
+        name,
+        description,
+      });
+
       toast.success('Category created successfully!');
       navigate('/admin/category/list');
     } catch (error) {

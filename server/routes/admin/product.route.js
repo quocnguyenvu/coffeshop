@@ -1,6 +1,4 @@
 const express = require("express");
-const multer = require("multer");
-
 const {
   getAll,
   getProduct,
@@ -8,8 +6,6 @@ const {
   updateProduct,
   deleteProduct,
 } = require("../../controllers/product.controller");
-
-const upload = multer({ dest: "public/uploads/products" });
 
 const router = express.Router();
 
@@ -26,12 +22,12 @@ router.get("/:productId", getProduct);
 // @route   POST api/product/create
 // @desc    Add Product
 // @access  Private
-router.post("/create", upload.array("images"), addProduct);
+router.post("/create", addProduct);
 
 // @route   PUT api/product/:productId
 // @desc    Update Product
 // @access  Private
-router.put("/:productId", upload.array("images", 10), updateProduct);
+router.put("/:productId", updateProduct);
 
 // @route   DELETE api/admin/products/:productId
 // @desc    Delete Product

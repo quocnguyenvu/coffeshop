@@ -32,21 +32,17 @@ export const BlogEdit = () => {
     fetchBlogData();
   }, [blogId]);
 
-  const handleEditBlog = async (values, editorData, file) => {
+  const handleEditBlog = async (values, editorData, images) => {
     const { code, title, description } = values;
 
-    const updatedBlogData = new FormData();
-    updatedBlogData.append('code', code);
-    updatedBlogData.append('title', title);
-    updatedBlogData.append('content', editorData);
-    updatedBlogData.append('description', description);
-
-    if (file) {
-      updatedBlogData.append('thumbnail', file[0]);
-    }
-
     try {
-      await axiosClient.put(`blog/${blogId}`, updatedBlogData);
+      await axiosClient.put(`blog/${blogId}`, {
+        code,
+        title,
+        description,
+        content: editorData,
+        thumbnail: images[0],
+      });
       toast.success('Blog updated successfully!');
       navigate('/admin/blog/list');
     } catch (error) {

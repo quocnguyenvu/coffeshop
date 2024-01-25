@@ -1,29 +1,28 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-// Controllers
 const {
   getAll,
   getAllByUser,
   getDetail,
   updateStatus,
   delete: currentDelete,
-} = require('../../controllers/bill.controller');
+} = require("../../controllers/bill.controller");
 
 // @route   GET api/admin/bill?_limit=&_page=
 // @desc    GET All Bill
 // @access  Private
-router.get('/', getAll);
+router.get("/", getAll);
 
 // @route   GET api/admin/bill/getByUser/:userId?_limit=&_page=
 // @desc    GET Bill By User
 // @access  Private
-router.get('/getByUser/:userId', getAllByUser);
+router.get("/getByUser/:userId", getAllByUser);
 
 // @route   GET api/admin/bill/:billId?_limit=&_page=
 // @desc    GET Bill Detail
 // @access  Private
-router.get('/:billId', getDetail);
+router.get("/:billId", getDetail);
 
 // // @route   PATCH api/admin/bill/:billId
 // // @desc    Update Bill
@@ -33,11 +32,11 @@ router.get('/:billId', getDetail);
 // @route   PATCH api/admin/bill/updateStatus/:billId
 // @desc    Update Bill Status
 // @access  Private
-router.patch('/updateStatus/:billId', updateStatus);
+router.patch("/updateStatus/:billId", updateStatus);
 
 // @route   DELETE api/admin/bill/:billId
 // @desc    Update Bill
 // @access  Private
-router.delete('/:billId', currentDelete);
+router.delete("/:billId", currentDelete);
 
 module.exports = router;

@@ -1,17 +1,12 @@
-const Category = require('../models/Category');
-
-const Response = require('../helpers/response.helper');
-const remove_Id = require('../utils/remove_Id');
-
-const {
-  response: { createSuccessMessage, updateSuccessMessage, deleteSuccessMessage, failMessage },
-} = require('../constants');
-const Product = require('../models/Product');
+const Category = require("../models/Category");
+const Product = require("../models/Product");
+const Response = require("../helpers/response.helper");
+const remove_Id = require("../utils/remove_Id");
 
 exports.getAll = async (req, res, next) => {
   try {
     let categories = await Category.find();
-    if (!categories) throw new Error(failMessage);
+    if (!categories) throw new Error("Get all categories failed!");
     const count = await Category.find().count();
 
     for (let category of categories) {
@@ -34,10 +29,10 @@ exports.getDetail = async (req, res, next) => {
       params: { categoryId },
     } = req;
 
-    if (!categoryId) throw new Error(failMessage);
+    if (!categoryId) throw new Error("No category ID");
     const category = await Category.findById(categoryId);
-    if (!category) throw new Error(failMessage);
-    // Add ID
+    if (!category) throw new Error("Get category failed!");
+
     category._doc.id = category._id;
     return Response.success(res, { category });
   } catch (error) {
@@ -53,7 +48,7 @@ exports.create = async (req, res, next) => {
     let category;
 
     if (!code || !name || !description) {
-      throw new Error(failMessage);
+      throw new Error("Invalid category data");
     }
 
     category = await Category.create({
@@ -64,13 +59,15 @@ exports.create = async (req, res, next) => {
 
     category._doc.id = category._id;
 
-    return Response.success(res, { message: createSuccessMessage, category });
+    return Response.success(res, {
+      message: "Created category sucssesfully!",
+      category,
+    });
   } catch (error) {
     return next(error);
   }
 };
 
-// Need Test API
 exports.update = async (req, res, next) => {
   try {
     const {
@@ -80,7 +77,7 @@ exports.update = async (req, res, next) => {
     let category;
 
     if (!categoryId || !code || !name || !description)
-      throw new Error(failMessage);
+      throw new Error("Invalid category data");
 
     category = await Category.findByIdAndUpdate(categoryId, {
       code,
@@ -90,7 +87,10 @@ exports.update = async (req, res, next) => {
 
     category._doc.id = category._id;
 
-    return Response.success(res, { message: updateSuccessMessage, category });
+    return Response.success(res, {
+      message: "Updated category sucssesfully!",
+      category,
+    });
   } catch (error) {
     return next(error);
   }
@@ -102,15 +102,14 @@ exports.delete = async (req, res, next) => {
       params: { categoryId },
     } = req;
 
-    if (!categoryId) throw new Error(failMessage);
+    if (!categoryId) throw new Error("No category ID");
 
     const category = await Category.findById(categoryId);
-
-    if (!category) throw new Error(failMessage);
+    if (!category) throw new Error("Get category failed!");
 
     await Category.findByIdAndDelete(categoryId);
 
-    return Response.success(res, { message: deleteSuccessMessage });
+    return Response.success(res, { message: "Deleted category sucssesfully!" });
   } catch (error) {
     return next(error);
   }

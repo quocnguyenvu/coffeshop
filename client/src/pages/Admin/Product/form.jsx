@@ -2,9 +2,11 @@ import { Form, Input, Button, Select } from 'antd';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import CKEditorComponent from '../../../components/CKeditor';
+import CloudinaryMultipleUploader from '../../../components/CloudinaryMultipleUploader';
 
 const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
-  const [file, setFile] = useState();
+  const [images, setImages] = useState(initialValues?.images || []);
+
   const [categoryId, setCategoryId] = useState(
     initialValues?.categoryId || null,
   );
@@ -19,7 +21,7 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
 
   const handleFormSubmit = async (values) => {
     try {
-      await onSubmit(values, editorData, file, categoryId);
+      await onSubmit(values, editorData, images, categoryId);
     } catch (error) {
       console.error('Error submitting Product form:', error);
     }
@@ -115,19 +117,7 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
           label="Thumbnail"
           name="thumbnail"
         >
-          {initialValues.images?.length > 0 && (
-            <img
-              src={initialValues.images[0]}
-              alt="thumbnail"
-              style={{ width: '100px', height: '100px' }}
-            />
-          )}
-          <input
-            type="file"
-            name="images"
-            multiple
-            onChange={(evt) => setFile(evt.target.files)}
-          />
+          <CloudinaryMultipleUploader multiple images={images} setImages={setImages}/>
         </Form.Item>
 
         <Form.Item>
