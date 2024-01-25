@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Button, Form, Input } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import CKEditorComponent from '../../../components/CKeditor';
 import PropTypes from 'prop-types';
 
 export const BlogForm = ({ title, initialValues, onSubmit }) => {
-  const navigate = useNavigate();
   const [file, setFile] = useState();
   const [editorData, setEditorData] = useState(initialValues?.content || '');
 
@@ -20,7 +18,6 @@ export const BlogForm = ({ title, initialValues, onSubmit }) => {
   const handleFormSubmit = async (values) => {
     try {
       await onSubmit(values, editorData, file);
-      navigate('/admin/blog/list');
     } catch (error) {
       console.error('Error submitting Blog form:', error);
     }

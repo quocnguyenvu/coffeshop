@@ -1,11 +1,9 @@
 import { Form, Input, Button, Select } from 'antd';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import CKEditorComponent from '../../../components/CKeditor';
 
 const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
-  const navigate = useNavigate();
   const [file, setFile] = useState();
   const [categoryId, setCategoryId] = useState(
     initialValues?.categoryId || 'Select category',
@@ -22,7 +20,6 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
   const handleFormSubmit = async (values) => {
     try {
       await onSubmit(values, editorData, file, categoryId);
-      navigate('/admin/product/list');
     } catch (error) {
       console.error('Error submitting Product form:', error);
     }

@@ -7,10 +7,8 @@ import { useNavigate } from 'react-router-dom';
 export const ProductList = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  console.log("🚀 ~ products:", products)
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
-  console.log("🚀 ~ selectedProductId:", selectedProductId)
 
   useEffect(() => {
     const fetchProducts = async () => {
