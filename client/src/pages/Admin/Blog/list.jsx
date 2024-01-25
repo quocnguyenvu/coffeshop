@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Space, Table, Modal } from 'antd';
+import { Space, Table, Modal, Button } from 'antd';
 import axiosClient from '../../../api/axios';
 import { toast } from 'react-toastify';
 
@@ -94,8 +94,12 @@ export const BlogList = () => {
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <a onClick={() => openEditForm(record)}>Edit</a>
-          <a onClick={() => showDeleteModal(record.id)}>Delete</a>
+          <Button type="primary" onClick={() => openEditForm(record)}>
+            Edit
+          </Button>
+          <Button danger onClick={() => showDeleteModal(record.id)}>
+            Delete
+          </Button>
         </Space>
       ),
     },

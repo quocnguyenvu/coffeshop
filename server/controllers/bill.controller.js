@@ -1,4 +1,4 @@
-const Bill = require('../models/bill');
+const Order = require('../models/order');
 const User = require('../models/User');
 const BillDetail = require('../models/billDetail');
 const Product = require('../models/Product');
@@ -25,8 +25,8 @@ exports.getAll = async (req, res, next) => {
 
     if (status && status !== 'null') obj = { status };
 
-    let total = await Bill.find(obj).count();
-    let bills = await Bill.find(obj).populate('userId').sort({ dateCreate: -1 });
+    let total = await Order.find(obj).count();
+    let bills = await Order.find(obj).populate('userId').sort({ dateCreate: -1 });
     // .skip((_page - 1) * _limit)
     // .limit(_limit);
 
@@ -54,7 +54,7 @@ exports.getAll = async (req, res, next) => {
 
     bills = bills.slice((_page - 1) * _limit, (_page - 1) * _limit + _limit);
 
-    // Get BillDetails foreach Bill
+    // Get BillDetails foreach Order
     for (let bill of bills) {
       const billDetails = await BillDetail.find({ billId: bill._id }).populate('productId');
       if (!billDetails) throw new Error(failMessage);
@@ -88,8 +88,8 @@ exports.getAllByUser = async (req, res, next) => {
 
     if (status && status !== 'null') obj = { ...obj, status };
 
-    let total = await Bill.find({ ...obj }).count();
-    let bills = await Bill.find({ ...obj })
+    let total = await Order.find({ ...obj }).count();
+    let bills = await Order.find({ ...obj })
       .populate('userId')
       .sort({ dateCreate: -1 });
     // .skip((_page - 1) * _limit)
@@ -106,7 +106,7 @@ exports.getAllByUser = async (req, res, next) => {
     if (!bills) throw new Error(failMessage);
     bills = bills.slice((_page - 1) * _limit, (_page - 1) * _limit + _limit);
 
-    // Get BillDetails foreach Bill
+    // Get BillDetails foreach Order
     for (let bill of bills) {
       const billDetails = await BillDetail.find({ billId: bill._id }).populate('productId');
       if (!billDetails) throw new Error(failMessage);
@@ -134,7 +134,7 @@ exports.getDetail = async (req, res, next) => {
 
     if (!billId) throw new Error(failMessage);
 
-    const bill = await Bill.findById(billId).populate('userId');
+    const bill = await Order.findById(billId).populate('userId');
     if (!bill) throw new Error(failMessage);
     bill._doc.id = bill._id;
 
@@ -178,7 +178,7 @@ exports.create = async (req, res, next) => {
     // shipPayment = parseInt(shipPayment);
     // VAT = !VAT || isNaN(VAT) ? 10 : parseInt(VAT);
 
-    let bill = await Bill.create({
+    let bill = await Order.create({
       userId: user._id,
       // payment,
       name,
@@ -191,13 +191,13 @@ exports.create = async (req, res, next) => {
     // let total = 0;
 
     // total += total * VAT * 0.01;
-    // bill = await Bill.findByIdAndUpdate(bill._id, {
+    // bill = await Order.findByIdAndUpdate(bill._id, {
     //   total: total + shipPayment,
     // });
-    // bill = await Bill.findByIdAndUpdate(bill._id, {
+    // bill = await Order.findByIdAndUpdate(bill._id, {
     //   total: parseInt(total),
     // });
-    bill = await Bill.findById(bill._id);
+    bill = await Order.findById(bill._id);
     bill._doc.id = bill._id;
 
     return Response.success(res, { message: createSuccessMessage, bill });
@@ -215,7 +215,7 @@ exports.updateBillDetail = async (req, res, next) => {
 
     if (!billId || !billDetails) throw new Error(failMessage);
 
-    let bill = await Bill.findById(billId);
+    let bill = await Order.findById(billId);
     if (!bill) throw new Error(failMessage);
 
     if (bill.status !== 'Đợi xác nhận')
@@ -236,7 +236,7 @@ exports.updateBillDetail = async (req, res, next) => {
         productId: product._id,
       });
     }
-    bill = await Bill.findByIdAndUpdate(bill._id, {
+    bill = await Order.findByIdAndUpdate(bill._id, {
       total,
       dateModified: Date.now(),
     });
@@ -261,7 +261,7 @@ exports.updateStatus = async (req, res, next) => {
 
     if (!billId) throw new Error(failMessage);
 
-    let bill = await Bill.findById(billId);
+    let bill = await Order.findById(billId);
     if (!bill) throw new Error(failMessage);
 
     if (user && user.role === 'user' && status !== 'Đã hủy')
@@ -290,7 +290,7 @@ exports.updateStatus = async (req, res, next) => {
         else {
           if (status === 'Đã hủy') await cancelBillDetails(bill._id);
 
-          await Bill.findByIdAndUpdate(bill._id, {
+          await Order.findByIdAndUpdate(bill._id, {
             status,
             isCompleted: isCompleted === 'true',
             dateModified: Date.now(),
@@ -305,12 +305,12 @@ exports.updateStatus = async (req, res, next) => {
     } else {
       if (status === 'Đã hủy') await cancelBillDetails(bill._id);
 
-      await Bill.findByIdAndUpdate(bill._id, {
+      await Order.findByIdAndUpdate(bill._id, {
         status,
         dateModified: Date.now(),
       });
     }
-    bill = await Bill.findById(billId);
+    bill = await Order.findById(billId);
     bill._doc.id = bill._id;
 
     return Response.success(res, { message: updateSuccessMessage, bill });
@@ -327,7 +327,7 @@ exports.delete = async (req, res, next) => {
 
     if (!billId) throw new Error(failMessage);
 
-    const bill = await Bill.findById(billId);
+    const bill = await Order.findById(billId);
     if (!bill || !bill.status) throw new Error(failMessage);
 
     if (!(bill.status === 'Đã hủy' || bill.status === 'Đã giao hàng'))
@@ -335,7 +335,7 @@ exports.delete = async (req, res, next) => {
 
     const billDetails = await BillDetail.find({ billId: bill._id });
     for (let billDetail of billDetails) await BillDetail.findByIdAndDelete(billDetail._id);
-    await Bill.findByIdAndDelete(bill._id);
+    await Order.findByIdAndDelete(bill._id);
 
     return Response.success(res, { message: deleteSuccessMessage });
   } catch (error) {

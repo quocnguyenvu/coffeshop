@@ -1,4 +1,4 @@
-import { Space, Table } from "antd";
+import { Button, Space, Table } from "antd";
 
 export const OrderList = () => {
   const columns = [
@@ -23,8 +23,8 @@ export const OrderList = () => {
       key: "action",
       render: () => (
         <Space size="middle">
-          <a>Edit</a>
-          <a>Delete</a>
+          <Button type='primary'>Edit</Button>
+          <Button danger>Delete</Button>
         </Space>
       ),
     },

@@ -6,7 +6,7 @@ const constant = require('../constants/index');
 const {
   response: { createSuccessMessage, updateSuccessMessage, deleteSuccessMessage, failMessage },
 } = require('../constants');
-const Bill = require('../models/bill');
+const Order = require('../models/order');
 const Product = require('../models/Product');
 
 exports.update = async (req, res, next) => {
@@ -21,7 +21,7 @@ exports.update = async (req, res, next) => {
     let billDetail = await BillDetail.findById(billDetailId);
     if (!billDetail) throw new Error(failMessage);
 
-    const bill = await Bill.findById(billDetail.billId);
+    const bill = await Order.findById(billDetail.billId);
     if (!bill) throw new Error(failMessage);
     if (bill.status !== 'Đợi xác nhận')
       throw new Error('Bạn chỉ có thể thay đổi hóa đơn khi đơn hàng đang đợi xác nhận');

@@ -38,6 +38,7 @@ exports.getProduct = async (req, res, next) => {
     } = req;
 
     const product = await Product.findById(productId).populate("categoryId");
+    console.log("🚀 ~ product:", product)
     if (!product) throw new Error(failMessage);
 
     return Response.success(res, { product });
@@ -55,19 +56,23 @@ exports.addProduct = async (req, res, next) => {
 
     let product;
 
-    if (!code || !name || !price || !description || !categoryId)
+    if (!code || !name || !price || !description)
       throw new Error(failMessage);
 
-    const category = await Category.findById(categoryId);
-
-    if (!category) throw new Error(failMessage);
+    let category = null;
+    if (categoryId && categoryId !== "null") {
+      category = await Category.findById(categoryId);
+      if (!category) {
+        throw new Error("Invalid categoryId");
+      }
+    }
 
     let obj = {
       code,
       name,
       price: parseInt(price),
       description,
-      categoryId: category._id,
+      categoryId: category ? category._id : null,
     };
 
     if (files) {
@@ -80,14 +85,16 @@ exports.addProduct = async (req, res, next) => {
         ...obj,
         images: resultUrls,
       });
-    } else
+    } else {
       product = await Product.create({
         ...obj,
       });
+    }
 
     product = await Product.findById(product._id).populate("categoryId");
-    product._doc.id = product._id;
-    product._doc.categoryId._doc.id = product._doc.categoryId._id;
+    if (product._doc.categoryId) {
+      product._doc.categoryId._doc.id = product._doc.categoryId._id;
+    }
 
     return Response.success(res, { message: createSuccessMessage, product });
   } catch (error) {
@@ -97,49 +104,33 @@ exports.addProduct = async (req, res, next) => {
 
 exports.updateProduct = async (req, res, next) => {
   try {
-    let {
-      files,
+    const {
       params: { productId },
-      body: {
-        categoryId,
-        name,
-        isNew,
-        isHot,
-        price,
-        sale,
-        unit,
-        shortDes,
-        des,
-        total,
-      },
+      files,
+      body: { code, name, price, description, categoryId },
     } = req;
 
-    isNew = isNew === "true";
-    isHot = isHot === "true";
-
-    if (!productId || !categoryId || !name || !unit || !price || !shortDes)
+    if (!code || !name || !price || !description)
       throw new Error(failMessage);
 
-    let product = await Product.findById(productId);
-    const category = await Category.findById(categoryId);
-
-    if (!product || !category) throw new Error(failMessage);
+    let category = null;
+    if (categoryId && categoryId !== "null") {
+      category = await Category.findById(categoryId);
+      if (!category) {
+        throw new Error("Invalid categoryId");
+      }
+    }
 
     let obj = {
-      categoryId: category._id,
+      code,
       name,
       price: parseInt(price),
-      sale: parseFloat(sale),
-      unit,
-      shortDes,
+      description,
+      categoryId: category ? category._id : null,
     };
 
-    if (des) obj = { ...obj, des };
-    if (isNew === "true" || isNew === "false")
-      obj = { ...obj, "status.new": isNew };
-    if (isHot === "true" || isHot === "false")
-      obj = { ...obj, "status.hot": isHot };
-    if (total && !isNaN(total)) obj = { ...obj, total: parseInt(total) };
+    let product = await Product.findById(productId);
+    if (!product) throw new Error(failMessage);
 
     if (files) {
       let resultUrls = [];
@@ -147,24 +138,21 @@ exports.updateProduct = async (req, res, next) => {
         const result = await uploadImage(file);
         resultUrls.push(result.url);
       }
-      product = await Product.findByIdAndUpdate(product._id, {
-        ...obj,
-        imgs: resultUrls,
-      });
-    } else
-      product = await Product.findByIdAndUpdate(product._id, {
-        ...obj,
-      });
+      obj.images = resultUrls;
+    }
 
-    product = await Product.findById(product._id).populate("categoryId");
-    product._doc.id = product._id;
-    product._doc.categoryId._doc.id = product._doc.categoryId._id;
+    await Product.findByIdAndUpdate(productId, obj);
+
+    product = await Product.findById(productId).populate("categoryId");
+    if (product._doc.categoryId) {
+      product._doc.categoryId._doc.id = product._doc.categoryId._id;
+    }
 
     return Response.success(res, { message: updateSuccessMessage, product });
   } catch (error) {
     return next(error);
   }
-};
+}
 
 exports.deleteProduct = async (req, res, next) => {
   try {

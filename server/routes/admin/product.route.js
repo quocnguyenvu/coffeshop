@@ -28,10 +28,10 @@ router.get("/:productId", getProduct);
 // @access  Private
 router.post("/create", upload.array("images"), addProduct);
 
-// @route   PATCH api/admin/products/:productId
+// @route   PUT api/product/:productId
 // @desc    Update Product
 // @access  Private
-router.patch("/:productId", upload.array("imgs", 10), updateProduct);
+router.put("/:productId", upload.array("images", 10), updateProduct);
 
 // @route   DELETE api/admin/products/:productId
 // @desc    Delete Product

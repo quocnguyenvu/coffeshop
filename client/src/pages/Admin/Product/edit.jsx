@@ -9,7 +9,6 @@ export const ProductEdit = () => {
   const navigate = useNavigate();
   const { productId } = useParams();
   const [productData, setProductData] = useState({});
-  console.log("🚀 ~ productData:", productData)
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,7 +21,7 @@ export const ProductEdit = () => {
           code: response.data.product.code,
           name: response.data.product.name,
           description: response.data.product.description,
-          categoryId: response.data.product.categoryId?.id,
+          categoryId: response.data.product.categoryId?.name,
           price: response.data.product.price,
           images: response.data.product.images,
         });
@@ -62,7 +61,9 @@ export const ProductEdit = () => {
     data.append('categoryId', categoryId);
 
     if (files) {
-      data.append('images', files);
+      for (let file of files) {
+        data.append('images', file);
+      }
     }
 
     try {

@@ -1,4 +1,4 @@
-import { Space, Table, Modal } from 'antd';
+import { Space, Table, Modal, Button } from 'antd';
 import { useState, useEffect } from 'react';
 import axiosClient from '../../../api/axios';
 import { toast } from 'react-toastify';
@@ -109,8 +109,8 @@ export const ProductList = () => {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <a onClick={() => handleEdit(record.id)}>Edit</a>
-          <a onClick={() => showDeleteModal(record.id)}>Delete</a>
+          <Button type='primary' onClick={() => handleEdit(record.id)}>Edit</Button>
+          <Button danger onClick={() => showDeleteModal(record.id)}>Delete</Button>
         </Space>
       ),
     },

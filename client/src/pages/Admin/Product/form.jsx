@@ -6,7 +6,7 @@ import CKEditorComponent from '../../../components/CKeditor';
 const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
   const [file, setFile] = useState();
   const [categoryId, setCategoryId] = useState(
-    initialValues?.categoryId || 'Select category',
+    initialValues?.categoryId || null,
   );
 
   const [editorData, setEditorData] = useState(
@@ -87,12 +87,6 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
         <Form.Item
           label="Category"
           name="categoryId"
-          rules={[
-            {
-              required: true,
-              message: 'Please select your category!',
-            },
-          ]}
         >
           <Select
             defaultValue={categoryId}
@@ -120,12 +114,6 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
         <Form.Item
           label="Thumbnail"
           name="thumbnail"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Thumbnail!',
-            },
-          ]}
         >
           {initialValues.images?.length > 0 && (
             <img
