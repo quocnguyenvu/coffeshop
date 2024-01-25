@@ -24,6 +24,7 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^6.21.1",
     "react-toastify": "^10.0.4",
+    "react-wow": "^1.0.0",
     "sass": "^1.69.7",
     "scss": "^0.2.4",
     "swiper": "^11.0.5"

@@ -1,3 +1,11 @@
+header.header_background {
+  background-color: #FFFFFF;
+  transition: all 0.25s linear;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  ul li a {
+    color: #000000;
+  }
+}
 header {
   display: flex;
   align-items: center;
@@ -7,6 +15,7 @@ header {
   left: 0;
   right: 0;
   z-index: 100;
+  transition: all 0.25s linear;
 
   .header_wrap {
     width: 100%;

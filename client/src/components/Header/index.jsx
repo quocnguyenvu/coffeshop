@@ -1,47 +1,67 @@
-import { Link } from "react-router-dom";
-import "./Header.scss";
-import { Container } from "../Container";
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Container } from '../Container';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 
-import logo from "../../assets/logo/logo.png";
+import logo from '../../assets/logo/logo.png';
+import logodark from '../../assets/logo/logo-dark.png';
+import './Header.scss';
 
-export const Header = () => (
-  <header>
-    <Container>
-      <div className="header_wrap">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/blogs">Blogs</Link>
-            </li>
-            <li>
-              <Link to="/shop">Shop</Link>
-            </li>
-            <li>
-              <Link to="/contact">Contact</Link>
-            </li>
-          </ul>
-        </nav>
-        <div className="logo">
-          <img src={logo} alt="" />
-        </div>
-        <div className="header-inner">
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="30px"
-              viewBox="0 0 512 512"
-            >
-              <path
-                d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM64 256c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H96c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"
-                fill="#333333"
+export const Header = () => {
+  const navigate = useNavigate();
+  const [scrolling, setScrolling] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  return (
+    <header className={scrolling ? 'header_background' : ''}>
+      <Container>
+        <div className="header_wrap">
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/blogs">Blogs</Link>
+              </li>
+              <li>
+                <Link to="/shop">Shop</Link>
+              </li>
+              <li>
+                <Link to="/contact">Contact</Link>
+              </li>
+            </ul>
+          </nav>
+          <div className="logo">
+            <img src={scrolling ? logodark : logo} alt="" />
+          </div>
+          <div className="header-inner">
+            <span onClick={() => navigate('/cart')}>
+              <ShoppingCartOutlined
+                style={{
+                  fontSize: 30,
+                  fontWeight: 'bold',
+                  color: scrolling ? '#333' : '#fff',
+                }}
               />
-            </svg>
-          </span>
+            </span>
+          </div>
         </div>
-      </div>
-    </Container>
-  </header>
-);
+      </Container>
+    </header>
+  );
+};
