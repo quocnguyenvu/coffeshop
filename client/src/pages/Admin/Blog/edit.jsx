@@ -4,6 +4,7 @@ import axiosClient from '../../../api/axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BlogForm } from './form';
 import { toast } from 'react-toastify';
+import { Spin } from 'antd';
 
 export const BlogEdit = () => {
   const navigate = useNavigate();
@@ -54,13 +55,18 @@ export const BlogEdit = () => {
   };
 
   return (
-    <div>
-      <h1>Blog Edit</h1>
+    <>
       {loading ? (
-        <p>Loading...</p>
+        <Spin tip="Loading" size="large">
+          <div className="content" />
+        </Spin>
       ) : (
-        <BlogForm initialValues={blogData} onSubmit={handleEditBlog} />
+        <BlogForm
+          title="Blog Edit"
+          initialValues={blogData}
+          onSubmit={handleEditBlog}
+        />
       )}
-    </div>
+    </>
   );
 };

@@ -24,9 +24,10 @@ export const CategoryCreate = () => {
   };
 
   return (
-    <div>
-      <h1>Category Create</h1>
-      <CategoryCommonForm initialValues={{}} onSubmit={handleCreateCategory} />
-    </div>
+    <CategoryCommonForm
+      title="Category Create"
+      initialValues={{}}
+      onSubmit={handleCreateCategory}
+    />
   );
 };

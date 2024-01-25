@@ -3,6 +3,7 @@ const multer = require("multer");
 
 const {
   getAll,
+  getProduct,
   addProduct,
   updateProduct,
   deleteProduct,
@@ -12,10 +13,15 @@ const upload = multer({ dest: "public/uploads/products" });
 
 const router = express.Router();
 
-// @route   POST api/products
-// @desc    Add Product
+// @route   GET api/product
+// @desc    Get All Products
 // @access  Private
-router.post("/", upload.array("images"), getAll);
+router.get("/", getAll);
+
+// @route   GET api/product/:productId
+// @desc    Get Detail Product
+// @access  Private
+router.get("/:productId", getProduct);
 
 // @route   POST api/product/create
 // @desc    Add Product

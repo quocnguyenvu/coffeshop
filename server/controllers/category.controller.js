@@ -2,7 +2,6 @@ const Category = require('../models/Category');
 
 const Response = require('../helpers/response.helper');
 const remove_Id = require('../utils/remove_Id');
-const uploadImage = require('../utils/uploadImage');
 
 const {
   response: { createSuccessMessage, updateSuccessMessage, deleteSuccessMessage, failMessage },
@@ -75,30 +74,20 @@ exports.create = async (req, res, next) => {
 exports.update = async (req, res, next) => {
   try {
     const {
-      file,
       params: { categoryId },
-      body: { name, description },
+      body: { code, name, description },
     } = req;
-
     let category;
 
-    if (!categoryId || !name || !description) throw new Error(failMessage);
+    if (!categoryId || !code || !name || !description)
+      throw new Error(failMessage);
 
-    if (file) {
-      const result = await uploadImage(file);
+    category = await Category.findByIdAndUpdate(categoryId, {
+      code,
+      name,
+      description,
+    });
 
-      category = await Category.findByIdAndUpdate(categoryId, {
-        name,
-        description,
-        img: result.url,
-      });
-    } else
-      category = await Category.findByIdAndUpdate(categoryId, {
-        name,
-        description,
-      });
-
-    // Add ID
     category._doc.id = category._id;
 
     return Response.success(res, { message: updateSuccessMessage, category });

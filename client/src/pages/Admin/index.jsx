@@ -5,7 +5,7 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, theme, Breadcrumb } from 'antd';
-import { useEffect,useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Footer } from 'antd/es/layout/layout';
 import axios from 'axios';
 
@@ -25,7 +25,9 @@ export const AdminPage = () => {
     if (!token) return false;
 
     try {
-      const response = await axios.post('http://localhost:5000/verify', { token });
+      const response = await axios.post('http://localhost:5000/verify', {
+        token,
+      });
       return response.data.isAuthenticated;
     } catch (error) {
       return false;
@@ -136,7 +138,15 @@ export const AdminPage = () => {
           <Breadcrumb style={{ margin: '16px 0' }}>
             {pathSnippets.map((snippet, index) => {
               const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
-              return <Breadcrumb.Item key={url}>{snippet}</Breadcrumb.Item>;
+              return (
+                <Breadcrumb.Item key={url}>
+                  <span
+                    style={{ textTransform: 'capitalize', fontWeight: 'bold' }}
+                  >
+                    {snippet}
+                  </span>
+                </Breadcrumb.Item>
+              );
             })}
           </Breadcrumb>
           <div

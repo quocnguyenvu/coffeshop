@@ -22,12 +22,7 @@ export const ProductCreate = () => {
     fetchCategories();
   }, []);
 
-  const handleCreateCategory = async (
-    values,
-    editorData,
-    files,
-    categoryId,
-  ) => {
+  const handleCreateProduct = async (values, editorData, files, categoryId) => {
     const { code, name, price } = values;
     const data = new FormData();
 
@@ -38,7 +33,9 @@ export const ProductCreate = () => {
     data.append('categoryId', categoryId);
 
     if (files) {
-      data.append('images', files);
+      for (let i = 0; i < files.length; i++) {
+        data.append('images', files[i]);
+      }
     }
 
     try {
@@ -49,13 +46,11 @@ export const ProductCreate = () => {
     }
   };
   return (
-    <div>
-      <h1>Product Create</h1>
-      <ProductCommonForm
-        categories={categories}
-        initialValues={{}}
-        onSubmit={handleCreateCategory}
-      />
-    </div>
+    <ProductCommonForm
+      title="Create Product"
+      categories={categories}
+      initialValues={{}}
+      onSubmit={handleCreateProduct}
+    />
   );
 };

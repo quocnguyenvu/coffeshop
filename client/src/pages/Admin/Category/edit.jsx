@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axiosClient from '../../../api/axios';
 import CategoryCommonForm from './Form';
 import { toast } from 'react-toastify';
+import { Spin } from 'antd';
 
 export const CategoryEdit = () => {
   const navigate = useNavigate();
@@ -46,16 +47,18 @@ export const CategoryEdit = () => {
   };
 
   return (
-    <div>
-      <h1>Edit Category</h1>
+    <>
       {loading ? (
-        <p>Loading...</p>
+        <Spin tip="Loading" size="large">
+          <div className="content" />
+        </Spin>
       ) : (
         <CategoryCommonForm
+          title="Edit Category"
           initialValues={category}
           onSubmit={handleEditCategory}
         />
       )}
-    </div>
+    </>
   );
 };

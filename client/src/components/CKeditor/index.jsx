@@ -7,7 +7,7 @@ import './CKEditor.scss';
 const CKEditorComponent = ({ data, onDataChange }) => {
   return (
     <CKEditor
-      style={{height: '200px'}}
+      style={{ height: '200px' }}
       editor={ClassicEditor}
       data={data}
       onChange={(event, editor) => {

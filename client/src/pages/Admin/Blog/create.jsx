@@ -25,9 +25,10 @@ export const BlogCreate = () => {
   };
 
   return (
-    <div>
-      <h1>Blog Create</h1>
-      <BlogForm initialValues={{}} onSubmit={handleCreateBlog} />
-    </div>
+    <BlogForm
+      title="Blog Create"
+      initialValues={{}}
+      onSubmit={handleCreateBlog}
+    />
   );
 };

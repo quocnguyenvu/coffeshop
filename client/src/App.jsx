@@ -19,6 +19,7 @@ import { Dashboard } from './pages/Admin/Dashboard';
 import { CategoryEdit } from './pages/Admin/Category/edit';
 import { Login } from './pages/Admin/Login';
 import { ToastContainer } from 'react-toastify';
+import { ProductEdit } from './pages/Admin/Product/edit';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -47,7 +48,7 @@ function App() {
 
           <Route path="product/create" element={<ProductCreate />} />
           <Route path="product/list" element={<ProductList />} />
-          <Route path="product/edit/:productId" element={<ProductList />} />
+          <Route path="product/edit/:productId" element={<ProductEdit />} />
 
           <Route path="category/create" element={<CategoryCreate />} />
           <Route path="category/list" element={<CategoryList />} />

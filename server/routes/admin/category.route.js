@@ -28,10 +28,10 @@ router.get('/:categoryId', getDetail);
 // @access  Private
 router.post('/create', create);
 
-// @route   POST api/category/:categoryId
+// @route   PUT api/category/:categoryId
 // @desc    Update Category
 // @access  Private
-router.patch('/:categoryId', update);
+router.put('/:categoryId', update);
 
 // @route   POST api/category/:categoryId
 // @desc    Delete Category
