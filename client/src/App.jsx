@@ -20,6 +20,7 @@ import { CategoryEdit } from './pages/Admin/Category/edit';
 import { Login } from './pages/Admin/Login';
 import { ToastContainer } from 'react-toastify';
 import { ProductEdit } from './pages/Admin/Product/edit';
+import { User } from './pages/Admin/User';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -54,7 +55,8 @@ function App() {
           <Route path="category/list" element={<CategoryList />} />
           <Route path="category/edit/:categoryId" element={<CategoryEdit />} />
 
-          <Route path="order/list" element={<OrderList />} />
+          <Route path="order" element={<OrderList />} />
+          <Route path="user" element={<User />} />
         </Route>
 
         <Route path="login" element={<Login />} />

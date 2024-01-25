@@ -9,8 +9,31 @@ export const ProductEdit = () => {
   const navigate = useNavigate();
   const { productId } = useParams();
   const [productData, setProductData] = useState({});
+  console.log("🚀 ~ productData:", productData)
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await axiosClient.get(`product/${productId}`);
+        console.log(response.data.product.categoryId);
+        setProductData({
+          code: response.data.product.code,
+          name: response.data.product.name,
+          description: response.data.product.description,
+          categoryId: response.data.product.categoryId?.id,
+          price: response.data.product.price,
+          images: response.data.product.images,
+        });
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    };
+
+    fetchProductData();
+  }, [productId]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -27,27 +50,6 @@ export const ProductEdit = () => {
 
     fetchCategories();
   }, []);
-
-  useEffect(() => {
-    const fetchProductData = async () => {
-      try {
-        const response = await axiosClient.get(`product/${productId}`);
-        setProductData({
-          code: response.data.product.code,
-          name: response.data.product.name,
-          description: response.data.product.description,
-          categoryId: response.data.product.categoryId.id,
-          price: response.data.product.price,
-          images: response.data.product.images,
-        });
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
-    };
-
-    fetchProductData();
-  }, [productId]);
 
   const handleEditProduct = async (values, editorData, files, categoryId) => {
     const { code, name, price } = values;

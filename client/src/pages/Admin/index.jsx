@@ -115,12 +115,11 @@ export const AdminPage = () => {
               key: 'order',
               icon: <UploadOutlined />,
               label: 'Order',
-              children: [
-                {
-                  label: 'Order List',
-                  key: '/admin/order/list',
-                },
-              ],
+            },
+            {
+              key: 'user',
+              icon: <UploadOutlined />,
+              label: 'User',
             },
           ]}
         />

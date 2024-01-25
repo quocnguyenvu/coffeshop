@@ -17,86 +17,14 @@ const {
 } = require("../constants");
 
 exports.getAll = async (req, res, next) => {
-  let {
-    _page,
-    _limit,
-    categoryId,
-    price_gte,
-    price_lte,
-    _sort,
-    _order,
-    new: currentNew,
-    hot,
-    q,
-  } = req.query;
-
   try {
-    _page = parseInt(_page) || 1;
-    _limit = parseInt(_limit) || constant._limit;
-
-    let products;
-    let queryObj = {};
-
-    if (categoryId) {
-      const category = await Category.findById(categoryId);
-      if (!category) throw new Error(failMessage);
-      queryObj = {
-        categoryId,
-      };
-    }
-
-    if (price_gte >= 0 && price_lte >= 0) {
-      queryObj = {
-        ...queryObj,
-        price: { $gt: price_gte, $lt: price_lte },
-      };
-    }
-
-    if (currentNew && (currentNew === "true" || currentNew === "false")) {
-      queryObj = {
-        ...queryObj,
-        "status.new": currentNew === "true",
-      };
-    }
-
-    if (hot && (hot === "true" || hot === "false")) {
-      queryObj = {
-        ...queryObj,
-        "status.hot": hot === "true",
-      };
-    }
-
-    let count = await Product.find({ ...queryObj }).count();
-
-    if (_sort && _order)
-      products = await Product.find({ ...queryObj })
-        .populate(["categoryId"])
-        .sort({
-          [_sort]: _order === "asc" ? 1 : -1,
-        });
-    else
-      products = await Product.find({ ...queryObj }).populate(["categoryId"]);
-
-    if (q) {
-      products = products.filter((item, index) => {
-        const currentIndex = item._doc.name
-          .toLowerCase()
-          .indexOf(q.toLowerCase());
-        return currentIndex > -1;
-      });
-      count = products.length;
-    }
-
-    products = products
-      .slice((_page - 1) * _limit, (_page - 1) * _limit + _limit)
-      .map((item) => {
-        item._doc.categoryId._doc.id = item._doc.categoryId._id;
-        return item;
-      });
+    let products = await Product.find().populate("categoryId");
+    if (!products) throw new Error(failMessage);
+    const count = await Product.find().count();
 
     return Response.success(res, {
       products: remove_Id(products),
-      totalProduct: count,
+      total: count,
     });
   } catch (error) {
     return next(error);
@@ -111,9 +39,6 @@ exports.getProduct = async (req, res, next) => {
 
     const product = await Product.findById(productId).populate("categoryId");
     if (!product) throw new Error(failMessage);
-
-    product._doc.id = product._id;
-    product._doc.categoryId._doc.id = product._doc.categoryId._id;
 
     return Response.success(res, { product });
   } catch (error) {

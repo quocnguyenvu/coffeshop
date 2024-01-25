@@ -96,7 +96,7 @@ export const ProductList = () => {
       title: 'Category',
       dataIndex: 'categoryId',
       key: 'categoryId',
-      render: (category) => category.name,
+      render: (category) => category?.name,
     },
     {
       title: 'Date Create',

@@ -1,0 +1,1 @@
+export const User = () => <>User profile</>

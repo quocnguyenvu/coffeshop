@@ -2,8 +2,10 @@ import ProductCommonForm from './form';
 import axiosClient from '../../../api/axios';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 export const ProductCreate = () => {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -41,6 +43,7 @@ export const ProductCreate = () => {
     try {
       await axiosClient.post('product/create', data);
       toast.success('Product created successfully!');
+      navigate('/admin/product/list');
     } catch (error) {
       toast.error('Product created failed!');
     }
