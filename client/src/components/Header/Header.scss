@@ -1,11 +1,15 @@
 header.header_background {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   transition: all 0.25s linear;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  ul li a {
+  .header_wrap ul li a {
     color: #000000;
   }
 }
+.btn-menu {
+  display: none;
+}
+
 header {
   display: flex;
   align-items: center;
@@ -17,63 +21,130 @@ header {
   z-index: 100;
   transition: all 0.25s linear;
 
+  .btn-menu {
+    display: none;
+  }
+
   .header_wrap {
     width: 100%;
     display: flex;
     align-items: center;
-  }
-  ul {
-    list-style: none;
-    display: flex;
-    gap: 10px;
+    ul {
+      list-style: none;
+      display: flex;
+      gap: 10px;
 
-    li a {
-      text-decoration: none;
-      text-transform: uppercase;
-      font-size: 14px;
-      padding: 10px 20px;
-      position: relative;
-      font-family: 'Popins', sans-serif;
-      color: #FFFFFF;
-
-      &::before {
-        content: "";
-        position: absolute;
-        height: 2px;
-        width: 0;
-        background-color: #b98d58;
-        transition: all 0.25s linear;
-        left: 0;
-        bottom: 0;
+      .cart-link {
+        display: none;
       }
 
-      &:hover::before {
+      li a {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 14px;
+        padding: 10px 20px;
+        position: relative;
+        font-family: 'Popins', sans-serif;
+        color: #ffffff;
+
+        &::before {
+          content: '';
+          position: absolute;
+          height: 2px;
+          width: 0;
+          background-color: #b98d58;
+          transition: all 0.25s linear;
+          left: 0;
+          bottom: 0;
+        }
+
+        &:hover::before {
+          width: 100%;
+          transition: all 0.25s linear;
+        }
+      }
+    }
+
+    nav {
+      width: 40%;
+      display: flex;
+      justify-content: flex-start;
+    }
+    .btn-close {
+      display: none;
+    }
+
+    .logo {
+      width: 20%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header-inner {
+      width: 40%;
+      display: flex;
+      justify-content: flex-end;
+
+      span {
+        cursor: pointer;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1024px) {
+  .btn-menu {
+    display: block;
+    position: fixed;
+    top: 20px;
+    color: #000000;
+    cursor: pointer;
+    z-index: 100;
+    background-color: #b98d58;
+    padding: 10px 15px;
+    border-radius: 0 15px 15px 0;
+  }
+  header {
+    width: 80% !important;
+    max-width: 700px;
+    height: 100vh;
+    background-color: #ffffff;
+    color: #000000;
+    flex-direction: column;
+    transform: translateX(-100%);
+
+
+
+    .header_wrap {
+      nav {
         width: 100%;
-        transition: all 0.25s linear;
+        margin-top: 30px;
+      }
+      ul {
+        flex-direction: column;
+        gap: 35px;
+        li a {
+          color: #000000;
+        }
+        .cart-link {
+          display: block;
+        }
+      }
+      .btn-close {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: #000000;
+        cursor: pointer;
+      }
+      .logo,
+      .header-inner {
+        display: none;
       }
     }
   }
-
-  nav {
-    width: 40%;
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  .logo {
-    width: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .header-inner {
-    width: 40%;
-    display: flex;
-    justify-content: flex-end;
-
-    span {
-      cursor: pointer;
-    }
+  header.active {
+    transform: translateX(0);
   }
 }

@@ -1,8 +1,7 @@
-// BlogEdit.js
 import { useEffect, useState } from 'react';
 import axiosClient from '../../../api/axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BlogForm } from './form';
+import { BlogCommonForm } from './form';
 import { toast } from 'react-toastify';
 import { Spin } from 'antd';
 
@@ -33,7 +32,6 @@ export const BlogEdit = () => {
   }, [blogId]);
 
   const handleEditBlog = async (values, content, thumbnail) => {
-    console.log("🚀 ~ thumbnail:", thumbnail)
     const { code, title, description } = values;
 
     try {
@@ -58,7 +56,7 @@ export const BlogEdit = () => {
           <div className="content" />
         </Spin>
       ) : (
-        <BlogForm
+        <BlogCommonForm
           title="Blog Edit"
           initialValues={blogData}
           onSubmit={handleEditBlog}

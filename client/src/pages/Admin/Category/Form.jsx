@@ -1,20 +1,11 @@
 import { Form, Input, Button } from 'antd';
 import PropTypes from 'prop-types';
+import { Title } from '../../../components/Title';
 
 const CategoryCommonForm = ({ title, initialValues, onSubmit }) => {
   return (
     <>
-      <div
-        style={{
-          width: '100%',
-          textAlign: 'center',
-          paddingBottom: 30,
-          marginBottom: 30,
-          borderBottom: '1px solid #eee',
-        }}
-      >
-        <h1>{title}</h1>
-      </div>
+      <Title title={title} />
       <Form
         style={{ width: '100%', maxWidth: '600px', margin: 'auto' }}
         initialValues={initialValues}

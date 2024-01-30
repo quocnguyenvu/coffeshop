@@ -26,42 +26,60 @@ export const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const hanldeCloseMenu = () => {
+    document.querySelector('#header').classList.remove('active');
+  };
+
+  const hanldeOpenMenu = () => {
+    document.querySelector('#header').classList.add('active');
+  };
+
   return (
-    <header className={scrolling ? 'header_background' : ''}>
-      <Container>
-        <div className="header_wrap">
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/blogs">Blogs</Link>
-              </li>
-              <li>
-                <Link to="/shop">Shop</Link>
-              </li>
-              <li>
-                <Link to="/contact">Contact</Link>
-              </li>
-            </ul>
-          </nav>
-          <div className="logo">
-            <img src={scrolling ? logodark : logo} alt="" />
+    <>
+      <div className='btn-menu' onClick={hanldeOpenMenu}>Menu</div>
+      <header className={scrolling ? 'header_background' : ''} id="header">
+        <Container>
+          <div className="header_wrap">
+            <div className="btn-close" onClick={hanldeCloseMenu}>
+              Close
+            </div>
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/blogs">Blogs</Link>
+                </li>
+                <li>
+                  <Link to="/shop">Shop</Link>
+                </li>
+                <li>
+                  <Link to="/contact">Contact</Link>
+                </li>
+                <li className="cart-link">
+                  <Link to="/cart">Cart</Link>
+                </li>
+              </ul>
+            </nav>
+            <div className="logo">
+              <img src={scrolling ? logodark : logo} alt="" />
+            </div>
+            <div className="header-inner">
+              <span onClick={() => navigate('/cart')}>
+                <ShoppingCartOutlined
+                  style={{
+                    fontSize: 30,
+                    fontWeight: 'bold',
+                    color: scrolling ? '#333' : '#fff',
+                  }}
+                />
+              </span>
+            </div>
           </div>
-          <div className="header-inner">
-            <span onClick={() => navigate('/cart')}>
-              <ShoppingCartOutlined
-                style={{
-                  fontSize: 30,
-                  fontWeight: 'bold',
-                  color: scrolling ? '#333' : '#fff',
-                }}
-              />
-            </span>
-          </div>
-        </div>
-      </Container>
-    </header>
+        </Container>
+      </header>
+    </>
   );
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import CKEditorComponent from '../../../components/CKeditor';
 import CloudinaryMultipleUploader from '../../../components/CloudinaryMultipleUploader';
+import { Title } from '../../../components/Title';
 
 const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
   const [images, setImages] = useState(initialValues?.images || []);
@@ -25,17 +26,7 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
 
   return (
     <>
-      <div
-        style={{
-          width: '100%',
-          textAlign: 'center',
-          paddingBottom: 30,
-          marginBottom: 30,
-          borderBottom: '1px solid #eee',
-        }}
-      >
-        <h1>{title}</h1>
-      </div>
+      <Title title={title} />
       <Form
         style={{ width: '100%', maxWidth: '600px', margin: 'auto' }}
         initialValues={initialValues}
@@ -82,10 +73,7 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
           <Input />
         </Form.Item>
 
-        <Form.Item
-          label="Category"
-          name="categoryId"
-        >
+        <Form.Item label="Category" name="categoryId">
           <Select
             defaultValue={categoryId}
             style={{ width: '100%' }}
@@ -109,11 +97,12 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
           />
         </Form.Item>
 
-        <Form.Item
-          label="Thumbnail"
-          name="thumbnail"
-        >
-          <CloudinaryMultipleUploader multiple images={images} setImages={setImages}/>
+        <Form.Item label="Thumbnail" name="thumbnail">
+          <CloudinaryMultipleUploader
+            multiple
+            images={images}
+            setImages={setImages}
+          />
         </Form.Item>
 
         <Form.Item>

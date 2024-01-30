@@ -5,7 +5,6 @@ const apiURL = import.meta.env.VITE_API_URL;
 
 const axiosClient = axios.create({
   headers: { "content-type": "application/json" },
-  // headers: { 'content-type': 'multipart/form-data' },
   paramsSerializer: (params) => queryString.stringify(params),
   baseURL: apiURL,
 });

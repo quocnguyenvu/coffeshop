@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import axiosClient from '../../../api/axios';
-import CategoryCommonForm from './Form';
+import CategoryCommonForm from './form';
 import { toast } from 'react-toastify';
 
 export const CategoryCreate = () => {

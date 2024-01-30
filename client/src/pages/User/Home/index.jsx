@@ -10,7 +10,7 @@ import './Home.scss';
 export const HomePage = () => {
   return (
     <main>
-      <Header />
+      <Header isSticky />
       <Banner />
       <OurCoffee />
       <OurBlends />

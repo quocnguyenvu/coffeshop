@@ -5,9 +5,50 @@ const Product = require("../models/Product");
 
 exports.getAll = async (req, res, next) => {
   try {
-    let products = await Product.find().populate("categoryId");
-    if (!products) throw new Error('Get all products failed!');
-    const count = await Product.find().count();
+    let query = {};
+    const { name, category, minPrice, maxPrice, sortMethod, sortOrder, limit } =
+      req.query;
+
+    if (name) {
+      query.name = { $regex: new RegExp(name, "i") };
+    }
+
+    if (category) {
+      query.categoryId = category;
+    }
+
+    if (minPrice !== undefined || maxPrice !== undefined) {
+      query.price = {};
+      if (minPrice !== undefined) {
+        query.price.$gte = minPrice;
+      }
+      if (maxPrice !== undefined) {
+        query.price.$lte = maxPrice;
+      }
+    }
+
+    let sortCriteria = {};
+    if (sortMethod === "name") {
+      sortCriteria = { name: sortOrder === "desc" ? -1 : 1 };
+    } else if (sortMethod === "price") {
+      sortCriteria = { price: sortOrder === "desc" ? -1 : 1 };
+    } else if (sortMethod === "category") {
+      sortCriteria = { categoryId: sortOrder === "desc" ? -1 : 1 };
+    }
+
+    let productsQuery = Product.find(query)
+      .populate("categoryId")
+      .sort(sortCriteria);
+    if (limit) {
+      const limitValue = parseInt(limit);
+      productsQuery = productsQuery.limit(limitValue);
+    }
+
+    let products = await productsQuery;
+
+    if (!products) throw new Error("Get all products failed!");
+
+    const count = await Product.find(query).count();
 
     return Response.success(res, {
       products: remove_Id(products),
@@ -25,7 +66,7 @@ exports.getProduct = async (req, res, next) => {
     } = req;
 
     const product = await Product.findById(productId).populate("categoryId");
-    if (!product) throw new Error('Get product failed!');
+    if (!product) throw new Error("Get product failed!");
 
     return Response.success(res, { product });
   } catch (error) {
@@ -42,7 +83,7 @@ exports.addProduct = async (req, res, next) => {
     let product;
 
     if (!code || !name || !price || !description || images.length === 0)
-      throw new Error('Invalid product data');
+      throw new Error("Invalid product data");
 
     let category = null;
     if (categoryId && categoryId !== "null") {
@@ -66,7 +107,10 @@ exports.addProduct = async (req, res, next) => {
       product._doc.categoryId._doc.id = product._doc.categoryId._id;
     }
 
-    return Response.success(res, { message: 'Created product successfully!', product });
+    return Response.success(res, {
+      message: "Created product successfully!",
+      product,
+    });
   } catch (error) {
     return next(error);
   }
@@ -80,7 +124,7 @@ exports.updateProduct = async (req, res, next) => {
     } = req;
 
     if (!code || !name || !price || !description || images.length === 0)
-      throw new Error('Invalid product data');
+      throw new Error("Invalid product data");
 
     let category = null;
     if (categoryId && categoryId !== "null") {
@@ -91,7 +135,7 @@ exports.updateProduct = async (req, res, next) => {
     }
 
     let product = await Product.findById(productId);
-    if (!product) throw new Error('Get product failed!');
+    if (!product) throw new Error("Get product failed!");
 
     await Product.findByIdAndUpdate(productId, {
       code,
@@ -107,7 +151,10 @@ exports.updateProduct = async (req, res, next) => {
       product._doc.categoryId._doc.id = product._doc.categoryId._id;
     }
 
-    return Response.success(res, { message: 'Updated product successfully!', product });
+    return Response.success(res, {
+      message: "Updated product successfully!",
+      product,
+    });
   } catch (error) {
     return next(error);
   }
@@ -120,9 +167,9 @@ exports.deleteProduct = async (req, res, next) => {
     } = req;
 
     const product = await Product.findById(productId);
-    if (!product) throw new Error('Get product failed!');
+    if (!product) throw new Error("Get product failed!");
     await Product.findByIdAndDelete(productId);
-    return Response.success(res, { message: 'Delete product successfully!'});
+    return Response.success(res, { message: "Delete product successfully!" });
   } catch (error) {
     return next(error);
   }
