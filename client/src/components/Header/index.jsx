@@ -11,13 +11,11 @@ export const Header = () => {
   const navigate = useNavigate();
   const [scrolling, setScrolling] = useState(false);
 
+  const totalCartItems = JSON.parse(localStorage.getItem('cart')).length || 0;
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setScrolling(true);
-      } else {
-        setScrolling(false);
-      }
+      setScrolling(window.scrollY > 0);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -27,39 +25,41 @@ export const Header = () => {
     };
   }, []);
 
-  const hanldeCloseMenu = () => {
+  const handleCloseMenu = () => {
     document.querySelector('#header').classList.remove('active');
   };
 
-  const hanldeOpenMenu = () => {
+  const handleOpenMenu = () => {
     document.querySelector('#header').classList.add('active');
   };
 
   return (
     <>
-      <div className='btn-menu' onClick={hanldeOpenMenu}>Menu</div>
+      <div className="btn-menu" onClick={handleOpenMenu}>
+        Menu
+      </div>
       <header className={scrolling ? 'header_background' : ''} id="header">
         <Container>
           <div className="header_wrap">
-            <div className="btn-close" onClick={hanldeCloseMenu}>
+            <div className="btn-close" onClick={handleCloseMenu}>
               Close
             </div>
             <nav>
               <ul>
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to="/">Trang chủ</Link>
                 </li>
                 <li>
-                  <Link to="/blogs">Blogs</Link>
+                  <Link to="/blogs">Về Chúng tôi</Link>
                 </li>
                 <li>
-                  <Link to="/shop">Shop</Link>
+                  <Link to="/shop">SẢN PHẨM</Link>
                 </li>
                 <li>
-                  <Link to="/contact">Contact</Link>
+                  <Link to="/contact">Liên hệ</Link>
                 </li>
                 <li className="cart-link">
-                  <Link to="/cart">Cart</Link>
+                  <Link to="/cart">Giỏ hàng</Link>
                 </li>
               </ul>
             </nav>
@@ -75,6 +75,14 @@ export const Header = () => {
                     color: scrolling ? '#333' : '#fff',
                   }}
                 />
+                <span
+                  style={{
+                    fontWeight: 'bold',
+                    color: scrolling ? '#333' : '#fff',
+                  }}
+                >
+                  {totalCartItems}
+                </span>
               </span>
             </div>
           </div>

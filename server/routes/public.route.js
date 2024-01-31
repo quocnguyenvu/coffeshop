@@ -19,4 +19,9 @@ router.get("/blogs", blog.getAll);
 // @access  Public
 router.get("/products", product.getAll);
 
+// @route   GET user/product/:productId
+// @desc    Get One
+// @access  Public
+router.get("/product/:productId", product.getProduct);
+
 module.exports = router;

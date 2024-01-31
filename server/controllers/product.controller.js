@@ -6,8 +6,20 @@ const Product = require("../models/Product");
 exports.getAll = async (req, res, next) => {
   try {
     let query = {};
-    const { name, category, minPrice, maxPrice, sortMethod, sortOrder, limit } =
-      req.query;
+    const {
+      name,
+      category,
+      minPrice,
+      maxPrice,
+      sortMethod,
+      sortOrder,
+      limit,
+      ids,
+    } = req.query;
+
+    if (ids) {
+      query._id = { $in: ids };
+    }
 
     if (name) {
       query.name = { $regex: new RegExp(name, "i") };

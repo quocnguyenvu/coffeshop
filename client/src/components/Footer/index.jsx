@@ -16,16 +16,16 @@ export const Footer = () => {
           <nav className="footer__nav">
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/">Trang chủ</Link>
               </li>
               <li>
-                <Link to="/blogs">Blogs</Link>
+                <Link to="/blogs">bài viết</Link>
               </li>
               <li>
-                <Link to="/shop">Shop</Link>
+                <Link to="/shop">Sản phẩm</Link>
               </li>
               <li>
-                <Link to="/contact">Contact</Link>
+                <Link to="/contact">Liên hệ</Link>
               </li>
             </ul>
           </nav>

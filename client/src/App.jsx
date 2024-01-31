@@ -21,6 +21,7 @@ import { Login } from './pages/Admin/Login';
 import { ToastContainer } from 'react-toastify';
 import { ProductEdit } from './pages/Admin/Product/edit';
 import { User } from './pages/Admin/User';
+import { CheckoutPage } from './pages/User/CheckoutPage';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,11 +34,12 @@ function App() {
         <Route path="/">
           <Route index element={<HomePage />} />
           <Route path="blogs" element={<BlogsPage />} />
-          <Route path="blog/:id" element={<BlogDetail />} />
+          <Route path="blog/:productId" element={<BlogDetail />} />
           <Route path="cart" element={<CartPage />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="shop" element={<ShopPage />} />
-          <Route path="product/:id" element={<ProductDetail />} />
+          <Route path="product/:productId" element={<ProductDetail />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
         </Route>
 
         <Route path="admin" element={<AdminPage />}>

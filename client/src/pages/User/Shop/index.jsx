@@ -86,11 +86,11 @@ export const ShopPage = () => {
 
   return (
     <>
-      <PageBanner title="SHOP" />
+      <PageBanner title="SẢN PHẨM CỦA CHÚNG TÔI" />
       <section id="shop">
         <Container>
           <Divider style={{ borderColor: '#333' }} orientation="left">
-            <span style={{ fontSize: 24 }}>OUR PRODUCTS</span>
+            <span style={{ fontSize: 24 }}>SẢN PHẨM</span>
           </Divider>
           <div className="shop_wrapper">
             <article className="list-products">
@@ -120,38 +120,38 @@ export const ShopPage = () => {
                 layout="vertical"
                 style={{ width: '100%' }}
               >
-                <Form.Item name="sortMethod" label="SORT BY">
+                <Form.Item name="sortMethod" label="SẮP XẾP THEO">
                   <Radio.Group
                     defaultValue="name"
                     optionType="button"
                     buttonStyle="solid"
                   >
-                    <Radio.Button value="name">Name</Radio.Button>
-                    <Radio.Button value="price">Price</Radio.Button>
-                    <Radio.Button value="category">Category</Radio.Button>
+                    <Radio.Button value="name">Tên</Radio.Button>
+                    <Radio.Button value="price">Giá</Radio.Button>
+                    <Radio.Button value="category">Danh mục</Radio.Button>
                   </Radio.Group>
                 </Form.Item>
-                <Form.Item name="sortOrder" label="SORT ORDER">
+                <Form.Item name="sortOrder" label="THỨ TỰ SẮP XẾP">
                   <Radio.Group
                     defaultValue="asc"
                     optionType="button"
                     buttonStyle="solid"
                   >
-                    <Radio.Button value="asc">Ascending</Radio.Button>
-                    <Radio.Button value="desc">Descending</Radio.Button>
+                    <Radio.Button value="asc">Tăng dần</Radio.Button>
+                    <Radio.Button value="desc">Giảm dần</Radio.Button>
                   </Radio.Group>
                 </Form.Item>
                 <Divider />
-                <Form.Item name="name" label="SEARCH BY NAME">
-                  <Input placeholder="Enter product name" />
+                <Form.Item name="name" label="TÌM KIẾM THEO TÊN SẢN PHẨM">
+                  <Input placeholder="Robusta" />
                 </Form.Item>
-                <Form.Item name="category" label="SEARCH BY CATEGORY">
+                <Form.Item name="category" label="TÌM KIẾM THEO DANH MỤC">
                   <Select
-                    placeholder="Select a category"
+                    placeholder="Espresso"
                     onChange={(value) => value}
                     defaultValue='all'
                   >
-                    <Select.Option value='all'>All categories</Select.Option>
+                    <Select.Option value='all'>Tất cả</Select.Option>
                     {categories.map((category, index) => (
                       <Select.Option key={index} value={category._id}>
                         {category.name}
@@ -159,7 +159,7 @@ export const ShopPage = () => {
                     ))}
                   </Select>
                 </Form.Item>
-                <Form.Item name="price" label="SEARCH BY PRICE">
+                <Form.Item name="price" label="KHOẢNG GIÁ">
                   <Slider
                     style={{ width: '80%', margin: '0 auto' }}
                     marks={{
@@ -176,7 +176,7 @@ export const ShopPage = () => {
                 <Form.Item>
                 <Divider />
                   <Button type="primary" htmlType="submit" loading={loading}>
-                    Search
+                    TÌM KIẾM
                   </Button>
                 </Form.Item>
               </Form>
