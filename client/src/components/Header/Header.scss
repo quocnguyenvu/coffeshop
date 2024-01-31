@@ -1,150 +1,94 @@
-header.header_background {
-  background-color: #ffffff;
-  transition: all 0.25s linear;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  .header_wrap ul li a {
-    color: #000000;
+header.header-sticky {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+  background-color: #fff !important;
+  .header-wrap ul a {
+    color: #333 !important;
   }
 }
-.btn-menu {
-  display: none;
-}
-
 header {
-  display: flex;
-  align-items: center;
-  position: fixed;
   width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  transition: all 0.25s linear;
+  background-color: transparent;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 15px 0;
 
-  .btn-menu {
-    display: none;
-  }
-
-  .header_wrap {
-    width: 100%;
+  .header-wrap {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     ul {
       list-style: none;
       display: flex;
-      gap: 10px;
-
-      .cart-link {
-        display: none;
-      }
-
-      li a {
-        text-decoration: none;
-        text-transform: uppercase;
-        font-size: 14px;
-        padding: 10px 20px;
-        position: relative;
-        font-family: 'Popins', sans-serif;
-        color: #ffffff;
-
-        &::before {
-          content: '';
-          position: absolute;
-          height: 2px;
-          width: 0;
-          background-color: #b98d58;
-          transition: all 0.25s linear;
-          left: 0;
-          bottom: 0;
-        }
-
-        &:hover::before {
-          width: 100%;
-          transition: all 0.25s linear;
-        }
-      }
-    }
-
-    nav {
-      width: 40%;
-      display: flex;
-      justify-content: flex-start;
-    }
-    .btn-close {
-      display: none;
-    }
-
-    .logo {
-      width: 20%;
-      display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    .header-inner {
-      width: 40%;
-      display: flex;
-      justify-content: flex-end;
-
-      span {
-        cursor: pointer;
+      transition: all 0.25s linear;
+      gap: 25px;
+      a {
+        color: #333;
+        transition: all 0.2s ease;
+        &:hover {
+          color: #000;
+        }
+      }
+      li:last-child {
+        margin-left: 20px;
       }
     }
   }
-}
-@media screen and (max-width: 1024px) {
-  .btn-menu {
-    display: block;
-    position: fixed;
-    top: 20px;
-    color: #000000;
+  .header-logo {
+    width: 200px;
+    img {
+      width: 100%;
+    }
+  }
+  .header-menu .close-menu {
+    display: none;
+    font-size: 25px;
     cursor: pointer;
-    z-index: 100;
-    background-color: #b98d58;
-    padding: 10px 15px;
-    border-radius: 0 15px 15px 0;
-  }
-  header {
-    width: 80% !important;
-    max-width: 700px;
-    height: 100vh;
-    background-color: #ffffff;
-    color: #000000;
-    flex-direction: column;
-    transform: translateX(-100%);
-
-
-
-    .header_wrap {
-      nav {
-        width: 100%;
-        margin-top: 30px;
-      }
-      ul {
-        flex-direction: column;
-        gap: 35px;
-        li a {
-          color: #000000;
-        }
-        .cart-link {
-          display: block;
-        }
-      }
-      .btn-close {
-        display: block;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        color: #000000;
-        cursor: pointer;
-      }
-      .logo,
-      .header-inner {
-        display: none;
-      }
+    transition: all 0.25s linear;
+    &:hover {
+      transform: rotateZ(180deg);
+      transition: all 0.25s linear;
     }
   }
-  header.active {
-    transform: translateX(0);
+
+  .open-menu {
+    display: none;
+    font-size: 25px;
+    cursor: pointer;
+    transition: all 0.25s linear;
+    &:hover {
+      transform: scale(1.1);
+      transition: all 0.25s linear;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    .header-wrap {
+      ul {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        bottom: 0;
+        width: 80%;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 4rem 0 0 2rem;
+        background-color: #eee;
+        z-index: 9999;
+        li:last-child {
+          margin-left: 0;
+        }
+      }
+    }
+    .header-menu .close-menu {
+      display: block;
+    }
+    .open-menu {
+      display: block;
+    }
   }
 }

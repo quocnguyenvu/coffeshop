@@ -1,5 +1,5 @@
 #product-detail {
-  padding: 100px 0;
+  padding: 150px 0 100px 0;
   .product_info {
     display: flex;
 
@@ -8,6 +8,7 @@
       padding: 0 20px;
       img {
         width: 100%;
+        aspect-ratio: 1;
       }
     }
     .product_info__content {
