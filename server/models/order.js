@@ -1,12 +1,6 @@
 const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
-  code: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-
   customerName: {
     type: String,
     required: true,
@@ -24,7 +18,6 @@ const OrderSchema = new mongoose.Schema({
 
   email: {
     type: String,
-    required: true,
   },
 
   amount: {
@@ -34,15 +27,37 @@ const OrderSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    default: "Đợi xác nhận",
+    default: "pending",
     required: true,
   },
 
-  payment: {
+  paymentMethod: {
     type: String,
     required: true,
-    default: "Trực tiếp",
+    default: "cod",
   },
+  shipMethod: {
+    type: String,
+    required: true,
+    default: "save",
+  },
+
+  products: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
 
   note: {
     type: String,

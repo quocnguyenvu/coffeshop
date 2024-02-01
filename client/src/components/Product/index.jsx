@@ -15,7 +15,7 @@ export const Product = ({ product }) => {
     if (existingProduct) {
       existingProduct.quantity += 1;
     } else {
-      cart.push({ productId: product.id, quantity: 1 });
+      cart.push({ productId: product.id, quantity: 1, price: product.price});
     }
     localStorage.setItem('cart', JSON.stringify(cart));
 

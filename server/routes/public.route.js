@@ -2,6 +2,7 @@ const express = require("express");
 const category = require("../controllers/category.controller");
 const blog = require("../controllers/blog.controller");
 const product = require("../controllers/product.controller");
+const order = require("../controllers/order.controller");
 const router = express.Router();
 
 // @route   GET user/categories
@@ -28,5 +29,10 @@ router.get("/products", product.getAll);
 // @desc    Get One
 // @access  Public
 router.get("/product/:productId", product.getProduct);
+
+// @route   POST user/order
+// @desc    Create
+// @access  Public
+router.post("/order", order.create);
 
 module.exports = router;

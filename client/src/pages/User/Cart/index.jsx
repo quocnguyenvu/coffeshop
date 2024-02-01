@@ -58,7 +58,7 @@ export const CartPage = () => {
         product,
         price: product?.price,
         quantity: item.quantity,
-        totalMoney: product?.price * item.quantity,
+        amount: product?.price * item.quantity,
       };
     });
     setCartData(updatedCartData);
@@ -70,7 +70,7 @@ export const CartPage = () => {
         return {
           ...item,
           quantity: item.quantity - 1,
-          totalMoney: item.price * (item.quantity - 1),
+          amount: item.price * (item.quantity - 1),
         };
       }
       return item;
@@ -90,7 +90,7 @@ export const CartPage = () => {
         return {
           ...item,
           quantity: item.quantity + 1,
-          totalMoney: item.price * (item.quantity + 1),
+          amount: item.price * (item.quantity + 1),
         };
       }
       return item;
@@ -135,7 +135,7 @@ export const CartPage = () => {
     navigate('/checkout', { state: { cartData: cartData } });
   };
 
-  const total = cartData.reduce((total, item) => total + item.totalMoney, 0);
+  const total = cartData.reduce((total, item) => total + item.amount, 0);
 
   return (
     <>
@@ -185,9 +185,9 @@ export const CartPage = () => {
             />
             <Column
               title="Thành tiền"
-              dataIndex="totalMoney"
-              key="totalMoney"
-              render={(_, record) => formattedPrice(record.totalMoney)}
+              dataIndex="amount"
+              key="amount"
+              render={(_, record) => formattedPrice(record.amount)}
             />
 
             <Column

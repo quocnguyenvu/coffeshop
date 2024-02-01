@@ -61,7 +61,7 @@ export const ProductDetail = () => {
     );
 
     if (productIndex === -1) {
-      cart.push({ productId: product._id, quantity: quantity });
+      cart.push({ productId: product._id, quantity: quantity, price: product.price});
     } else {
       cart[productIndex].quantity += quantity;
     }

@@ -22,8 +22,8 @@ router.use("/blog", require("./admin/blog.route"));
 // Product
 router.use("/product", require("./admin/product.route"));
 
-// Bill
-router.use("/bill", require("./admin/bill.route"));
+// Order
+router.use("/order", require("./admin/order.route"));
 
 // Bill Detail
 router.use("/bill-detail", require("./admin/billDetail.route"));

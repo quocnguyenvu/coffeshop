@@ -16,7 +16,7 @@ export const CheckoutPage = () => {
   const location = useLocation();
   const cartData = location.state.cartData;
   const [form] = Form.useForm();
-  const total = cartData.reduce((total, item) => total + item.totalMoney, 0);
+  const total = cartData.reduce((total, item) => total + item.amount, 0);
 
   const [loading, setLoading] = useState(false);
   const [shipMethod, setShipMethod] = useState('save');
@@ -38,16 +38,17 @@ export const CheckoutPage = () => {
   const onFinish = async (values) => {
     const billData = {
       ...values,
-      totalMoney: total,
+      amount: total + shippingFee,
       products: cartData.map((item) => ({
         productId: item.product.id,
         quantity: item.quantity,
+        price: item.price,
       })),
     };
 
     try {
       setLoading(true);
-      await axios.post(`${API_USER_URL}/bills`, billData);
+      await axios.post(`${API_USER_URL}/order`, billData);
       toast.success('Đặt hàng thành công');
     } catch (error) {
       console.error('Error creating bill:', error);
@@ -78,7 +79,7 @@ export const CheckoutPage = () => {
                 <div className="checkout_form">
                   <div className="user-info">
                     <Form.Item
-                      name="name"
+                      name="customerName"
                       label="Họ và tên"
                       rules={[
                         {
@@ -90,7 +91,7 @@ export const CheckoutPage = () => {
                       <Input placeholder="Nguyễn Văn A" />
                     </Form.Item>
                     <Form.Item
-                      name="phone"
+                      name="phoneNumber"
                       label="Số điện thoại nhận hàng"
                       rules={[
                         {
