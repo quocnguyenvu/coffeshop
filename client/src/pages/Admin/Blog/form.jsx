@@ -34,19 +34,6 @@ export const BlogCommonForm = ({ title, initialValues, onSubmit }) => {
         initialValues={initialValues}
       >
         <Form.Item
-          label="Code"
-          name="code"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your code!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
           label="Title"
           name="title"
           rules={[

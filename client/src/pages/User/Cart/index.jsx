@@ -199,7 +199,7 @@ export const CartPage = () => {
                   </Button>
                   <Modal
                     title="Confirm Delete"
-                    visible={deleteModalVisible}
+                    open={deleteModalVisible}
                     onOk={handleDeleteConfirm}
                     onCancel={() => setDeleteModalVisible(false)}
                   >

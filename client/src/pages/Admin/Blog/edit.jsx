@@ -16,7 +16,6 @@ export const BlogEdit = () => {
       try {
         const response = await axiosClient.get(`blog/${blogId}`);
         setBlogData({
-          code: response.data.blog.code,
           title: response.data.blog.title,
           description: response.data.blog.description,
           content: response.data.blog.content,
@@ -32,11 +31,10 @@ export const BlogEdit = () => {
   }, [blogId]);
 
   const handleEditBlog = async (values, content, thumbnail) => {
-    const { code, title, description } = values;
+    const { title, description } = values;
 
     try {
       await axiosClient.put(`blog/${blogId}`, {
-        code,
         title,
         description,
         content,

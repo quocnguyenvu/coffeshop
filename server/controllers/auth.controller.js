@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../../models/User");
+const User = require("../models/User");
 
 exports.login = async (req, res, next) => {
   const { phoneNumber, password } = req.body;
@@ -9,13 +9,13 @@ exports.login = async (req, res, next) => {
     const user = await User.findOne({ phoneNumber });
 
     if (!user) {
-      return res.status(400).json({ error: "Số điện thoại không tồn tại" });
+      return res.status(400).json({ error: "Invalid phone number" });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return res.status(400).json({ error: "Mật khẩu không đúng" });
+      return res.status(400).json({ error: "Invalid password" });
     }
 
     const payload = {
@@ -29,7 +29,7 @@ exports.login = async (req, res, next) => {
       (err, token) => {
         if (err) {
           console.error(err);
-          return res.status(500).json({ error: "Lỗi server" });
+          return res.status(500).json({ error: "Server error" });
         }
 
         return res.json({ token });

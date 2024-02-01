@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-
 const { protect } = require("../middlewares/auth");
-
-const { login } = require("../controllers/user/auth.controller");
+const { login } = require("../controllers/auth.controller");
 
 // @route   POST api/login
 // @desc    Đăng nhập
@@ -24,8 +22,5 @@ router.use("/product", require("./admin/product.route"));
 
 // Order
 router.use("/order", require("./admin/order.route"));
-
-// Bill Detail
-router.use("/bill-detail", require("./admin/billDetail.route"));
 
 module.exports = router;

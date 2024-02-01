@@ -6,7 +6,6 @@ const path = require("path");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const apiRoute = require("./routes/api.route");
-
 const publicRoute = require("./routes/public.route");
 const User = require("./models/User");
 

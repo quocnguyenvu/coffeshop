@@ -7,11 +7,10 @@ export const BlogCreate = () => {
   const navigate = useNavigate();
 
   const handleCreateBlog = async (values, content, thumbnail) => {
-    const { code, title, description } = values;
+    const { title, description } = values;
 
     try {
       await axiosClient.post('blog/create', {
-        code,
         title,
         description,
         content,

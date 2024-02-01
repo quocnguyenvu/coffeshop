@@ -78,11 +78,6 @@ export const ProductList = () => {
       key: 'name',
     },
     {
-      title: 'Description',
-      dataIndex: 'description',
-      key: 'description',
-    },
-    {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
@@ -122,7 +117,7 @@ export const ProductList = () => {
 
       <Modal
         title="Confirm Delete"
-        visible={deleteModalVisible}
+        open={deleteModalVisible}
         onOk={handleDelete}
         onCancel={handleCancelDelete}
         okText="Delete"

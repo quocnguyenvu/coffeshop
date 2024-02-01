@@ -7,11 +7,10 @@ export const CategoryCreate = () => {
   const navigate = useNavigate();
 
   const handleCreateCategory = async (values) => {
-    const { code, name, description } = values;
+    const { name, description } = values;
 
     try {
       await axiosClient.post('category/create', {
-        code,
         name,
         description,
       });

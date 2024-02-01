@@ -224,7 +224,7 @@ export const OrderList = () => {
       />
       <Modal
         title="Chọn trạng thái"
-        visible={modalVisible}
+        open={modalVisible}
         onOk={changeOrderStatus}
         onCancel={() => setModalVisible(false)}
       >
@@ -242,7 +242,7 @@ export const OrderList = () => {
 
       <Modal
         title="Chi tiết đơn hàng"
-        visible={modalDetailVisible}
+        open={modalDetailVisible}
         okButtonProps={{ style: { display: 'none' } }}
         onCancel={() => setModalDetailVisible(false)}
         style={{

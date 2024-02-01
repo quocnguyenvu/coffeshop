@@ -27,9 +27,9 @@ export const CheckoutPage = () => {
       return 30000;
     } else if (shipMethod === 'save' && paymentMethod === 'atm') {
       return 30000;
-    } else if (shipMethod === 'speed' && paymentMethod === 'cod') {
+    } else if (shipMethod === 'fast' && paymentMethod === 'cod') {
       return 40000;
-    } else if (shipMethod === 'speed' && paymentMethod === 'atm') {
+    } else if (shipMethod === 'fast' && paymentMethod === 'atm') {
       return 40000;
     }
     return 0;
@@ -70,7 +70,7 @@ export const CheckoutPage = () => {
             layout="vertical"
             style={{ width: '100%' }}
             initialValues={{
-              shipMethod: 'save',
+              shipMethod: 'fast',
               paymentMethod: 'cod',
             }}
           >
@@ -128,7 +128,7 @@ export const CheckoutPage = () => {
                       >
                         <Space direction="vertical">
                           <Radio value="save">Giao hàng tiết kiệm</Radio>
-                          <Radio value="speed">Giao hàng nhanh</Radio>
+                          <Radio value="fast">Giao hàng nhanh</Radio>
                         </Space>
                       </Radio.Group>
                     </Form.Item>
@@ -140,7 +140,7 @@ export const CheckoutPage = () => {
                         </p>
                       </div>
                     )}
-                    {shipMethod === 'speed' && (
+                    {shipMethod === 'fast' && (
                       <div className="payment-info-atm">
                         <p>
                           Thời gian giao hàng dự kiến từ 1 - 2 ngày kể từ khi

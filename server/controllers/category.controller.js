@@ -43,16 +43,15 @@ exports.getDetail = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   try {
     const {
-      body: { code, name, description },
+      body: { name, description },
     } = req;
     let category;
 
-    if (!code || !name || !description) {
+    if (!name || !description) {
       throw new Error("Invalid category data");
     }
 
     category = await Category.create({
-      code,
       name,
       description,
     });
@@ -72,15 +71,14 @@ exports.update = async (req, res, next) => {
   try {
     const {
       params: { categoryId },
-      body: { code, name, description },
+      body: { name, description },
     } = req;
     let category;
 
-    if (!categoryId || !code || !name || !description)
+    if (!categoryId || !name || !description)
       throw new Error("Invalid category data");
 
     category = await Category.findByIdAndUpdate(categoryId, {
-      code,
       name,
       description,
     });

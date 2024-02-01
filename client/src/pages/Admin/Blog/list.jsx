@@ -51,18 +51,7 @@ export const BlogList = () => {
 
   const columns = [
     {
-      title: 'Code',
-      dataIndex: 'code',
-      key: 'code',
-      render: (text) => <a>{text}</a>,
-    },
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: 'Thumbnail',
+      title: 'Hình ảnh',
       dataIndex: 'thumbnail',
       key: 'thumbnail',
       render: (thumbnail) => (
@@ -74,31 +63,31 @@ export const BlogList = () => {
       ),
     },
     {
-      title: 'Description',
+      title: 'Tiêu đề',
+      dataIndex: 'title',
+      key: 'title',
+    },
+    {
+      title: 'Mô tả',
       dataIndex: 'description',
       key: 'description',
     },
     {
-      title: 'Content',
-      dataIndex: 'content',
-      key: 'content',
-    },
-    {
-      title: 'Date Create',
+      title: 'Ngày tạo',
       dataIndex: 'dateCreate',
       key: 'dateCreate',
       render: (dateCreate) => new Date(dateCreate).toLocaleString(),
     },
     {
-      title: 'Action',
+      title: 'Hành động',
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
           <Button type="primary" onClick={() => openEditForm(record)}>
-            Edit
+            Chỉnh sửa
           </Button>
           <Button danger onClick={() => showDeleteModal(record.id)}>
-            Delete
+            Xóa
           </Button>
         </Space>
       ),
@@ -107,17 +96,22 @@ export const BlogList = () => {
 
   return (
     <>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button type="primary" onClick={() => navigate('/admin/blog/create')}>
+          Tạo mới bài viết
+        </Button>
+      </div>
       <Table columns={columns} dataSource={blogs} />
 
       <Modal
-        title="Confirm Delete"
-        visible={deleteModalVisible}
+        title="Xác nhận xóa bài viết"
+        open={deleteModalVisible}
         onOk={handleDelete}
         onCancel={handleCancelDelete}
-        okText="Delete"
-        cancelText="Cancel"
+        okText="Xóa"
+        cancelText="Hủy"
       >
-        <p>Are you sure you want to delete this blog?</p>
+        <p>Bạn có chắc chắn muốn xóa bài viết này?</p>
       </Modal>
     </>
   );

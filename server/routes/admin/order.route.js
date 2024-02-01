@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-
 const { getAll, changeStatus } = require("../../controllers/order.controller");
 
 // @route   GET api/order

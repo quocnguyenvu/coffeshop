@@ -5,7 +5,7 @@ import {
   PicLeftOutlined,
   AppstoreOutlined,
   BlockOutlined,
-  CreditCardOutlined
+  CreditCardOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, theme, Breadcrumb, Button } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
@@ -57,6 +57,12 @@ export const AdminPage = () => {
     localStorage.removeItem('token');
     navigate('/login');
   };
+
+  const breadcrumbs = pathSnippets.map((_, index) => {
+    return {
+      title: pathSnippets[index],
+    };
+  });
 
   return isAuth ? (
     <Layout style={{ width: '100vw', height: '100vh' }}>
@@ -152,23 +158,7 @@ export const AdminPage = () => {
               alignItems: 'center',
             }}
           >
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              {pathSnippets.map((snippet, index) => {
-                const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
-                return (
-                  <Breadcrumb.Item key={url}>
-                    <span
-                      style={{
-                        textTransform: 'capitalize',
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      {snippet}
-                    </span>
-                  </Breadcrumb.Item>
-                );
-              })}
-            </Breadcrumb>
+            <Breadcrumb style={{ margin: '16px 0' }} items={breadcrumbs} />
             <Button type="primary" onClick={handleLogout}>
               Log out
             </Button>

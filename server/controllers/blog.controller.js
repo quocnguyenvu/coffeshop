@@ -5,14 +5,13 @@ const remove_Id = require("../utils/remove_Id");
 exports.create = async (req, res, next) => {
   try {
     const {
-      body: { code, title, description, content, thumbnail },
+      body: { title, description, content, thumbnail },
     } = req;
 
-    if (!code || !title || !description || !content || !thumbnail)
+    if (!title || !description || !content || !thumbnail)
       throw new Error("Invalid blog data");
 
     const blog = await Blog.create({
-      code,
       title,
       description,
       content,
@@ -34,17 +33,16 @@ exports.update = async (req, res, next) => {
   try {
     const {
       params: { blogId },
-      body: { code, title, description, content, thumbnail },
+      body: { title, description, content, thumbnail },
     } = req;
 
-    if (!blogId || !code || !title || !description || !content || !thumbnail)
+    if (!blogId || !title || !description || !content || !thumbnail)
       throw new Error("Invalid blog data");
 
     const blog = await Blog.findById(blogId);
     if (!blog) throw new Error("Fail to update blog");
 
     await Blog.findByIdAndUpdate(blogId, {
-      code,
       title,
       description,
       content,

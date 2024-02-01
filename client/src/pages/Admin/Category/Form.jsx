@@ -14,19 +14,6 @@ const CategoryCommonForm = ({ title, initialValues, onSubmit }) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Code"
-          name="code"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your code!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
           label="Name"
           name="name"
           rules={[

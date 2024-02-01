@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosClient from '../../../api/axios';
-import CategoryCommonForm from './Form';
+import CategoryCommonForm from './form';
 import { toast } from 'react-toastify';
 import { Spin } from 'antd';
 
@@ -16,7 +16,6 @@ export const CategoryEdit = () => {
       try {
         const response = await axiosClient.get(`category/${categoryId}`);
         setCategory({
-          code: response.data.category.code,
           name: response.data.category.name,
           description: response.data.category.description,
         });
@@ -30,11 +29,10 @@ export const CategoryEdit = () => {
   }, [categoryId]);
 
   const handleEditCategory = async (values) => {
-    const { code, name, description } = values;
+    const { name, description } = values;
 
     try {
       await axiosClient.put(`category/${categoryId}`, {
-        code,
         name,
         description,
       });

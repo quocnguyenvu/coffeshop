@@ -52,12 +52,6 @@ export const CategoryList = () => {
 
   const columns = [
     {
-      title: 'Code',
-      dataIndex: 'code',
-      key: 'code',
-      render: (text) => <a>{text}</a>,
-    },
-    {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
@@ -95,7 +89,7 @@ export const CategoryList = () => {
 
       <Modal
         title="Confirm Delete"
-        visible={deleteModalVisible}
+        open={deleteModalVisible}
         onOk={handleDelete}
         onCancel={handleCancelDelete}
         okText="Delete"
