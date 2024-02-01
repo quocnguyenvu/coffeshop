@@ -14,6 +14,11 @@ router.get("/categories", category.getAll);
 // @access  Public
 router.get("/blogs", blog.getAll);
 
+// @route   GET user/blog/:blogId
+// @desc    Get One
+// @access  Public
+router.get("/blog/:blogId", blog.getDetail);
+
 // @route   GET user/products
 // @desc    Get All
 // @access  Public

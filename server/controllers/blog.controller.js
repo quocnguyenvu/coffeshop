@@ -59,8 +59,20 @@ exports.update = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
   try {
-    let blogs = await Blog.find();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const sortBy = req.query.sortBy || "dateCreate";
+    const sortMethod = req.query.sortMethod || "asc";
+
+    const sortOptions = {};
+    sortOptions[sortBy] = sortMethod === "asc" ? 1 : -1;
+
+    const skip = (page - 1) * limit;
+
+    const blogs = await Blog.find().sort(sortOptions).skip(skip).limit(limit);
+
     if (!blogs) throw new Error("Get blogs failed!");
+
     const count = await Blog.find().count();
 
     for (let blog of blogs) {
@@ -71,6 +83,8 @@ exports.getAll = async (req, res, next) => {
     return Response.success(res, {
       blogs: remove_Id(blogs),
       total: count,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
     });
   } catch (error) {
     return next(error);

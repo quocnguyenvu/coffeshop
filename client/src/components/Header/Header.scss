@@ -5,6 +5,7 @@ header.header-sticky {
   right: 0 !important;
   z-index: 9999 !important;
   background-color: #fff !important;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   .header-wrap ul a {
     color: #333 !important;
   }
@@ -12,8 +13,14 @@ header.header-sticky {
 header {
   width: 100%;
   background-color: transparent;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
   padding: 15px 0;
+  transition: all 0.25s linear;
 
   .header-wrap {
     display: flex;
@@ -27,7 +34,7 @@ header {
       transition: all 0.25s linear;
       gap: 25px;
       a {
-        color: #333;
+        color: #fff;
         transition: all 0.2s ease;
         &:hover {
           color: #000;
@@ -35,6 +42,7 @@ header {
       }
       li:last-child {
         margin-left: 20px;
+        cursor: pointer;
       }
     }
   }
@@ -42,6 +50,7 @@ header {
     width: 200px;
     img {
       width: 100%;
+      cursor: pointer;
     }
   }
   .header-menu .close-menu {

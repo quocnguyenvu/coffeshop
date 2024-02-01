@@ -71,12 +71,12 @@ export const ProductDetail = () => {
 
   const handleClickSlideItems = (e) => {
     setSlideActive(e.target.src);
-  }
+  };
 
   return (
     <>
-      <Header isSticky={false} />
       <section id="product-detail">
+        <Header isSticky={false} />
         <Container>
           {loading ? (
             <Spin tip="Loading" size="large">
@@ -95,7 +95,7 @@ export const ProductDetail = () => {
                     <img src={product.images[0]} alt={product.name} />
                   ) : (
                     <>
-                      <div style={{marginBottom: 25}}>
+                      <div style={{ marginBottom: 25 }}>
                         <img src={slideActive} alt={product.name} />
                       </div>
                       <Swiper
@@ -106,7 +106,11 @@ export const ProductDetail = () => {
                       >
                         {product.images.map((image, index) => (
                           <SwiperSlide key={index}>
-                            <img src={image} alt={product.name} onClick={handleClickSlideItems} />
+                            <img
+                              src={image}
+                              alt={product.name}
+                              onClick={handleClickSlideItems}
+                            />
                           </SwiperSlide>
                         ))}
                       </Swiper>
@@ -167,9 +171,11 @@ export const ProductDetail = () => {
                     <Divider style={{ borderColor: '#333' }} orientation="left">
                       <span style={{ fontSize: 24 }}>SẢN PHẨM TƯƠNG TỰ</span>
                     </Divider>
-                    {productSuggest.map((product, index) => (
-                      <Product key={index} product={product} />
-                    ))}
+                    <div className="product_suggest_wrap">
+                      {productSuggest.map((product, index) => (
+                        <Product key={index} product={product} />
+                      ))}
+                    </div>
                   </>
                 )}
               </article>

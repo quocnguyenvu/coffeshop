@@ -1,11 +1,30 @@
 #product-detail {
   padding: 150px 0 100px 0;
+
+  header .header-wrap ul a {
+    color: #333 !important;
+  }
   .product_info {
     display: flex;
+    @media screen and (max-width: 992px) {
+      flex-direction: column;
+    }
 
     .product_info__img {
       width: 40%;
       padding: 0 20px;
+      @media screen and (max-width: 992px) {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0;
+        margin-bottom: 30px;
+      }
+      @media screen and (max-width: 600px) {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 30px;
+      }
       img {
         width: 100%;
         aspect-ratio: 1;
@@ -13,6 +32,11 @@
     }
     .product_info__content {
       width: 60%;
+      @media screen and (max-width: 992px) {
+        width: 100%;
+
+        margin-bottom: 30px;
+      }
     }
   }
   .quantity-input {
@@ -76,18 +100,23 @@
       overflow: auto;
     }
   }
-  .product_suggest {
-    --f-columns: 4;
-    --f-gap: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: calc(-1 * var(--f-gap));
-    margin-bottom: calc(-1 * var(--f-gap));
-    margin-top: 50px;
-  }
-  .product_suggest > * {
-    margin-left: var(--f-gap);
-    margin-bottom: var(--f-gap);
-    width: calc((100% / var(--f-columns) - var(--f-gap)));
+
+  .product_suggest_wrap {
+    --columns: 4;
+    --gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+    grid-gap: var(--gap);
+    @media screen and (max-width: 1279px) {
+      --columns: 3;
+    }
+
+    @media screen and (max-width: 990px) {
+      --columns: 2;
+    }
+
+    @media screen and (max-width: 600px) {
+      --columns: 1;
+    }
   }
 }

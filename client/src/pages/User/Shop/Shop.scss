@@ -2,18 +2,22 @@
   padding: 60px 0px 100px 0px;
 
   .list-products {
-    --f-columns: 3;
-    --f-gap: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: calc(-1 * var(--f-gap));
-    margin-bottom: calc(-1 * var(--f-gap));
-  }
+    --columns: 4;
+    --gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+    grid-gap: var(--gap);
+    @media screen and (max-width: 1279px) {
+      --columns: 3;
+    }
 
-  .list-products > .product {
-    margin-left: var(--f-gap);
-    margin-bottom: var(--f-gap);
-    width: calc((100% / var(--f-columns)) - var(--f-gap));
+    @media screen and (max-width: 992px) {
+      --columns: 2;
+    }
+
+    @media screen and (max-width: 600px) {
+      --columns: 1;
+    }
   }
 
   .shop_wrapper {
@@ -26,15 +30,57 @@
   .list-products {
     width: 70%;
     margin-top: 35px;
+    padding-right: 15px;
+    @media screen and (max-width: 800px) {
+      width: 100%;
+      padding-right: 0;
+    }
   }
 
   .filters {
     width: 30%;
-    padding-left: 30px;
+    padding-left: 15px;
     border-left: 1px solid #e5e5e5;
+    transition: all 0.25s linear;
+    @media screen and (max-width: 800px) {
+      position: fixed;
+      right: 0;
+      height: fit-content;
+      max-height: 100vh;
+      width: 80vw;
+      top: 50%;
+      transform: translateY(-50%) translateX(100%);
+      background-color: #fff;
+      z-index: 9999;
+      box-shadow: rgba(149, 157, 165, 0.7) 0px 8px 24px;
+      padding: 20px;
+      overflow: auto;
+    }
 
-    .ant-form-item-label{
+    .ant-form-item-label {
       font-weight: bold;
+    }
+  }
+  .btn-open-filter {
+    display: none;
+    background-color: gray;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    @media screen and (max-width: 800px) {
+      display: block;
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+      z-index: 9999;
+    }
+  }
+  .btn-close-filter {
+    @media screen and (min-width: 800px) {
+      display: none;
     }
   }
 }

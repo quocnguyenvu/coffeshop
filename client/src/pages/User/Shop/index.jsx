@@ -9,8 +9,9 @@ import {
   Input,
   Radio,
   Select,
-  Slider
+  Slider,
 } from 'antd';
+import { FilterOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Footer } from '../../../components/Footer';
@@ -84,10 +85,23 @@ export const ShopPage = () => {
     }
   };
 
+  const handleCloseFilter = () => {
+    document.querySelector('.filters').style.transform =
+      'translateY(-50%) translateX(100%)';
+  };
+
+  const handleOpenFilter = () => {
+    document.querySelector('.filters').style.transform =
+      'translateY(-50%) translateX(0)';
+  };
+
   return (
     <>
       <PageBanner title="SẢN PHẨM CỦA CHÚNG TÔI" />
       <section id="shop">
+        <div className="btn-open-filter" onClick={handleOpenFilter}>
+          <FilterOutlined />
+        </div>
         <Container>
           <Divider style={{ borderColor: '#333' }} orientation="left">
             <span style={{ fontSize: 24 }}>SẢN PHẨM</span>
@@ -112,7 +126,6 @@ export const ShopPage = () => {
               )}
             </article>
             <article className="filters">
-              <div className="cart"></div>
               <Form
                 form={form}
                 name="control-hooks"
@@ -141,7 +154,6 @@ export const ShopPage = () => {
                     <Radio.Button value="desc">Giảm dần</Radio.Button>
                   </Radio.Group>
                 </Form.Item>
-                <Divider />
                 <Form.Item name="name" label="TÌM KIẾM THEO TÊN SẢN PHẨM">
                   <Input placeholder="Robusta" />
                 </Form.Item>
@@ -149,9 +161,9 @@ export const ShopPage = () => {
                   <Select
                     placeholder="Espresso"
                     onChange={(value) => value}
-                    defaultValue='all'
+                    defaultValue="all"
                   >
-                    <Select.Option value='all'>Tất cả</Select.Option>
+                    <Select.Option value="all">Tất cả</Select.Option>
                     {categories.map((category, index) => (
                       <Select.Option key={index} value={category._id}>
                         {category.name}
@@ -174,11 +186,24 @@ export const ShopPage = () => {
                   />
                 </Form.Item>
                 <Form.Item>
-                <Divider />
-                  <Button type="primary" htmlType="submit" loading={loading}>
+                  <Divider />
+                  <Button
+                    style={{ width: '100%' }}
+                    type="primary"
+                    htmlType="submit"
+                    loading={loading}
+                  >
                     TÌM KIẾM
                   </Button>
                 </Form.Item>
+                <Button
+                  className="btn-close-filter"
+                  danger
+                  onClick={handleCloseFilter}
+                  style={{ width: '100%' }}
+                >
+                  Close
+                </Button>
               </Form>
             </article>
           </div>

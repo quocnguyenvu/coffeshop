@@ -1,14 +1,14 @@
 import { Container } from '../../../components/Container';
-import { Header } from '../../../components/Header';
+import { PageBanner } from '../../../components/PageBanner';
 import './Contact.scss';
 
 export const ContactPage = () => {
   return (
     <>
-      <Header />
-      <Container>
-        <section id="contact">
-          <div id="container">
+      <PageBanner title="LIÊN HỆ VỚI CHÚNG TÔI" />
+      <section id="contact">
+        <Container>
+          <div className="contact_wrap">
             <div className="information">
               <div className="title">Contact Details</div>
               <div className="address">
@@ -146,8 +146,8 @@ export const ContactPage = () => {
               </form>
             </div>
           </div>
-        </section>
-      </Container>
+        </Container>
+      </section>
     </>
   );
 };

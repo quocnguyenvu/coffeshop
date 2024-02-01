@@ -9,7 +9,7 @@ import logo from '../../assets/logo/logo.png';
 import logodark from '../../assets/logo/logo-dark.png';
 import './Header.scss';
 
-export const Header = ({ isSticky = true }) => {
+export const Header = ({ isSticky = true, isScrolling = true }) => {
   const navigate = useNavigate();
   const [scrolling, setScrolling] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -30,7 +30,9 @@ export const Header = ({ isSticky = true }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolling(window.scrollY > 0);
+      if (isScrolling) {
+        setScrolling(window.scrollY > 0);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -54,7 +56,9 @@ export const Header = ({ isSticky = true }) => {
         <Container>
           <section className="header-wrap">
             <div className="header-logo">
-              <img src={scrolling || !isSticky ? logodark : logo} alt="" />
+              <Link to="/">
+                <img src={scrolling || !isSticky ? logodark : logo} alt="" />
+              </Link>
             </div>
             <ul className="header-menu">
               <li className="close-menu" onClick={handleCloseMenu}>
@@ -122,4 +126,5 @@ export const Header = ({ isSticky = true }) => {
 
 Header.propTypes = {
   isSticky: PropTypes.bool,
+  isScrolling: PropTypes.bool,
 };
