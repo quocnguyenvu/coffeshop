@@ -11,10 +11,10 @@ import {
   Row,
   Col,
   Divider,
+  message
 } from 'antd';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import axiosClient from '../../../api/axios';
+import axiosClient from '../../../config/axios';
 import {
   displayStatus,
   displayStatusColor,
@@ -58,7 +58,7 @@ export const OrderList = () => {
         total: response.data.total,
       });
     } catch (error) {
-      toast.error('Lỗi khi lấy danh sách đơn hàng!');
+      message.error('Lỗi khi lấy danh sách đơn hàng!');
     }
   };
 
@@ -77,7 +77,7 @@ export const OrderList = () => {
   const changeOrderStatus = async () => {
     try {
       if (!selectedStatus) {
-        toast.warning('Vui lòng chọn trạng thái');
+        message.warning('Vui lòng chọn trạng thái');
         return;
       }
 
@@ -87,10 +87,10 @@ export const OrderList = () => {
 
       fetchOrders();
       setModalVisible(false);
-      toast.success('Đổi trạng thái thành công!');
+      message.success('Đổi trạng thái thành công!');
     } catch (error) {
       console.error('Error changing order status:', error);
-      toast.error('Đổi trạng thái thất bại!');
+      message.error('Đổi trạng thái thất bại!');
     }
   };
 

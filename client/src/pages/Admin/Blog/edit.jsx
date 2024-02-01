@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import axiosClient from '../../../api/axios';
+import axiosClient from '../../../config/axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BlogCommonForm } from './form';
-import { toast } from 'react-toastify';
-import { Spin } from 'antd';
+import { Spin, message } from 'antd';
 
 export const BlogEdit = () => {
   const navigate = useNavigate();
@@ -40,10 +39,10 @@ export const BlogEdit = () => {
         content,
         thumbnail,
       });
-      toast.success('Blog updated successfully!');
+      message.success('Blog updated successfully!');
       navigate('/admin/blog/list');
     } catch (error) {
-      toast.error('Blog updated failed!');
+      message.error('Blog updated failed!');
     }
   };
 

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axiosClient from '../../../api/axios';
+import axiosClient from '../../../config/axios';
 import CategoryCommonForm from './form';
-import { toast } from 'react-toastify';
-import { Spin } from 'antd';
+import { Spin, message } from 'antd';
 
 export const CategoryEdit = () => {
   const navigate = useNavigate();
@@ -37,10 +36,10 @@ export const CategoryEdit = () => {
         description,
       });
 
-      toast.success('Category edited successfully!');
+      message.success('Category edited successfully!');
       navigate('/admin/category/list');
     } catch (error) {
-      toast.error('Category edited failed!');
+      message.error('Category edited failed!');
     }
   };
 

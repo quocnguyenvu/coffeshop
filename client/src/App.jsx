@@ -18,18 +18,13 @@ import { BlogEdit } from './pages/Admin/Blog/edit';
 import { Dashboard } from './pages/Admin/Dashboard';
 import { CategoryEdit } from './pages/Admin/Category/edit';
 import { Login } from './pages/Admin/Login';
-import { ToastContainer } from 'react-toastify';
 import { ProductEdit } from './pages/Admin/Product/edit';
 import { User } from './pages/Admin/User';
 import { CheckoutPage } from './pages/User/CheckoutPage';
 
-import './App.css';
-import 'react-toastify/dist/ReactToastify.css';
-
 function App() {
   return (
     <div>
-      <ToastContainer />
       <Routes>
         <Route path="/">
           <Route index element={<HomePage />} />

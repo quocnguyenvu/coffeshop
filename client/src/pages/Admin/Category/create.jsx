@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import axiosClient from '../../../api/axios';
+import axiosClient from '../../../config/axios';
 import CategoryCommonForm from './form';
-import { toast } from 'react-toastify';
+import { message } from 'antd';
 
 export const CategoryCreate = () => {
   const navigate = useNavigate();
@@ -15,10 +15,10 @@ export const CategoryCreate = () => {
         description,
       });
 
-      toast.success('Category created successfully!');
+      message.success('Category created successfully!');
       navigate('/admin/category/list');
     } catch (error) {
-      toast.error('Category created failed!');
+      message.error('Category created failed!');
     }
   };
 

@@ -1,9 +1,8 @@
 import ProductCommonForm from './form';
-import axiosClient from '../../../api/axios';
-import { toast } from 'react-toastify';
+import axiosClient from '../../../config/axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Spin } from 'antd';
+import { Spin, message } from 'antd';
 
 export const ProductEdit = () => {
   const navigate = useNavigate();
@@ -63,10 +62,10 @@ export const ProductEdit = () => {
         images,
       });
 
-      toast.success('Product updated successfully!');
+      message.success('Product updated successfully!');
       navigate('/admin/product/list');
     } catch (error) {
-      toast.error('Product updated failed!');
+      message.error('Product updated failed!');
     }
   };
   return (

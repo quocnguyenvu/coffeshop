@@ -1,7 +1,6 @@
-import { Space, Table, Modal, Button } from 'antd';
+import { Space, Table, Modal, Button, message } from 'antd';
 import { useState, useEffect } from 'react';
-import axiosClient from '../../../api/axios';
-import { toast } from 'react-toastify';
+import axiosClient from '../../../config/axios';
 import { useNavigate } from 'react-router-dom';
 
 export const ProductList = () => {
@@ -16,7 +15,7 @@ export const ProductList = () => {
         const response = await axiosClient.get('product');
         setProducts(response.data.products);
       } catch (error) {
-        toast.error('Failed to fetch products!');
+        message.error('Failed to fetch products!');
       }
     };
 
@@ -37,11 +36,11 @@ export const ProductList = () => {
       setProducts((prevProducts) =>
         prevProducts.filter((product) => product.id !== selectedProductId),
       );
-      toast.success(
+      message.success(
         'Product with ID ${selectedProductId} deleted successfully!',
       );
     } catch (error) {
-      toast.error('Failed to delete product!');
+      message.error('Failed to delete product!');
     } finally {
       setDeleteModalVisible(false);
       setSelectedProductId(null);

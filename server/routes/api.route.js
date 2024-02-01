@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { protect } = require("../middlewares/auth");
-const { login } = require("../controllers/auth.controller");
+const { login, changePassword } = require("../controllers/auth.controller");
 
 // @route   POST api/login
 // @desc    Đăng nhập
@@ -10,6 +10,11 @@ router.post("/login", login);
 
 // Middlewares
 router.use(protect);
+
+// @route   GET api/change-password
+// @desc    Đổi mật khẩu
+// @access  Private
+router.put("/change-password", changePassword);
 
 // Category
 router.use("/category", require("./admin/category.route"));

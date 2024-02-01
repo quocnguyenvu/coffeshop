@@ -81,34 +81,34 @@ export const AdminPage = () => {
             {
               key: '/admin',
               icon: <UserOutlined />,
-              label: 'Dashboard',
+              label: 'Trang chủ',
             },
             {
               key: 'category',
               icon: <PicLeftOutlined />,
-              label: 'Category',
+              label: 'Danh mục',
               children: [
                 {
                   key: '/admin/category/list',
-                  label: 'Category List',
+                  label: 'Danh sách danh mục',
                 },
                 {
                   key: '/admin/category/create',
-                  label: 'Create Category',
+                  label: 'Tạo danh mục',
                 },
               ],
             },
             {
               key: 'product',
               icon: <AppstoreOutlined />,
-              label: 'Product',
+              label: 'Sản phẩm',
               children: [
                 {
                   key: '/admin/product/list',
-                  label: 'Product List',
+                  label: 'Danh sách sản phẩm',
                 },
                 {
-                  label: 'Create Product',
+                  label: 'Tạo sản phẩm',
                   key: '/admin/product/create',
                 },
               ],
@@ -116,14 +116,14 @@ export const AdminPage = () => {
             {
               key: 'blog',
               icon: <BlockOutlined />,
-              label: 'Blog',
+              label: 'Bài viết',
               children: [
                 {
-                  label: 'Blog List',
+                  label: 'Danh sách bài viết',
                   key: '/admin/blog/list',
                 },
                 {
-                  label: 'Create Blog',
+                  label: 'Tạo bài viết',
                   key: '/admin/blog/create',
                 },
               ],
@@ -131,12 +131,12 @@ export const AdminPage = () => {
             {
               key: 'order',
               icon: <CreditCardOutlined />,
-              label: 'Order',
+              label: 'Đơn hàng',
             },
             {
               key: 'user',
               icon: <UploadOutlined />,
-              label: 'User',
+              label: 'Đổi mật khẩu',
             },
           ]}
         />
@@ -160,7 +160,7 @@ export const AdminPage = () => {
           >
             <Breadcrumb style={{ margin: '16px 0' }} items={breadcrumbs} />
             <Button type="primary" onClick={handleLogout}>
-              Log out
+              Đăng xuất
             </Button>
           </div>
           <div

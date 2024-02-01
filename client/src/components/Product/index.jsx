@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import { toast } from 'react-toastify';
 import { formattedPrice } from '../../helper';
 import { useNavigate } from 'react-router-dom';
 
 import './Product.scss';
+import { message } from 'antd';
 
 export const Product = ({ product }) => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export const Product = ({ product }) => {
     }
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    toast.success(`${product.name} added to cart!`);
+    message.success(`${product.name} added to cart!`);
   };
 
   const handleClickItem = () => {

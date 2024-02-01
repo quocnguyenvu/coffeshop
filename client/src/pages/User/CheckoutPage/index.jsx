@@ -1,7 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Container } from '../../../components/Container';
-import { Button, Divider, Form, Input, Radio, Space } from 'antd';
-import { toast } from 'react-toastify';
+import { Button, Divider, Form, Input, Radio, Space, message } from 'antd';
 import axios from 'axios';
 import { API_USER_URL } from '../../../constants';
 import { useMemo, useState } from 'react';
@@ -49,10 +48,10 @@ export const CheckoutPage = () => {
     try {
       setLoading(true);
       await axios.post(`${API_USER_URL}/order`, billData);
-      toast.success('Đặt hàng thành công');
+      message.success('Đặt hàng thành công');
     } catch (error) {
       console.error('Error creating bill:', error);
-      toast.error('Đặt hàng thất bại');
+      message.error('Đặt hàng thất bại');
     } finally {
       setLoading(false);
     }

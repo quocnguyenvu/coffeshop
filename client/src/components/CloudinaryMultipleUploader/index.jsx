@@ -1,9 +1,9 @@
 import { CloudinaryContext } from 'cloudinary-react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { message } from 'antd';
 
 import './upload.scss';
-import { toast } from 'react-toastify';
 
 const CloudinaryMultipleUploader = ({ images, setImages }) => {
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ const CloudinaryMultipleUploader = ({ images, setImages }) => {
 
       setImages((prevImages) => [...prevImages, ...uploadedImages]);
     } catch (error) {
-      toast.error('Error uploading image!');
+      message.error('Error uploading image!');
     } finally {
       setLoading(false);
     }

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Space, Table, Modal, Button } from 'antd';
-import axiosClient from '../../../api/axios';
-import { toast } from 'react-toastify';
+import { Space, Table, Modal, Button, message } from 'antd';
+import axiosClient from '../../../config/axios';
 
 export const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
@@ -35,9 +34,9 @@ export const BlogList = () => {
         prevBlogs.filter((blog) => blog.id !== selectedBlogId),
       );
 
-      toast.success('Blog deleted successfully!');
+      message.success('Blog deleted successfully!');
     } catch (error) {
-      toast.error('Error deleting blog!');
+      message.error('Error deleting blog!');
     } finally {
       setDeleteModalVisible(false);
       setSelectedBlogId(null);

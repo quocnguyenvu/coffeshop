@@ -1,7 +1,7 @@
-import axiosClient from '../../../api/axios';
+import axiosClient from '../../../config/axios';
 import { useNavigate } from 'react-router-dom';
 import { BlogCommonForm } from './form';
-import { toast } from 'react-toastify';
+import { message } from 'antd';
 
 export const BlogCreate = () => {
   const navigate = useNavigate();
@@ -16,10 +16,10 @@ export const BlogCreate = () => {
         content,
         thumbnail,
       });
-      toast.success('Blog created successfully!');
+      message.success('Blog created successfully!');
       navigate('/admin/blog/list');
     } catch (error) {
-      toast.error('Blog created failed!');
+      message.error('Blog created failed!');
     }
   };
 

@@ -1,8 +1,8 @@
 import ProductCommonForm from './form';
-import axiosClient from '../../../api/axios';
-import { toast } from 'react-toastify';
+import axiosClient from '../../../config/axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 export const ProductCreate = () => {
   const navigate = useNavigate();
@@ -42,10 +42,10 @@ export const ProductCreate = () => {
         images,
       });
 
-      toast.success('Product created successfully!');
+      message.success('Product created successfully!');
       navigate('/admin/product/list');
     } catch (error) {
-      toast.error('Product created failed!');
+      message.error('Product created failed!');
     }
   };
   return (

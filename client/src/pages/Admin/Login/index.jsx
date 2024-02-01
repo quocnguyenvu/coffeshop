@@ -1,5 +1,5 @@
 import axios from 'axios';
-import axiosClient from '../../../api/axios';
+import axiosClient from '../../../config/axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.scss';
 
