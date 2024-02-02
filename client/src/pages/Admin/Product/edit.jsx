@@ -1,20 +1,20 @@
-import ProductCommonForm from './form';
-import axiosClient from '../../../config/axios';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Spin, message } from 'antd';
+import ProductCommonForm from './form'
+import axiosClient from '../../../config/axios'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Spin, message } from 'antd'
 
 export const ProductEdit = () => {
-  const navigate = useNavigate();
-  const { productId } = useParams();
-  const [productData, setProductData] = useState({});
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate()
+  const { productId } = useParams()
+  const [productData, setProductData] = useState({})
+  const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await axiosClient.get(`product/${productId}`);
+        const response = await axiosClient.get(`product/${productId}`)
 
         setProductData({
           code: response.data.product.code,
@@ -22,35 +22,35 @@ export const ProductEdit = () => {
           description: response.data.product.description,
           categoryId: response.data.product.categoryId?._id,
           price: response.data.product.price,
-          images: response.data.product.images,
-        });
-        setLoading(false);
+          images: response.data.product.images
+        })
+        setLoading(false)
       } catch (error) {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchProductData();
-  }, [productId]);
+    fetchProductData()
+  }, [productId])
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await axiosClient.get('category');
+      const response = await axiosClient.get('category')
       setCategories(
         response.data.categories.map((category) => {
           return {
             value: category.id,
-            label: category.name,
-          };
-        }),
-      );
-    };
+            label: category.name
+          }
+        })
+      )
+    }
 
-    fetchCategories();
-  }, []);
+    fetchCategories()
+  }, [])
 
   const handleEditProduct = async (values, description, images, categoryId) => {
-    const { code, name, price } = values;
+    const { code, name, price } = values
 
     try {
       await axiosClient.put(`product/${productId}`, {
@@ -59,15 +59,15 @@ export const ProductEdit = () => {
         description,
         price,
         categoryId,
-        images,
-      });
+        images
+      })
 
-      message.success('Chỉnh sửa sản phẩm thành công');
-      navigate('/admin/product/list');
+      message.success('Chỉnh sửa sản phẩm thành công')
+      navigate('/admin/product/list')
     } catch (error) {
-      message.error('Chỉnh sửa sản phẩm thất bại!');
+      message.error('Chỉnh sửa sản phẩm thất bại!')
     }
-  };
+  }
   return (
     <>
       {loading ? (
@@ -83,5 +83,5 @@ export const ProductEdit = () => {
         />
       )}
     </>
-  );
-};
+  )
+}

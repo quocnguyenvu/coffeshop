@@ -1,76 +1,69 @@
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   UploadOutlined,
   UserOutlined,
   PicLeftOutlined,
   AppstoreOutlined,
   BlockOutlined,
-  CreditCardOutlined,
-} from '@ant-design/icons';
-import { Layout, Menu, theme, Breadcrumb, Button } from 'antd';
-import { useEffect, useMemo, useState } from 'react';
-import { Footer } from 'antd/es/layout/layout';
-import axios from 'axios';
+  CreditCardOutlined
+} from '@ant-design/icons'
+import { Layout, Menu, theme, Breadcrumb, Button } from 'antd'
+import { useEffect, useMemo, useState } from 'react'
+import { Footer } from 'antd/es/layout/layout'
+import axios from 'axios'
 
-const { Sider, Content } = Layout;
+const { Sider, Content } = Layout
 
 export const AdminPage = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const pathSnippets = location.pathname.split('/').filter((i) => i);
+  const [collapsed, setCollapsed] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const pathSnippets = location.pathname.split('/').filter((i) => i)
   const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+    token: { colorBgContainer, borderRadiusLG }
+  } = theme.useToken()
 
   const checkToken = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) return false;
+    const token = localStorage.getItem('token')
+    if (!token) return false
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/verify`,
-        {
-          token,
-        },
-      );
-      return response.data.isAuthenticated;
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/verify`, {
+        token
+      })
+      return response.data.isAuthenticated
     } catch (error) {
-      return false;
+      return false
     }
-  };
+  }
 
-  const isAuth = useMemo(() => checkToken(), []);
+  const isAuth = useMemo(() => checkToken(), [])
 
   useEffect(() => {
     const fetchData = async () => {
-      const authenticated = await isAuth;
+      const authenticated = await isAuth
       if (!authenticated) {
-        navigate('/login');
+        navigate('/login')
       }
-    };
+    }
 
-    fetchData();
-  }, [isAuth, navigate]);
+    fetchData()
+  }, [isAuth, navigate])
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
-  };
+    localStorage.removeItem('token')
+    navigate('/login')
+  }
 
   const breadcrumbs = pathSnippets.map((_, index) => {
     return {
-      title: pathSnippets[index],
-    };
-  });
+      title: pathSnippets[index]
+    }
+  })
 
   return isAuth ? (
     <Layout style={{ width: '100vw', height: '100vh' }}>
-      <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
-      >
+      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div
           className="admin-logo"
           style={{
@@ -78,12 +71,10 @@ export const AdminPage = () => {
             justifyContent: 'center',
             alignItems: 'center',
             height: 64,
-            marginBottom: collapsed ? 0 : 16,
+            marginBottom: collapsed ? 0 : 16
           }}
         >
-          <span style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>
-            {collapsed ? 'DAT' : 'DAT COFFEE'}
-          </span>
+          <span style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>{collapsed ? 'DAT' : 'DAT COFFEE'}</span>
         </div>
         <Menu
           theme="dark"
@@ -94,7 +85,7 @@ export const AdminPage = () => {
             {
               key: '/admin',
               icon: <UserOutlined />,
-              label: 'Trang chủ',
+              label: 'Trang chủ'
             },
             {
               key: 'category',
@@ -103,13 +94,13 @@ export const AdminPage = () => {
               children: [
                 {
                   key: '/admin/category/list',
-                  label: 'Danh sách danh mục',
+                  label: 'Danh sách danh mục'
                 },
                 {
                   key: '/admin/category/create',
-                  label: 'Tạo danh mục',
-                },
-              ],
+                  label: 'Tạo danh mục'
+                }
+              ]
             },
             {
               key: 'product',
@@ -118,13 +109,13 @@ export const AdminPage = () => {
               children: [
                 {
                   key: '/admin/product/list',
-                  label: 'Danh sách sản phẩm',
+                  label: 'Danh sách sản phẩm'
                 },
                 {
                   label: 'Tạo sản phẩm',
-                  key: '/admin/product/create',
-                },
-              ],
+                  key: '/admin/product/create'
+                }
+              ]
             },
             {
               key: 'blog',
@@ -133,18 +124,18 @@ export const AdminPage = () => {
               children: [
                 {
                   label: 'Danh sách bài viết',
-                  key: '/admin/blog/list',
+                  key: '/admin/blog/list'
                 },
                 {
                   label: 'Tạo bài viết',
-                  key: '/admin/blog/create',
-                },
-              ],
+                  key: '/admin/blog/create'
+                }
+              ]
             },
             {
               key: 'order',
               icon: <CreditCardOutlined />,
-              label: 'Đơn hàng',
+              label: 'Đơn hàng'
             },
             // {
             //   key: 'content',
@@ -160,26 +151,24 @@ export const AdminPage = () => {
             {
               key: 'user',
               icon: <UploadOutlined />,
-              label: 'Đổi mật khẩu',
-            },
+              label: 'Đổi mật khẩu'
+            }
           ]}
         />
       </Sider>
-      <Layout
-        style={{ width: collapsed ? 'calc(100% - 80px)' : 'calc(100% - 200px' }}
-      >
+      <Layout style={{ width: collapsed ? 'calc(100% - 80px)' : 'calc(100% - 200px' }}>
         <Content
           style={{
             margin: '0 16px',
             width: 'calc(100% - 32px)',
-            overflow: 'auto',
+            overflow: 'auto'
           }}
         >
           <div
             style={{
               display: 'flex',
               justifyContent: 'space-between',
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           >
             <Breadcrumb style={{ margin: '16px 0' }} items={breadcrumbs} />
@@ -193,7 +182,7 @@ export const AdminPage = () => {
               minHeight: 360,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
-              overflow: 'auto',
+              overflow: 'auto'
             }}
           >
             <Outlet />
@@ -206,5 +195,5 @@ export const AdminPage = () => {
     </Layout>
   ) : (
     <Navigate to="/login" />
-  );
-};
+  )
+}

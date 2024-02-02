@@ -1,54 +1,54 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { Container } from '../Container';
-import { ShoppingCartOutlined } from '@ant-design/icons';
-import PropTypes from 'prop-types';
-import { AlignLeftOutlined, CloseOutlined } from '@ant-design/icons';
+import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Container } from '../Container'
+import { ShoppingCartOutlined } from '@ant-design/icons'
+import PropTypes from 'prop-types'
+import { AlignLeftOutlined, CloseOutlined } from '@ant-design/icons'
 
-import logo from '../../assets/logo/logo.png';
-import logodark from '../../assets/logo/logo-dark.png';
-import './Header.scss';
+import logo from '../../assets/logo/logo.png'
+import logodark from '../../assets/logo/logo-dark.png'
+import './Header.scss'
 
 export const Header = ({ isSticky = true, isScrolling = true }) => {
-  const navigate = useNavigate();
-  const [scrolling, setScrolling] = useState(false);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const navigate = useNavigate()
+  const [scrolling, setScrolling] = useState(false)
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
   const handleResize = () => {
-    setScreenWidth(window.innerWidth);
-  };
+    setScreenWidth(window.innerWidth)
+  }
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize)
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
-  const totalCartItems = JSON.parse(localStorage.getItem('cart')).length || 0;
+  const totalCartItems = JSON.parse(localStorage.getItem('cart')).length || 0
 
   useEffect(() => {
     const handleScroll = () => {
       if (isScrolling) {
-        setScrolling(window.scrollY > 0);
+        setScrolling(window.scrollY > 0)
       }
-    };
+    }
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const handleCloseMenu = () => {
-    document.querySelector('.header-menu').style.right = '-100%';
-  };
+    document.querySelector('.header-menu').style.right = '-100%'
+  }
 
   const handleOpenMenu = () => {
-    document.querySelector('.header-menu').style.right = '0';
-  };
+    document.querySelector('.header-menu').style.right = '0'
+  }
 
   return (
     <>
@@ -85,13 +85,13 @@ export const Header = ({ isSticky = true, isScrolling = true }) => {
                           style={{
                             fontSize: 30,
                             fontWeight: 'bold',
-                            color: scrolling || !isSticky ? '#333' : '#fff',
+                            color: scrolling || !isSticky ? '#333' : '#fff'
                           }}
                         />
                         <span
                           style={{
                             fontWeight: 'bold',
-                            color: scrolling || !isSticky ? '#333' : '#fff',
+                            color: scrolling || !isSticky ? '#333' : '#fff'
                           }}
                         >
                           {totalCartItems}
@@ -103,7 +103,7 @@ export const Header = ({ isSticky = true, isScrolling = true }) => {
                         <span
                           style={{
                             fontWeight: 'bold',
-                            color: '#333',
+                            color: '#333'
                           }}
                         >
                           {` (${totalCartItems})`}
@@ -114,21 +114,17 @@ export const Header = ({ isSticky = true, isScrolling = true }) => {
                 </div>
               </li>
             </ul>
-            <div
-              className="open-menu"
-              onClick={handleOpenMenu}
-              style={{ color: scrolling || !isSticky ? '#333' : '#fff' }}
-            >
+            <div className="open-menu" onClick={handleOpenMenu} style={{ color: scrolling || !isSticky ? '#333' : '#fff' }}>
               <AlignLeftOutlined />
             </div>
           </section>
         </Container>
       </header>
     </>
-  );
-};
+  )
+}
 
 Header.propTypes = {
   isSticky: PropTypes.bool,
-  isScrolling: PropTypes.bool,
-};
+  isScrolling: PropTypes.bool
+}

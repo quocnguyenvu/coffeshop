@@ -1,13 +1,13 @@
 #contact {
   padding: 100px 0;
   .contact-header {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     gap: 20px;
   }
-  .contact-wrap{
+  .contact-wrap {
     display: flex;
     @media screen and (max-width: 1023px) {
       flex-direction: column;

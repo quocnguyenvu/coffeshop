@@ -1,66 +1,58 @@
-import { CloudinaryContext } from 'cloudinary-react';
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { message } from 'antd';
+import { CloudinaryContext } from 'cloudinary-react'
+import PropTypes from 'prop-types'
+import { useState } from 'react'
+import { message } from 'antd'
 
-import './upload.scss';
+import './upload.scss'
 
 const CloudinaryMultipleUploader = ({ images, setImages }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const handleImageUpload = async (e) => {
-    setLoading(true);
-    const files = e.target.files;
+    setLoading(true)
+    const files = e.target.files
 
     try {
       const uploadedImages = await Promise.all(
         Array.from(files).map(async (file) => {
-          const formData = new FormData();
-          formData.append('file', file);
-          formData.append(
-            'upload_preset',
-            import.meta.env.VITE_CLOUDINARY_PRESET,
-          );
+          const formData = new FormData()
+          formData.append('file', file)
+          formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_PRESET)
 
           const response = await fetch(import.meta.env.VITE_CLOUDINARY_URL, {
             method: 'POST',
-            body: formData,
-          });
+            body: formData
+          })
 
-          const data = await response.json();
-          return data.secure_url;
-        }),
-      );
+          const data = await response.json()
+          return data.secure_url
+        })
+      )
 
-      setImages((prevImages) => [...prevImages, ...uploadedImages]);
+      setImages((prevImages) => [...prevImages, ...uploadedImages])
     } catch (error) {
-      message.error('Error uploading image!');
+      message.error('Error uploading image!')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleImageDelete = (index) => {
-    const updatedImages = [...images];
-    updatedImages.splice(index, 1);
-    setImages(updatedImages);
-  };
+    const updatedImages = [...images]
+    updatedImages.splice(index, 1)
+    setImages(updatedImages)
+  }
 
   return (
     <div>
       <input type="file" multiple onChange={handleImageUpload} />
       {loading && <p>Loading...</p>}
       {images.length > 0 && (
-        <CloudinaryContext
-          style={{ display: 'flex', maxWidth: '100%', gap: 15, marginTop: 15 }}
-        >
+        <CloudinaryContext style={{ display: 'flex', maxWidth: '100%', gap: 15, marginTop: 15 }}>
           {images.map((imageUrl, index) => (
             <div key={index} className="upload">
               <img src={imageUrl} alt="" className="upload__img" />
-              <div
-                className="delete_button"
-                onClick={() => handleImageDelete(index)}
-              >
+              <div className="delete_button" onClick={() => handleImageDelete(index)}>
                 Delete
               </div>
             </div>
@@ -68,12 +60,12 @@ const CloudinaryMultipleUploader = ({ images, setImages }) => {
         </CloudinaryContext>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default CloudinaryMultipleUploader;
+export default CloudinaryMultipleUploader
 
 CloudinaryMultipleUploader.propTypes = {
   images: PropTypes.array,
-  setImages: PropTypes.func,
-};
+  setImages: PropTypes.func
+}

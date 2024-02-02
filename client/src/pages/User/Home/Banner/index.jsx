@@ -1,41 +1,35 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import { useNavigate } from 'react-router-dom';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
-import { useRef } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Pagination } from 'swiper/modules'
+import { useNavigate } from 'react-router-dom'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
+import { useRef } from 'react'
 
-import './Banner.scss';
+import './Banner.scss'
 
-import slide1 from '../../../../assets/slide/slides1.jpg';
-import slide2 from '../../../../assets/slide/slides2.jpg';
-import slide3 from '../../../../assets/slide/slides3.jpg';
+import slide1 from '../../../../assets/slide/slides1.jpg'
+import slide2 from '../../../../assets/slide/slides2.jpg'
+import slide3 from '../../../../assets/slide/slides3.jpg'
 
 export const Banner = () => {
-  const navigate = useNavigate();
-  const swiperRef = useRef();
+  const navigate = useNavigate()
+  const swiperRef = useRef()
 
   return (
     <Swiper
       onBeforeInit={(swiper) => {
-        swiperRef.current = swiper;
+        swiperRef.current = swiper
       }}
       pagination={{
-        dynamicBullets: true,
+        dynamicBullets: true
       }}
       modules={[Pagination]}
       className="banner"
     >
-      <div
-        className="slide_button-prev"
-        onClick={() => swiperRef.current?.slidePrev()}
-      >
+      <div className="slide_button-prev" onClick={() => swiperRef.current?.slidePrev()}>
         <LeftOutlined />
       </div>
-      <div
-        className="slide_button-next"
-        onClick={() => swiperRef.current?.slideNext()}
-      >
+      <div className="slide_button-next" onClick={() => swiperRef.current?.slideNext()}>
         <RightOutlined />
       </div>
       <SwiperSlide>
@@ -44,15 +38,10 @@ export const Banner = () => {
           <div className="slide_content">
             <h2 data-aos="fade-up">Specialty Coffee</h2>
             <p data-aos="fade-up" data-aos-duration="1000">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-              euismod bibendum laoreet. Proin gravida dolor sit amet lacus
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit
+              amet lacus
             </p>
-            <Button
-              size="large"
-              data-aos="fade-up"
-              data-aos-duration="2000"
-              onClick={() => navigate('/shop')}
-            >
+            <Button size="large" data-aos="fade-up" data-aos-duration="2000" onClick={() => navigate('/shop')}>
               Shop Now
             </Button>
           </div>
@@ -64,15 +53,10 @@ export const Banner = () => {
           <div className="slide_content">
             <h2>Specialty Coffee</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-              euismod bibendum laoreet. Proin gravida dolor sit amet lacus
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit
+              amet lacus
             </p>
-            <Button
-              data-aos="fade-up"
-              data-aos-duration="2000"
-              size="large"
-              onClick={() => navigate('/shop')}
-            >
+            <Button data-aos="fade-up" data-aos-duration="2000" size="large" onClick={() => navigate('/shop')}>
               Shop Now
             </Button>
           </div>
@@ -84,20 +68,15 @@ export const Banner = () => {
           <div className="slide_content">
             <h2>Specialty Coffee</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-              euismod bibendum laoreet. Proin gravida dolor sit amet lacus
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit
+              amet lacus
             </p>
-            <Button
-              data-aos="fade-up"
-              data-aos-duration="2000"
-              size="large"
-              onClick={() => navigate('/shop')}
-            >
+            <Button data-aos="fade-up" data-aos-duration="2000" size="large" onClick={() => navigate('/shop')}>
               Shop Now
             </Button>
           </div>
         </div>
       </SwiperSlide>
     </Swiper>
-  );
-};
+  )
+}

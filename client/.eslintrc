@@ -1,0 +1,134 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/recommended"
+  ],
+  "plugins": ["eslint-plugin-react-hooks", "jsx-a11y", "prettier", "import"],
+  "rules": {
+    "arrow-body-style": ["error", "as-needed"],
+    "array-callback-return": ["error"],
+    "camelcase": ["error", { "properties": "always" }],
+    "comma-spacing": "error",
+    "default-case": "error",
+    "eol-last": "error",
+    "eqeqeq": "error",
+    "func-style": ["error", "expression"],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": ["external", "builtin", "internal", ["parent", "sibling", "index"]],
+        "pathGroups": [
+          { "pattern": "@/**", "group": "internal" },
+          { "pattern": "@api/**", "group": "internal" },
+          { "pattern": "@hooks/**", "group": "internal" },
+          { "pattern": "@components/**", "group": "internal" }
+        ],
+        "pathGroupsExcludedImportTypes": ["type", "object"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/no-unresolved": 0,
+    "import/no-named-as-default": 0,
+    "max-len": ["error", { "code": 130, "ignorePattern": "^import*" }],
+    //TODO: add next condition later
+    //"no-console": "warn",
+    "no-else-return": "error",
+    "no-invalid-this": "error",
+    "no-useless-constructor": "error",
+    "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    "no-var": "error",
+    "object-shorthand": "error",
+    "prefer-arrow-callback": "error",
+    "prefer-const": "error",
+    "prefer-destructuring": "warn",
+    "prefer-template": "error",
+    "require-await": "warn",
+    "react/default-props-match-prop-types": "warn",
+    "react/display-name": "off",
+    "react/forbid-prop-types": ["error", { "forbid": ["any"] }],
+    "react/prefer-stateless-function": "error",
+    "react/no-deprecated": "error",
+    "react/no-find-dom-node": "off",
+    "react/no-unsafe": "error",
+    "react/no-access-state-in-setstate": "error",
+    "react/prop-types": "warn",
+    "react/sort-prop-types": "error",
+    "react/sort-default-props": "error",
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "yoda": ["error", "always"],
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "none",
+        "printWidth": 130,
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": false,
+        "singleQuote": true,
+        "bracketSpacing": true,
+        "jsxBracketSameLine": false,
+        "arrowParens": "always"
+      }
+    ],
+    "comma-dangle": "off",
+    "react/boolean-prop-naming": [
+      "error",
+      {
+        "rule": "^(is|has)[A-Z]([A-Za-z0-9]?)+|anyTouched|dirty|disableBackdropClick|disableEscapeKeyDown|expanded|required|multiple|submitting|valid|pristine|globalCheck|fullWidth|disabled|shrink|initialized|showColumnHeader"
+      }
+    ],
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "ignoreCase": true,
+        "noSortAlphabetically": false
+      }
+    ]
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@", "./src"],
+          ["@components", "./src/components"],
+          ["@api", "./src/api"],
+          ["@hooks", "./src/hooks"]
+        ],
+        "extensions": [".js", ".jsx"]
+      }
+    },
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "detect"
+    },
+    "linkComponents": [
+      // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
+      "Hyperlink",
+      { "name": "Link", "linkAttribute": "to" }
+    ]
+  }
+}

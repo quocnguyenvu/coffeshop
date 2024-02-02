@@ -1,12 +1,6 @@
-import { Tag } from 'antd';
-import {
-  displayPaymentMethod,
-  displayShipMethod,
-  displayStatus,
-  displayStatusColor,
-  formattedPrice,
-} from '../../../helper';
-import PropTypes from 'prop-types';
+import { Tag } from 'antd'
+import { displayPaymentMethod, displayShipMethod, displayStatus, displayStatusColor, formattedPrice } from '../../../helper'
+import PropTypes from 'prop-types'
 
 export const CustomerInfomation = ({ order }) => {
   return (
@@ -35,9 +29,7 @@ export const CustomerInfomation = ({ order }) => {
         <tr>
           <td>Trạng thái</td>
           <td>
-            <Tag color={displayStatusColor(order?.status)}>
-              {displayStatus(order?.status)}
-            </Tag>
+            <Tag color={displayStatusColor(order?.status)}>{displayStatus(order?.status)}</Tag>
           </td>
         </tr>
         <tr>
@@ -54,9 +46,9 @@ export const CustomerInfomation = ({ order }) => {
         </tr>
       </tbody>
     </table>
-  );
-};
+  )
+}
 
 CustomerInfomation.propTypes = {
-  order: PropTypes.object,
-};
+  order: PropTypes.object
+}

@@ -1,39 +1,39 @@
-import { Container } from '../../../../components/Container';
-import { Button, Spin } from 'antd';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { API_USER_URL } from '../../../../constants';
+import { Container } from '../../../../components/Container'
+import { Button, Spin } from 'antd'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Pagination } from 'swiper/modules'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { API_USER_URL } from '../../../../constants'
 
-import slide1 from '../../../../assets/slide/slides1.jpg';
-import icon from '../../../../assets/icons/tele.png';
+import slide1 from '../../../../assets/slide/slides1.jpg'
+import icon from '../../../../assets/icons/tele.png'
 
-import './Activities.scss';
+import './Activities.scss'
 
 export const Activities = () => {
-  const navigate = useNavigate();
-  const swiperRef = useRef();
+  const navigate = useNavigate()
+  const swiperRef = useRef()
 
-  const [activities, setActivities] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [activities, setActivities] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const fetchProducts = async () => {
     try {
-      const { data } = await axios.get(`${API_USER_URL}/activities`);
-      setActivities(data.data.blogs);
-      setLoading(false);
+      const { data } = await axios.get(`${API_USER_URL}/activities`)
+      setActivities(data.data.blogs)
+      setLoading(false)
     } catch (error) {
-      console.error('Error fetching blogs:', error);
-      setLoading(false);
+      console.error('Error fetching blogs:', error)
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    fetchProducts()
+  }, [])
 
   return (
     <section id="home-activities">
@@ -46,9 +46,8 @@ export const Activities = () => {
             </h1>
           </div>
           <div className="description" data-aos="fade-up">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl
-            tincidunt eget nullam non. Quis hendrerit dolor magna eget est.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est.
           </div>
           <div className="slide_button">
             <div onClick={() => swiperRef.current?.slidePrev()}>
@@ -62,10 +61,10 @@ export const Activities = () => {
         <article>
           <Swiper
             onBeforeInit={(swiper) => {
-              swiperRef.current = swiper;
+              swiperRef.current = swiper
             }}
             pagination={{
-              dynamicBullets: true,
+              dynamicBullets: true
             }}
             slidesPerView={3}
             spaceBetween={10}
@@ -145,5 +144,5 @@ export const Activities = () => {
         </article>
       </Container>
     </section>
-  );
-};
+  )
+}

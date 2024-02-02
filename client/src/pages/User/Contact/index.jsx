@@ -1,27 +1,25 @@
-import { Container } from '../../../components/Container';
-import { Footer } from '../../../components/Footer';
-import { PageBanner } from '../../../components/PageBanner';
-import { Form, Input, Button, message, Divider } from 'antd';
-import axios from 'axios';
-import { API_USER_URL } from '../../../constants';
-import { useRef } from 'react';
+import { Container } from '../../../components/Container'
+import { Footer } from '../../../components/Footer'
+import { PageBanner } from '../../../components/PageBanner'
+import { Form, Input, Button, message, Divider } from 'antd'
+import axios from 'axios'
+import { API_USER_URL } from '../../../constants'
+import { useRef } from 'react'
 
-import './Contact.scss';
+import './Contact.scss'
 
 export const ContactPage = () => {
-  const formRef = useRef();
+  const formRef = useRef()
 
   const onFinish = async (values) => {
     try {
-      await axios.post(`${API_USER_URL}/send-mail`, values);
-      message.success(
-        'Gửi email thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất có thể. Cảm ơn bạn đã liên hệ với chúng tôi!',
-      );
-      formRef.current.resetFields();
+      await axios.post(`${API_USER_URL}/send-mail`, values)
+      message.success('Gửi email thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất có thể. Cảm ơn bạn đã liên hệ với chúng tôi!')
+      formRef.current.resetFields()
     } catch (error) {
-      message.error('Gửi email thất bại! Vui lòng thử lại sau.');
+      message.error('Gửi email thất bại! Vui lòng thử lại sau.')
     }
-  };
+  }
 
   return (
     <>
@@ -30,9 +28,7 @@ export const ContactPage = () => {
         <Container>
           <article className="contact-header">
             <h2>Hãy cho chúng tôi biết tôi có thể giúp gì cho bạn?</h2>
-            <p>
-              Liên hệ với chung tôi qua những thông tin được cung cấp dưới đây
-            </p>
+            <p>Liên hệ với chung tôi qua những thông tin được cung cấp dưới đây</p>
             <p></p>
           </article>
           <Divider />
@@ -70,23 +66,9 @@ export const ContactPage = () => {
                   <span style={{ fontSize: 24 }}>Kết nối với chúng tôi</span>
                 </Divider>
                 <div className="social">
-                  <a
-                    href="https://www.facebook.com"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      width="50"
-                      height="50"
-                      viewBox="0 0 48 48"
-                    >
-                      <path
-                        fill="#3f51b5"
-                        d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"
-                      ></path>
+                  <a href="https://www.facebook.com" target="_blank" rel="noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 48 48">
+                      <path fill="#3f51b5" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"></path>
                       <path
                         fill="#fff"
                         d="M29.368,24H26v12h-5V24h-3v-4h3v-2.41c0.002-3.508,1.459-5.59,5.592-5.59H30v4h-2.287 C26.104,16,26,16.6,26,17.723V20h4L29.368,24z"
@@ -94,19 +76,8 @@ export const ContactPage = () => {
                     </svg>
                   </a>
 
-                  <a
-                    href="https://www.youtube.com"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      width="50"
-                      height="50"
-                      viewBox="0 0 48 48"
-                    >
+                  <a href="https://www.youtube.com" target="_blank" rel="noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 48 48">
                       <linearGradient
                         id="PgB_UHa29h0TpFV_moJI9a_9a46bTk3awwI_gr1"
                         x1="9.816"
@@ -144,7 +115,7 @@ export const ContactPage = () => {
               <div
                 style={{
                   textAlign: 'center',
-                  marginBottom: '20px',
+                  marginBottom: '20px'
                 }}
               >
                 <h3>Gửi tin nhắn cho chúng tôi</h3>
@@ -155,8 +126,8 @@ export const ContactPage = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Vui lòng nhập họ và tên của bạn!',
-                    },
+                      message: 'Vui lòng nhập họ và tên của bạn!'
+                    }
                   ]}
                 >
                   <Input placeholder="Họ và tên" />
@@ -166,8 +137,8 @@ export const ContactPage = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Vui lòng nhập email của bạn!',
-                    },
+                      message: 'Vui lòng nhập email của bạn!'
+                    }
                   ]}
                 >
                   <Input type="email" placeholder="Email" />
@@ -177,8 +148,8 @@ export const ContactPage = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Vui lòng nhập số điện thoại của bạn!',
-                    },
+                      message: 'Vui lòng nhập số điện thoại của bạn!'
+                    }
                   ]}
                 >
                   <Input placeholder="Số điện thoại" />
@@ -188,8 +159,8 @@ export const ContactPage = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Vui lòng nhập chủ đề!',
-                    },
+                      message: 'Vui lòng nhập chủ đề!'
+                    }
                   ]}
                 >
                   <Input placeholder="Tiêu đề" />
@@ -199,14 +170,11 @@ export const ContactPage = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Vui lòng nhập nội dung!',
-                    },
+                      message: 'Vui lòng nhập nội dung!'
+                    }
                   ]}
                 >
-                  <Input.TextArea
-                    rows={3}
-                    placeholder="Bạn muốn nói gì với chúng tôi?"
-                  />
+                  <Input.TextArea rows={3} placeholder="Bạn muốn nói gì với chúng tôi?" />
                 </Form.Item>
                 <Form.Item>
                   <Button type="primary" htmlType="submit">
@@ -220,5 +188,5 @@ export const ContactPage = () => {
       </section>
       <Footer />
     </>
-  );
-};
+  )
+}

@@ -1,25 +1,26 @@
-#order-detail{
-    .item{
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin-bottom: 20px;
-        img {
-            width: 150px;
-            aspect-ratio: 1;
-        }
+#order-detail {
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    img {
+      width: 150px;
+      aspect-ratio: 1;
+    }
 
-        table {
-            width: calc(100% - 150px);
-        }
-    }
     table {
-        width: 100%;
-        border-collapse: collapse;
-        border: 1px solid #ccc;
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
+      width: calc(100% - 150px);
     }
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+  }
 }

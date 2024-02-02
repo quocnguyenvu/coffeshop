@@ -1,31 +1,29 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { API_USER_URL } from '../../../../constants';
-import { Button, Divider, Spin } from 'antd';
-import { BlogItem } from '../../../../components/BlogItem';
-import { Container } from '../../../../components/Container';
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { API_USER_URL } from '../../../../constants'
+import { Button, Divider, Spin } from 'antd'
+import { BlogItem } from '../../../../components/BlogItem'
+import { Container } from '../../../../components/Container'
 
-
-
-import './HomeBlog.scss';
+import './HomeBlog.scss'
 export const HomeBlog = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const fetchProducts = async () => {
     try {
-      const { data } = await axios.get(`${API_USER_URL}/blogs?limit=4`);
-      setBlogs(data.data.blogs);
-      setLoading(false);
+      const { data } = await axios.get(`${API_USER_URL}/blogs?limit=4`)
+      setBlogs(data.data.blogs)
+      setLoading(false)
     } catch (error) {
-      console.error('Error fetching blogs:', error);
-      setLoading(false);
+      console.error('Error fetching blogs:', error)
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    fetchProducts()
+  }, [])
 
   return (
     <section id="home-blog">
@@ -56,5 +54,5 @@ export const HomeBlog = () => {
         </article>
       </Container>
     </section>
-  );
-};
+  )
+}

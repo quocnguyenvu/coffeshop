@@ -1,36 +1,31 @@
-import ProductCommonForm from './form';
-import axiosClient from '../../../config/axios';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { message } from 'antd';
+import ProductCommonForm from './form'
+import axiosClient from '../../../config/axios'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { message } from 'antd'
 
 export const ProductCreate = () => {
-  const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
+  const navigate = useNavigate()
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await axiosClient.get('category');
+      const response = await axiosClient.get('category')
       setCategories(
         response.data.categories.map((category) => {
           return {
             value: category.id,
-            label: category.name,
-          };
-        }),
-      );
-    };
+            label: category.name
+          }
+        })
+      )
+    }
 
-    fetchCategories();
-  }, []);
+    fetchCategories()
+  }, [])
 
-  const handleCreateProduct = async (
-    values,
-    description,
-    images,
-    categoryId,
-  ) => {
-    const { code, name, price } = values;
+  const handleCreateProduct = async (values, description, images, categoryId) => {
+    const { code, name, price } = values
 
     try {
       await axiosClient.post('product/create', {
@@ -39,21 +34,14 @@ export const ProductCreate = () => {
         description,
         price,
         categoryId,
-        images,
-      });
+        images
+      })
 
-      message.success('Tạo sản phẩm thành công!');
-      navigate('/admin/product/list');
+      message.success('Tạo sản phẩm thành công!')
+      navigate('/admin/product/list')
     } catch (error) {
-      message.error('Tạo sản phẩm thất bại!');
+      message.error('Tạo sản phẩm thất bại!')
     }
-  };
-  return (
-    <ProductCommonForm
-      title="Tạo sản phẩm mới"
-      categories={categories}
-      initialValues={{}}
-      onSubmit={handleCreateProduct}
-    />
-  );
-};
+  }
+  return <ProductCommonForm title="Tạo sản phẩm mới" categories={categories} initialValues={{}} onSubmit={handleCreateProduct} />
+}

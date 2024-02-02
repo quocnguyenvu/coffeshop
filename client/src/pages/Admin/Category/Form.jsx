@@ -1,6 +1,6 @@
-import { Form, Input, Button } from 'antd';
-import PropTypes from 'prop-types';
-import { Title } from '../../../components/Title';
+import { Form, Input, Button } from 'antd'
+import PropTypes from 'prop-types'
+import { Title } from '../../../components/Title'
 
 const CategoryCommonForm = ({ title, initialValues, onSubmit }) => {
   return (
@@ -19,8 +19,8 @@ const CategoryCommonForm = ({ title, initialValues, onSubmit }) => {
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập tên danh mục!',
-            },
+              message: 'Vui lòng nhập tên danh mục!'
+            }
           ]}
         >
           <Input />
@@ -32,8 +32,8 @@ const CategoryCommonForm = ({ title, initialValues, onSubmit }) => {
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập mô tả!',
-            },
+              message: 'Vui lòng nhập mô tả!'
+            }
           ]}
         >
           <Input />
@@ -46,13 +46,13 @@ const CategoryCommonForm = ({ title, initialValues, onSubmit }) => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default CategoryCommonForm;
+export default CategoryCommonForm
 
 CategoryCommonForm.propTypes = {
   title: PropTypes.string.isRequired,
   initialValues: PropTypes.object.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
+  onSubmit: PropTypes.func.isRequired
+}

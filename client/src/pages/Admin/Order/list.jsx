@@ -1,47 +1,29 @@
-import {
-  Button,
-  Space,
-  Table,
-  Modal,
-  Select,
-  Tag,
-  Collapse,
-  Form,
-  Input,
-  Row,
-  Col,
-  Divider,
-  message,
-} from 'antd';
-import { useEffect, useState } from 'react';
-import axiosClient from '../../../config/axios';
-import {
-  displayStatus,
-  displayStatusColor,
-  formattedPrice,
-} from '../../../helper';
+import { Button, Space, Table, Modal, Select, Tag, Collapse, Form, Input, Row, Col, Divider, message } from 'antd'
+import { useEffect, useState } from 'react'
+import axiosClient from '../../../config/axios'
+import { displayStatus, displayStatusColor, formattedPrice } from '../../../helper'
 
-const { Option } = Select;
-const { Panel } = Collapse;
+const { Option } = Select
+const { Panel } = Collapse
 
-import './OrderList.scss';
-import { CustomerInfomation } from './CustomerInfomation';
-import { OrderProductsInfomation } from './OrderProductsInfomation';
+import './OrderList.scss'
+import { CustomerInfomation } from './CustomerInfomation'
+import { OrderProductsInfomation } from './OrderProductsInfomation'
 
 export const OrderList = () => {
-  const [form] = Form.useForm();
-  const [orders, setOrders] = useState([]);
+  const [form] = Form.useForm()
+  const [orders, setOrders] = useState([])
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
-    total: 0,
-  });
+    total: 0
+  })
 
-  const [selectedOrderId, setSelectedOrderId] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedStatus, setSelectedStatus] = useState(null);
-  const [modalDetailVisible, setModalDetailVisible] = useState(false);
-  const [selectedOrderDetail, setSelectedOrderDetail] = useState(null);
+  const [selectedOrderId, setSelectedOrderId] = useState(null)
+  const [modalVisible, setModalVisible] = useState(false)
+  const [selectedStatus, setSelectedStatus] = useState(null)
+  const [modalDetailVisible, setModalDetailVisible] = useState(false)
+  const [selectedOrderDetail, setSelectedOrderDetail] = useState(null)
 
   const fetchOrders = async (values = {}) => {
     try {
@@ -49,81 +31,81 @@ export const OrderList = () => {
         params: {
           ...values,
           page: pagination.current,
-          limit: pagination.pageSize,
-        },
-      });
-      setOrders(response.data.orders);
+          limit: pagination.pageSize
+        }
+      })
+      setOrders(response.data.orders)
       setPagination({
         ...pagination,
-        total: response.data.total,
-      });
+        total: response.data.total
+      })
     } catch (error) {
-      message.error('Lỗi khi lấy danh sách đơn hàng!');
+      message.error('Lỗi khi lấy danh sách đơn hàng!')
     }
-  };
+  }
 
   useEffect(() => {
-    fetchOrders();
-  }, [pagination.current, pagination.pageSize]);
+    fetchOrders()
+  }, [pagination.current, pagination.pageSize])
 
   const handleTableChange = (pagination, filters, sorter) => {
     setPagination({
       ...pagination,
       sortField: sorter.field,
-      sortOrder: sorter.order,
-    });
-  };
+      sortOrder: sorter.order
+    })
+  }
 
   const changeOrderStatus = async () => {
     try {
       if (!selectedStatus) {
-        message.warning('Vui lòng chọn trạng thái');
-        return;
+        message.warning('Vui lòng chọn trạng thái')
+        return
       }
 
       await axiosClient.put(`order/${selectedOrderId}/change-status`, {
-        status: selectedStatus,
-      });
+        status: selectedStatus
+      })
 
-      fetchOrders();
-      setModalVisible(false);
-      message.success('Đổi trạng thái thành công!');
+      fetchOrders()
+      setModalVisible(false)
+      message.success('Đổi trạng thái thành công!')
     } catch (error) {
-      console.error('Error changing order status:', error);
-      message.error('Đổi trạng thái thất bại!');
+      console.error('Error changing order status:', error)
+      message.error('Đổi trạng thái thất bại!')
     }
-  };
+  }
 
   const onFinish = async (values) => {
-    fetchOrders(values);
-  };
+    fetchOrders(values)
+  }
 
   const columns = [
     {
       title: 'Tên khách hàng',
       dataIndex: 'customerName',
-      key: 'customerName',
+      key: 'customerName'
     },
     {
       title: 'Số điện thoại',
       dataIndex: 'phoneNumber',
-      key: 'phoneNumber',
+      key: 'phoneNumber'
     },
     {
       title: 'Email',
       dataIndex: 'email',
-      key: 'email',
+      key: 'email'
     },
     {
       title: 'Địa chỉ',
       dataIndex: 'address',
-      key: 'address',
+      key: 'address'
     },
     {
       title: 'Tổng tiền',
       dataIndex: 'amount',
       key: 'amount',
-      render: (amount) => <span>{formattedPrice(amount)}</span>,
+      render: (amount) => <span>{formattedPrice(amount)}</span>
     },
     {
       title: 'Trạng thái',
@@ -133,7 +115,7 @@ export const OrderList = () => {
         <Tag color={displayStatusColor(status)} key={status}>
           {displayStatus(status)}
         </Tag>
-      ),
+      )
     },
     {
       title: 'Hành động',
@@ -143,8 +125,8 @@ export const OrderList = () => {
           <Button
             type="primary"
             onClick={() => {
-              setSelectedOrderDetail(record);
-              setModalDetailVisible(true);
+              setSelectedOrderDetail(record)
+              setModalDetailVisible(true)
             }}
           >
             Chi Tiết
@@ -152,28 +134,22 @@ export const OrderList = () => {
           <Button
             danger
             onClick={() => {
-              setSelectedOrderId(record._id);
-              setModalVisible(true);
+              setSelectedOrderId(record._id)
+              setModalVisible(true)
             }}
           >
             Đổi trạng thái
           </Button>
         </Space>
-      ),
-    },
-  ];
+      )
+    }
+  ]
 
   return (
     <>
       <Collapse>
         <Panel header="Tìm kiếm đơn hàng" key="1">
-          <Form
-            form={form}
-            name="control-hooks"
-            onFinish={onFinish}
-            layout="vertical"
-            style={{ width: '100%' }}
-          >
+          <Form form={form} name="control-hooks" onFinish={onFinish} layout="vertical" style={{ width: '100%' }}>
             <Row gutter={16}>
               <Col span={8}>
                 <Form.Item name="customerName" label="Tên khách hàng">
@@ -187,10 +163,7 @@ export const OrderList = () => {
               </Col>
               <Col span={8}>
                 <Form.Item name="status" label="Trạng thái">
-                  <Select
-                    style={{ width: '100%' }}
-                    placeholder="Chọn trạng thái"
-                  >
+                  <Select style={{ width: '100%' }} placeholder="Chọn trạng thái">
                     <Option value="Confirmed">Đã xác nhận</Option>
                     <Option value="Shipped">Đang vận chuyển</Option>
                     <Option value="Delivered">Đã nhận hàng</Option>
@@ -205,8 +178,8 @@ export const OrderList = () => {
                 </Button>
                 <Button
                   onClick={() => {
-                    form.resetFields();
-                    fetchOrders();
+                    form.resetFields()
+                    fetchOrders()
                   }}
                 >
                   Xóa bộ lọc
@@ -216,23 +189,9 @@ export const OrderList = () => {
           </Form>
         </Panel>
       </Collapse>
-      <Table
-        columns={columns}
-        dataSource={orders}
-        pagination={pagination}
-        onChange={handleTableChange}
-      />
-      <Modal
-        title="Chọn trạng thái"
-        open={modalVisible}
-        onOk={changeOrderStatus}
-        onCancel={() => setModalVisible(false)}
-      >
-        <Select
-          style={{ width: '100%' }}
-          placeholder="Chọn trạng thái"
-          onChange={(value) => setSelectedStatus(value)}
-        >
+      <Table columns={columns} dataSource={orders} pagination={pagination} onChange={handleTableChange} />
+      <Modal title="Chọn trạng thái" open={modalVisible} onOk={changeOrderStatus} onCancel={() => setModalVisible(false)}>
+        <Select style={{ width: '100%' }} placeholder="Chọn trạng thái" onChange={(value) => setSelectedStatus(value)}>
           <Option value="confirmed">Đã xác nhận</Option>
           <Option value="shipping">Đang vận chuyển</Option>
           <Option value="success">Đã nhận hàng</Option>
@@ -247,7 +206,7 @@ export const OrderList = () => {
         onCancel={() => setModalDetailVisible(false)}
         style={{
           maxHeight: '80vh',
-          overflowY: 'auto',
+          overflowY: 'auto'
         }}
       >
         <section id="order-detail">
@@ -265,5 +224,5 @@ export const OrderList = () => {
         </section>
       </Modal>
     </>
-  );
-};
+  )
+}

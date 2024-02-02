@@ -1,27 +1,25 @@
-import axios from 'axios';
-import axiosClient from '../../../config/axios';
-import { useNavigate } from 'react-router-dom';
-import './Login.scss';
+import axios from 'axios'
+import axiosClient from '../../../config/axios'
+import { useNavigate } from 'react-router-dom'
+import './Login.scss'
 
 export const Login = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleLogin = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
       phoneNumber: event.target.phoneNumber.value,
-      password: event.target.password.value,
-    });
+      password: event.target.password.value
+    })
 
     if (response.status === 200) {
-      localStorage.setItem('token', response.data.token);
-      axiosClient.defaults.headers.common[
-        'Authorization'
-      ] = `Bearer ${response.data.token}`;
-      navigate('/admin');
+      localStorage.setItem('token', response.data.token)
+      axiosClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
+      navigate('/admin')
     }
-  };
+  }
 
   return (
     <div id="login">
@@ -30,21 +28,11 @@ export const Login = () => {
           <form className="login" onSubmit={handleLogin}>
             <div className="login__field">
               <i className="login__icon fas fa-user"></i>
-              <input
-                type="text"
-                className="login__input"
-                placeholder="Nhập số điện thoại của bạn"
-                name="phoneNumber"
-              />
+              <input type="text" className="login__input" placeholder="Nhập số điện thoại của bạn" name="phoneNumber" />
             </div>
             <div className="login__field">
               <i className="login__icon fas fa-lock"></i>
-              <input
-                type="password"
-                className="login__input"
-                placeholder="Nhập mật khẩu của bạn"
-                name="password"
-              />
+              <input type="password" className="login__input" placeholder="Nhập mật khẩu của bạn" name="password" />
             </div>
             <button className="button login__submit" type="submit">
               <span className="button__text">Đăng nhập</span>
@@ -60,5 +48,5 @@ export const Login = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

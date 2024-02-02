@@ -1,29 +1,29 @@
-import PropTypes from 'prop-types';
-import { formattedPrice } from '../../helper';
-import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types'
+import { formattedPrice } from '../../helper'
+import { useNavigate } from 'react-router-dom'
 
-import './Product.scss';
-import { message } from 'antd';
+import './Product.scss'
+import { message } from 'antd'
 
 export const Product = ({ product }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const handleAddToCart = () => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cart = JSON.parse(localStorage.getItem('cart')) || []
 
-    const existingProduct = cart.find((item) => item.productId === product.id);
+    const existingProduct = cart.find((item) => item.productId === product.id)
 
     if (existingProduct) {
-      existingProduct.quantity += 1;
+      existingProduct.quantity += 1
     } else {
-      cart.push({ productId: product.id, quantity: 1, price: product.price});
+      cart.push({ productId: product.id, quantity: 1, price: product.price })
     }
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart))
 
-    message.success(`${product.name} added to cart!`);
-  };
+    message.success(`${product.name} added to cart!`)
+  }
 
   const handleClickItem = () => {
-    navigate(`/product/${product.id}`);
+    navigate(`/product/${product.id}`)
   }
 
   return (
@@ -38,9 +38,9 @@ export const Product = ({ product }) => {
       </div>
       <button onClick={handleAddToCart}>Add to cart</button>
     </article>
-  );
-};
+  )
+}
 
 Product.propTypes = {
-  product: PropTypes.object.isRequired,
-};
+  product: PropTypes.object.isRequired
+}

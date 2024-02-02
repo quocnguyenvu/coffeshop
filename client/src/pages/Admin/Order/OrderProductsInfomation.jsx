@@ -1,5 +1,5 @@
-import { formattedPrice } from '../../../helper';
-import PropTypes from 'prop-types';
+import { formattedPrice } from '../../../helper'
+import PropTypes from 'prop-types'
 
 export const OrderProductsInfomation = ({ order }) => {
   return (
@@ -28,9 +28,9 @@ export const OrderProductsInfomation = ({ order }) => {
         </div>
       ))}
     </>
-  );
-};
+  )
+}
 
 OrderProductsInfomation.propTypes = {
-  order: PropTypes.object,
-};
+  order: PropTypes.object
+}

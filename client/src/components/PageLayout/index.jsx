@@ -1,6 +1,6 @@
-import { Footer } from "../Footer";
-import { PageBanner } from "../PageBanner";
-import PropTypes from "prop-types";
+import { Footer } from '../Footer'
+import { PageBanner } from '../PageBanner'
+import PropTypes from 'prop-types'
 
 export const PageLayout = ({ children }) => {
   return (
@@ -9,9 +9,9 @@ export const PageLayout = ({ children }) => {
       {children}
       <Footer />
     </>
-  );
-};
+  )
+}
 
 PageLayout.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+  children: PropTypes.node.isRequired
+}

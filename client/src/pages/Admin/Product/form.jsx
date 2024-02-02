@@ -1,28 +1,24 @@
-import { Form, Input, Button, Select } from 'antd';
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import CKEditorComponent from '../../../components/CKeditor';
-import CloudinaryMultipleUploader from '../../../components/CloudinaryMultipleUploader';
-import { Title } from '../../../components/Title';
+import { Form, Input, Button, Select } from 'antd'
+import PropTypes from 'prop-types'
+import { useState } from 'react'
+import CKEditorComponent from '../../../components/CKeditor'
+import CloudinaryMultipleUploader from '../../../components/CloudinaryMultipleUploader'
+import { Title } from '../../../components/Title'
 
 const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
-  const [images, setImages] = useState(initialValues?.images || []);
+  const [images, setImages] = useState(initialValues?.images || [])
 
-  const [categoryId, setCategoryId] = useState(
-    initialValues?.categoryId || null,
-  );
+  const [categoryId, setCategoryId] = useState(initialValues?.categoryId || null)
 
-  const [description, setDescription] = useState(
-    initialValues?.description || '',
-  );
+  const [description, setDescription] = useState(initialValues?.description || '')
 
   const handleFormSubmit = async (values) => {
     try {
-      await onSubmit(values, description, images, categoryId);
+      await onSubmit(values, description, images, categoryId)
     } catch (error) {
-      console.error('Error submitting Product form:', error);
+      console.error('Error submitting Product form:', error)
     }
-  };
+  }
 
   return (
     <>
@@ -40,8 +36,8 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập mã sản phẩm!',
-            },
+              message: 'Vui lòng nhập mã sản phẩm!'
+            }
           ]}
         >
           <Input />
@@ -53,8 +49,8 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập tên sản phẩm!',
-            },
+              message: 'Vui lòng nhập tên sản phẩm!'
+            }
           ]}
         >
           <Input />
@@ -66,8 +62,8 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập giá sản phẩm!',
-            },
+              message: 'Vui lòng nhập giá sản phẩm!'
+            }
           ]}
         >
           <Input />
@@ -87,22 +83,15 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập mô tả sản phẩm!',
-            },
+              message: 'Vui lòng nhập mô tả sản phẩm!'
+            }
           ]}
         >
-          <CKEditorComponent
-            data={description}
-            onDataChange={(newData) => setDescription(newData)}
-          />
+          <CKEditorComponent data={description} onDataChange={(newData) => setDescription(newData)} />
         </Form.Item>
 
         <Form.Item label="Hình ảnh" name="thumbnail">
-          <CloudinaryMultipleUploader
-            multiple
-            images={images}
-            setImages={setImages}
-          />
+          <CloudinaryMultipleUploader multiple images={images} setImages={setImages} />
         </Form.Item>
 
         <Form.Item>
@@ -112,14 +101,14 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default ProductCommonForm;
+export default ProductCommonForm
 
 ProductCommonForm.propTypes = {
   title: PropTypes.string.isRequired,
   initialValues: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
+  onSubmit: PropTypes.func.isRequired
+}

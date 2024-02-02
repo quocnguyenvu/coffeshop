@@ -1,42 +1,40 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { API_USER_URL } from '../../../../constants';
-import { Divider, Spin } from 'antd';
-import { Header } from '../../../../components/Header';
-import { Container } from '../../../../components/Container';
-import { Footer } from '../../../../components/Footer';
-import { BlogItem } from '../../../../components/BlogItem';
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { API_USER_URL } from '../../../../constants'
+import { Divider, Spin } from 'antd'
+import { Header } from '../../../../components/Header'
+import { Container } from '../../../../components/Container'
+import { Footer } from '../../../../components/Footer'
+import { BlogItem } from '../../../../components/BlogItem'
 
-import './BlogDetail.scss';
+import './BlogDetail.scss'
 
 export const BlogDetail = () => {
-  const { blogId } = useParams();
+  const { blogId } = useParams()
 
-  const [blog, setBlog] = useState(null);
-  const [blogNewest, setBlogNewest] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [blog, setBlog] = useState(null)
+  const [blogNewest, setBlogNewest] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        setLoading(true);
-        const response = await axios.get(`${API_USER_URL}/blog/${blogId}`);
-        setBlog(response.data.data.blog);
+        setLoading(true)
+        const response = await axios.get(`${API_USER_URL}/blog/${blogId}`)
+        setBlog(response.data.data.blog)
 
-        const blogNewest = await axios.get(
-          `${API_USER_URL}/blogs?limit=4&sortBy=dateCreate&sortMethod=dsc`,
-        );
-        setBlogNewest(blogNewest.data.data.blogs);
+        const blogNewest = await axios.get(`${API_USER_URL}/blogs?limit=4&sortBy=dateCreate&sortMethod=dsc`)
+        setBlogNewest(blogNewest.data.data.blogs)
       } catch (error) {
-        console.error('Error fetching blog data:', error);
+        console.error('Error fetching blog data:', error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchBlogData();
-  }, [blogId]);
+    fetchBlogData()
+  }, [blogId])
 
   return (
     <>
@@ -50,7 +48,7 @@ export const BlogDetail = () => {
             position: 'fixed',
             inset: 0,
             background: 'rgba(0, 0, 0, 0.3)',
-            zIndex: 9999,
+            zIndex: 9999
           }}
         >
           <Spin size="large" />
@@ -64,9 +62,7 @@ export const BlogDetail = () => {
           <Container>
             <div className="blog_wrap">
               <div className="blog-detail__title">{blog.title}</div>
-              <div className="blog-detail__date">
-                {new Date(blog.dateCreate).toLocaleString()}
-              </div>
+              <div className="blog-detail__date">{new Date(blog.dateCreate).toLocaleString()}</div>
               <div className="blog-detail__desc">{blog.description}</div>
               <Divider />
               <div className="blog-detail__content">
@@ -92,5 +88,5 @@ export const BlogDetail = () => {
         </section>
       )}
     </>
-  );
-};
+  )
+}

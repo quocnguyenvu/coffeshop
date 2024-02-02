@@ -1,4 +1,4 @@
-import "./plantations.scss"
+import './plantations.scss'
 
 export const Plantations = () => {
   return (
@@ -19,5 +19,5 @@ export const Plantations = () => {
         </article>
       </div>
     </section>
-  );
-};
+  )
+}

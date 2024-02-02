@@ -1,16 +1,16 @@
-import { Form, Input, Button, message } from 'antd';
-import axiosClient from '../../../config/axios';
-import { Title } from '../../../components/Title';
+import { Form, Input, Button, message } from 'antd'
+import axiosClient from '../../../config/axios'
+import { Title } from '../../../components/Title'
 
 export const User = () => {
   const onFinish = async (values) => {
     try {
-      await axiosClient.put('/change-password', values);
-      message.success('Thay đổi mật khẩu thành công!');
+      await axiosClient.put('/change-password', values)
+      message.success('Thay đổi mật khẩu thành công!')
     } catch (error) {
-      message.error('Thay đổi mật khẩu thất bại!');
+      message.error('Thay đổi mật khẩu thất bại!')
     }
-  };
+  }
 
   return (
     <>
@@ -27,8 +27,8 @@ export const User = () => {
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập mật khẩu cũ!',
-            },
+              message: 'Vui lòng nhập mật khẩu cũ!'
+            }
           ]}
         >
           <Input.Password />
@@ -40,8 +40,8 @@ export const User = () => {
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập mật khẩu mới!',
-            },
+              message: 'Vui lòng nhập mật khẩu mới!'
+            }
           ]}
         >
           <Input.Password />
@@ -53,16 +53,16 @@ export const User = () => {
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập lại mật khẩu mới!',
+              message: 'Vui lòng nhập lại mật khẩu mới!'
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue('newPassword') === value) {
-                  return Promise.resolve();
+                  return Promise.resolve()
                 }
-                return Promise.reject('The two passwords do not match!');
-              },
-            }),
+                return Promise.reject('The two passwords do not match!')
+              }
+            })
           ]}
         >
           <Input.Password />
@@ -75,5 +75,5 @@ export const User = () => {
         </Form.Item>
       </Form>
     </>
-  );
-};
+  )
+}
