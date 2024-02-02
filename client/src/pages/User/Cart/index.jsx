@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Button, Divider, Modal, Space, Table } from 'antd'
-import { Container } from '../../../components/Container'
-import { PageBanner } from '../../../components/PageBanner'
+import { Container } from '@components/Container'
+import { PageBanner } from '@components/PageBanner'
 import { API_USER_URL } from '../../../constants'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { formattedPrice } from '../../../helper'
-import { Footer } from '../../../components/Footer'
+import { Footer } from '@components/Footer'
 
 const { Column } = Table
 

@@ -1,13 +1,13 @@
-import { Banner } from './Banner'
-import { Header } from '../../../components/Header'
-import { OurCoffee } from './OurCoffee'
-import { OurBlends } from './OurBlends'
-import { Footer } from '../../../components/Footer'
-import { Plantations } from './Plantations'
-import { Activities } from './Activities'
+import { Activities } from '@user/Home/Activities'
+import { Header } from '@components/Header'
+import { OurCoffee } from '@user/Home/OurCoffee'
+import { Banner } from '@user/Home/Banner'
+import { OurBlends } from '@user/Home/OurBlends'
+import { Footer } from '@components/Footer'
+import { Plantations } from '@user/Home/Plantations'
+import { HomeBlog } from '@user/Home/HomeBlog'
 
 import './Home.scss'
-import { HomeBlog } from './HomeBlog'
 
 export const HomePage = () => {
   return (

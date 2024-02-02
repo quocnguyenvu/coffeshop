@@ -1,6 +1,4 @@
-export const formattedPrice = (price) => {
-  return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VND'
-}
+export const formattedPrice = (price) => `${price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND`
 
 export const displayShipMethod = (shipMethod) => {
   switch (shipMethod) {

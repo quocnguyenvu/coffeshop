@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Button, Form, Input } from 'antd'
-import CKEditorComponent from '../../../components/CKeditor'
+import CKEditorComponent from '@components/CKeditor'
 import PropTypes from 'prop-types'
-import CloudinarySingleUploader from '../../../components/CloudinarySingleUploader'
-import { Title } from '../../../components/Title'
+import CloudinarySingleUploader from '@components/CloudinarySingleUploader'
+import { Title } from '@components/Title'
 
 export const BlogCommonForm = ({ title, initialValues, onSubmit }) => {
   const [thumbnail, setThumbnail] = useState(initialValues?.thumbnail ? initialValues.thumbnail : null)

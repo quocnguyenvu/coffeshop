@@ -1,6 +1,6 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Form, Input, Space } from 'antd'
-import CloudinarySingleUploader from '../../../components/CloudinarySingleUploader'
+import CloudinarySingleUploader from '@components/CloudinarySingleUploader'
 import { useState } from 'react'
 
 export const Activity = () => {

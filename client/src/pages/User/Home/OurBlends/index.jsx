@@ -1,7 +1,7 @@
-import { Container } from '../../../../components/Container'
+import { Container } from '@components/Container'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Product } from '../../../../components/Product'
+import { Product } from '@components/Product'
 import { API_USER_URL } from '../../../../constants'
 import { Spin } from 'antd'
 

@@ -1,12 +1,12 @@
-import { Container } from '../../../components/Container'
-import { PageBanner } from '../../../components/PageBanner'
-import { Product } from '../../../components/Product'
+import { Container } from '@components/Container'
+import { PageBanner } from '@components/PageBanner'
+import { Product } from '@components/Product'
 import { Button, Divider, Empty, Form, Space } from 'antd'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Footer } from '../../../components/Footer'
+import { Footer } from '@components/Footer'
 import { API_USER_URL } from '../../../constants'
-import { Filters } from './Filters'
+import { Filters } from '@user/Shop/Filters'
 
 import './Shop.scss'
 

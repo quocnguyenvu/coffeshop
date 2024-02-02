@@ -1,6 +1,6 @@
 import { Form, Input, Button } from 'antd'
 import PropTypes from 'prop-types'
-import { Title } from '../../../components/Title'
+import { Title } from '@components/Title'
 
 const CategoryCommonForm = ({ title, initialValues, onSubmit }) => {
   return (

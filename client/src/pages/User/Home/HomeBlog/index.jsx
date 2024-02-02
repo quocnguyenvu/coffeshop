@@ -2,8 +2,8 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { API_USER_URL } from '../../../../constants'
 import { Button, Divider, Spin } from 'antd'
-import { BlogItem } from '../../../../components/BlogItem'
-import { Container } from '../../../../components/Container'
+import { BlogItem } from '@components/BlogItem'
+import { Container } from '@components/Container'
 
 import './HomeBlog.scss'
 export const HomeBlog = () => {

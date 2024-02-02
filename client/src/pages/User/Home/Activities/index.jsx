@@ -1,4 +1,4 @@
-import { Container } from '../../../../components/Container'
+import { Container } from '@components/Container'
 import { Button, Spin } from 'antd'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { API_USER_URL } from '../../../../constants'
 
-import slide1 from '../../../../assets/slide/slides1.jpg'
-import icon from '../../../../assets/icons/tele.png'
+import slide1 from '@assets/slide/slides1.jpg'
+import icon from '@assets/icons/tele.png'
 
 import './Activities.scss'
 

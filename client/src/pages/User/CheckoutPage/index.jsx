@@ -1,12 +1,12 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Container } from '../../../components/Container'
+import { Container } from '@components/Container'
 import { Button, Divider, Form, Input, Radio, Space, message } from 'antd'
 import axios from 'axios'
 import { API_USER_URL } from '../../../constants'
 import { useMemo, useState } from 'react'
 import { formattedPrice } from '../../../helper'
-import { Footer } from '../../../components/Footer'
-import { PageBanner } from '../../../components/PageBanner'
+import { Footer } from '@components/Footer'
+import { PageBanner } from '@components/PageBanner'
 const { TextArea } = Input
 
 import './CheckoutPage.scss'

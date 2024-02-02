@@ -1,9 +1,9 @@
 import { Form, Input, Button, Select } from 'antd'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import CKEditorComponent from '../../../components/CKeditor'
-import CloudinaryMultipleUploader from '../../../components/CloudinaryMultipleUploader'
-import { Title } from '../../../components/Title'
+import CKEditorComponent from '@components/CKeditor'
+import CloudinaryMultipleUploader from '@components/CloudinaryMultipleUploader'
+import { Title } from '@components/Title'
 
 const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
   const [images, setImages] = useState(initialValues?.images || [])

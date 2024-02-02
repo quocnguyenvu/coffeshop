@@ -1,6 +1,6 @@
 import { Form, Input, Button, message } from 'antd'
 import axiosClient from '../../../config/axios'
-import { Title } from '../../../components/Title'
+import { Title } from '@components/Title'
 
 export const User = () => {
   const onFinish = async (values) => {

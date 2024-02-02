@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Container } from '../../../components/Container'
-import { PageBanner } from '../../../components/PageBanner'
+import { Container } from '@components/Container'
+import { PageBanner } from '@components/PageBanner'
 import axios from 'axios'
 import { API_USER_URL } from '../../../constants'
 import { Divider, Empty, Pagination, Spin } from 'antd'
-import { BlogItem } from '../../../components/BlogItem'
-import { Footer } from '../../../components/Footer'
+import { BlogItem } from '@components/BlogItem'
+import { Footer } from '@components/Footer'
 
 import './Blogs.scss'
 
