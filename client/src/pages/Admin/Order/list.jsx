@@ -11,7 +11,7 @@ import {
   Row,
   Col,
   Divider,
-  message
+  message,
 } from 'antd';
 import { useEffect, useState } from 'react';
 import axiosClient from '../../../config/axios';

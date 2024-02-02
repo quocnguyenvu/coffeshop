@@ -6,10 +6,11 @@ import { API_USER_URL } from '../../../constants';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { formattedPrice } from '../../../helper';
+import { Footer } from '../../../components/Footer';
+
+const { Column } = Table;
 
 import './Cart.scss';
-import { Footer } from '../../../components/Footer';
-const { Column } = Table;
 
 export const CartPage = () => {
   const navigate = useNavigate();
@@ -143,9 +144,14 @@ export const CartPage = () => {
       <section id="cart">
         <Container>
           <Divider style={{ borderColor: '#333' }} orientation="left">
-            <span style={{ fontSize: 24 }}>YOUR CART</span>
+            <span style={{ fontSize: 24 }}>GIỎ HÀNG CỦA BẠN</span>
           </Divider>
-          <Table dataSource={cartData} loading={loading} pagination={false}>
+          <Table
+            dataSource={cartData}
+            loading={loading}
+            pagination={false}
+            scroll={{ x: 800 }}
+          >
             <Column
               title="Thông tin sản phẩm"
               dataIndex="product"

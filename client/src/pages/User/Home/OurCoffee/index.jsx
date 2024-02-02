@@ -8,7 +8,7 @@ export const OurCoffee = () => {
   return (
     <section id="home-out-coffee">
       <Container>
-        <article style={{ display: "flex" }}>
+        <article className="wrapper">
           <article className="left-content">
             <div
               className="dat-title"
@@ -33,7 +33,7 @@ export const OurCoffee = () => {
             <div className="dat-image">
               <img
                 src={img2}
-                data-aos="fade-down-left"
+                data-aos="fade-up-left"
                 data-aos-duration="2000"
                 alt=""
               />

@@ -1,21 +1,12 @@
 import { Container } from '../../../components/Container';
 import { PageBanner } from '../../../components/PageBanner';
 import { Product } from '../../../components/Product';
-import {
-  Button,
-  Divider,
-  Empty,
-  Form,
-  Input,
-  Radio,
-  Select,
-  Slider,
-} from 'antd';
-import { FilterOutlined } from '@ant-design/icons';
+import { Button, Divider, Empty, Form, Space } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Footer } from '../../../components/Footer';
 import { API_USER_URL } from '../../../constants';
+import { Filters } from './Filters';
 
 import './Shop.scss';
 
@@ -24,6 +15,7 @@ export const ShopPage = () => {
   const [categories, setCategories] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const fetchCategories = async () => {
     try {
@@ -85,27 +77,32 @@ export const ShopPage = () => {
     }
   };
 
-  const handleCloseFilter = () => {
-    document.querySelector('.filters').style.transform =
-      'translateY(-50%) translateX(100%)';
-  };
-
-  const handleOpenFilter = () => {
-    document.querySelector('.filters').style.transform =
-      'translateY(-50%) translateX(0)';
-  };
-
   return (
     <>
-      <PageBanner title="SẢN PHẨM CỦA CHÚNG TÔI" />
       <section id="shop">
-        <div className="btn-open-filter" onClick={handleOpenFilter}>
-          <FilterOutlined />
-        </div>
+        <Filters
+          categories={categories}
+          onFinish={onFinish}
+          form={form}
+          loading={loading}
+          open={open}
+          setOpen={setOpen}
+        />
+        <PageBanner title="SẢN PHẨM CỦA CHÚNG TÔI" />
         <Container>
           <Divider style={{ borderColor: '#333' }} orientation="left">
             <span style={{ fontSize: 24 }}>SẢN PHẨM</span>
           </Divider>
+          <Space
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}
+          >
+            <Button type="primary" onClick={() => setOpen(true)}>
+              Tìm kiếm
+            </Button>
+          </Space>
           <div className="shop_wrapper">
             <article className="list-products">
               {searchResults && searchResults.length > 0 ? (
@@ -124,87 +121,6 @@ export const ShopPage = () => {
                   <Empty />
                 </div>
               )}
-            </article>
-            <article className="filters">
-              <Form
-                form={form}
-                name="control-hooks"
-                onFinish={onFinish}
-                layout="vertical"
-                style={{ width: '100%' }}
-              >
-                <Form.Item name="sortMethod" label="SẮP XẾP THEO">
-                  <Radio.Group
-                    defaultValue="name"
-                    optionType="button"
-                    buttonStyle="solid"
-                  >
-                    <Radio.Button value="name">Tên</Radio.Button>
-                    <Radio.Button value="price">Giá</Radio.Button>
-                    <Radio.Button value="category">Danh mục</Radio.Button>
-                  </Radio.Group>
-                </Form.Item>
-                <Form.Item name="sortOrder" label="THỨ TỰ SẮP XẾP">
-                  <Radio.Group
-                    defaultValue="asc"
-                    optionType="button"
-                    buttonStyle="solid"
-                  >
-                    <Radio.Button value="asc">Tăng dần</Radio.Button>
-                    <Radio.Button value="desc">Giảm dần</Radio.Button>
-                  </Radio.Group>
-                </Form.Item>
-                <Form.Item name="name" label="TÌM KIẾM THEO TÊN SẢN PHẨM">
-                  <Input placeholder="Robusta" />
-                </Form.Item>
-                <Form.Item name="category" label="TÌM KIẾM THEO DANH MỤC">
-                  <Select
-                    placeholder="Espresso"
-                    onChange={(value) => value}
-                    defaultValue="all"
-                  >
-                    <Select.Option value="all">Tất cả</Select.Option>
-                    {categories.map((category, index) => (
-                      <Select.Option key={index} value={category._id}>
-                        {category.name}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-                <Form.Item name="price" label="KHOẢNG GIÁ">
-                  <Slider
-                    style={{ width: '80%', margin: '0 auto' }}
-                    marks={{
-                      0: '0 VND',
-                      1000000: '1000000 VND',
-                    }}
-                    range
-                    step={1000}
-                    min={0}
-                    max={1000000}
-                    defaultValue={[0, 1000000]}
-                  />
-                </Form.Item>
-                <Form.Item>
-                  <Divider />
-                  <Button
-                    style={{ width: '100%' }}
-                    type="primary"
-                    htmlType="submit"
-                    loading={loading}
-                  >
-                    TÌM KIẾM
-                  </Button>
-                </Form.Item>
-                <Button
-                  className="btn-close-filter"
-                  danger
-                  onClick={handleCloseFilter}
-                  style={{ width: '100%' }}
-                >
-                  Close
-                </Button>
-              </Form>
             </article>
           </div>
         </Container>

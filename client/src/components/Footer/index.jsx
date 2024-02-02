@@ -82,7 +82,7 @@ export const Footer = () => {
             </ul>
           </div>
           <div className="footer__copy">
-            <p>DAT Coffee © 2024. All Rights Reserved.</p>
+            <p>Bản quyền thuộc về DAT COFFEE | Thiết kế website bởi DAT</p>
           </div>
         </section>
       </Container>

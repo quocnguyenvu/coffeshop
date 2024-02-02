@@ -1,13 +1,24 @@
 #home-out-coffee {
-  background: url("../../../../assets/bg/bg-home-1_1.jpg");
+  background: url('../../../../assets/bg/bg-home-1_1.jpg');
   background-color: #fbf9f4;
   background-position: center center;
   background-size: cover;
   transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
 
+  .wrapper {
+    display: flex;
+    @media screen and (max-width: 900px) {
+      flex-direction: column;
+      gap: 50px;
+    }
+  }
+
   .left-content,
   .right-content {
     width: 50%;
+    @media screen and (max-width: 900px) {
+      width: 100%;
+    }
   }
 
   .dat-title {
@@ -27,7 +38,12 @@
     justify-content: space-between;
   }
 
-  .right-content .dat-text span {
-    font-size: 17px;
+  .right-content .dat-text {
+    @media screen and (max-width: 900px) {
+      margin-top: 50px;
+    }
+    span {
+      font-size: 17px;
+    }
   }
 }

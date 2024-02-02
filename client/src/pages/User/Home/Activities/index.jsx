@@ -4,15 +4,17 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { API_USER_URL } from '../../../../constants';
 
 import slide1 from '../../../../assets/slide/slides1.jpg';
 import icon from '../../../../assets/icons/tele.png';
 
 import './Activities.scss';
-import axios from 'axios';
-import { API_USER_URL } from '../../../../constants';
 
 export const Activities = () => {
+  const navigate = useNavigate();
   const swiperRef = useRef();
 
   const [activities, setActivities] = useState([]);
@@ -137,7 +139,7 @@ export const Activities = () => {
           </Swiper>
         </article>
         <article className="contact">
-          <Button danger size="large">
+          <Button danger size="large" obClick={() => navigate('/contact')}>
             <img width={20} src={icon} alt="" /> Liên hệ với chúng tôi
           </Button>
         </article>

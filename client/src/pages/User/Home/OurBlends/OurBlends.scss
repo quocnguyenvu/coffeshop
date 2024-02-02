@@ -2,19 +2,24 @@
   position: relative;
   padding: 120px 0px 120px 0px;
   .list-products {
-    --f-columns: 3;
-    --f-gap: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: calc(-1 * var(--f-gap));
-    margin-bottom: calc(-1 * var(--f-gap));
+    --columns: 4;
+    --gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+    grid-gap: var(--gap);
+    @media screen and (max-width: 1279px) {
+      --columns: 3;
+    }
+
+    @media screen and (max-width: 992px) {
+      --columns: 2;
+    }
+
+    @media screen and (max-width: 600px) {
+      --columns: 1;
+    }
   }
 
-  .list-products > .product {
-    margin-left: var(--f-gap);
-    margin-bottom: var(--f-gap);
-    width: calc((100% / var(--f-columns)) - var(--f-gap));
-  }
   > img {
     position: absolute;
     top: 0;

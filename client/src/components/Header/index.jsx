@@ -114,7 +114,11 @@ export const Header = ({ isSticky = true, isScrolling = true }) => {
                 </div>
               </li>
             </ul>
-            <div className="open-menu" onClick={handleOpenMenu}>
+            <div
+              className="open-menu"
+              onClick={handleOpenMenu}
+              style={{ color: scrolling || !isSticky ? '#333' : '#fff' }}
+            >
               <AlignLeftOutlined />
             </div>
           </section>

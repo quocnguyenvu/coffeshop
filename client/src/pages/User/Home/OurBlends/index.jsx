@@ -11,11 +11,11 @@ import './OurBlends.scss';
 
 export const OurBlends = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
   const fetchProducts = async () => {
     try {
-      const { data } = await axios.get(`${API_USER_URL}/products?limit=3`);
+      const { data } = await axios.get(`${API_USER_URL}/products?limit=4`);
       setProducts(data.data.products);
       setLoading(false);
     } catch (error) {
@@ -33,8 +33,8 @@ export const OurBlends = () => {
       <img src={background} alt="" />
       <Container>
         <article className="dat-title">
-          <span className="sub-title">OUR BLENDS</span>
-          <h1 className="title">
+          <span className="sub-title" data-aos="fade-up">OUR BLENDS</span>
+          <h1 className="title" data-aos="fade-left">
             <span> Coffee Blends and Roasts for Discerning Tastes </span>
           </h1>
         </article>

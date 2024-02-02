@@ -7,9 +7,9 @@ import { useMemo, useState } from 'react';
 import { formattedPrice } from '../../../helper';
 import { Footer } from '../../../components/Footer';
 import { PageBanner } from '../../../components/PageBanner';
+const { TextArea } = Input;
 
 import './CheckoutPage.scss';
-const { TextArea } = Input;
 
 export const CheckoutPage = () => {
   const location = useLocation();
