@@ -36,10 +36,10 @@ export const CategoryEdit = () => {
         description,
       });
 
-      message.success('Category edited successfully!');
+      message.success('Chỉnh sửa danh mục thành công!');
       navigate('/admin/category/list');
     } catch (error) {
-      message.error('Category edited failed!');
+      message.error('Chỉnh sửa danh mục thất bại!');
     }
   };
 
@@ -51,7 +51,7 @@ export const CategoryEdit = () => {
         </Spin>
       ) : (
         <CategoryCommonForm
-          title="Edit Category"
+          title="Chỉnh sửa danh mục"
           initialValues={category}
           onSubmit={handleEditCategory}
         />

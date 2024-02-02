@@ -14,12 +14,12 @@ const CategoryCommonForm = ({ title, initialValues, onSubmit }) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Name"
+          label="Tên danh mục"
           name="name"
           rules={[
             {
               required: true,
-              message: 'Please input your name!',
+              message: 'Vui lòng nhập tên danh mục!',
             },
           ]}
         >
@@ -27,12 +27,12 @@ const CategoryCommonForm = ({ title, initialValues, onSubmit }) => {
         </Form.Item>
 
         <Form.Item
-          label="Description"
+          label="Mô tả"
           name="description"
           rules={[
             {
               required: true,
-              message: 'Please input your description!',
+              message: 'Vui lòng nhập mô tả!',
             },
           ]}
         >
@@ -41,7 +41,7 @@ const CategoryCommonForm = ({ title, initialValues, onSubmit }) => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            {title}
           </Button>
         </Form.Item>
       </Form>

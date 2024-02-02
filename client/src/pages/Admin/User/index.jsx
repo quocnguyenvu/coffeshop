@@ -1,38 +1,33 @@
 import { Form, Input, Button, message } from 'antd';
 import axiosClient from '../../../config/axios';
+import { Title } from '../../../components/Title';
 
 export const User = () => {
-
   const onFinish = async (values) => {
     try {
-      const response = await axiosClient.put('/change-password', values);
-      console.log('Password change success:', response.data);
-      message.success('Password changed successfully!');
+      await axiosClient.put('/change-password', values);
+      message.success('Thay đổi mật khẩu thành công!');
     } catch (error) {
-      console.error('Password change error:', error);
-      message.error('Failed to change password. Please try again.');
+      message.error('Thay đổi mật khẩu thất bại!');
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
   return (
-    <div>
+    <>
+      <Title title="Thay đổi mật khẩu" />
       <Form
         name="change-password"
         layout="vertical"
+        style={{ width: '100%', maxWidth: '600px', margin: 'auto' }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
       >
         <Form.Item
-          label="Old password"
+          label="Mật khẩu cũ"
           name="oldPassword"
           rules={[
             {
               required: true,
-              message: 'Please input your old password!',
+              message: 'Vui lòng nhập mật khẩu cũ!',
             },
           ]}
         >
@@ -40,12 +35,12 @@ export const User = () => {
         </Form.Item>
 
         <Form.Item
-          label="New password"
+          label="Mật khẩu mới"
           name="newPassword"
           rules={[
             {
               required: true,
-              message: 'Please input your new password!',
+              message: 'Vui lòng nhập mật khẩu mới!',
             },
           ]}
         >
@@ -53,12 +48,12 @@ export const User = () => {
         </Form.Item>
 
         <Form.Item
-          label="Confirm new password"
+          label="Nhập lại mật khẩu mới"
           name="confirmNewPassword"
           rules={[
             {
               required: true,
-              message: 'Please confirm your new password!',
+              message: 'Vui lòng nhập lại mật khẩu mới!',
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
@@ -75,10 +70,10 @@ export const User = () => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Change password
+            Thay đổi mật khẩu
           </Button>
         </Form.Item>
       </Form>
-    </div>
+    </>
   );
 };

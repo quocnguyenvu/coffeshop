@@ -35,12 +35,12 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Code"
+          label="Mã sản phẩm"
           name="code"
           rules={[
             {
               required: true,
-              message: 'Please input your code!',
+              message: 'Vui lòng nhập mã sản phẩm!',
             },
           ]}
         >
@@ -48,12 +48,12 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
         </Form.Item>
 
         <Form.Item
-          label="Name"
+          label="Tên sản phẩm"
           name="name"
           rules={[
             {
               required: true,
-              message: 'Please input your name!',
+              message: 'Vui lòng nhập tên sản phẩm!',
             },
           ]}
         >
@@ -61,19 +61,19 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
         </Form.Item>
 
         <Form.Item
-          label="Price"
+          label="Giá"
           name="price"
           rules={[
             {
               required: true,
-              message: 'Please input your price!',
+              message: 'Vui lòng nhập giá sản phẩm!',
             },
           ]}
         >
           <Input />
         </Form.Item>
 
-        <Form.Item label="Category" name="categoryId">
+        <Form.Item label="Danh mục" name="categoryId">
           <Select
             defaultValue={categoryId}
             style={{ width: '100%' }}
@@ -83,11 +83,11 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
         </Form.Item>
 
         <Form.Item
-          label="Description"
+          label="Mô tả"
           rules={[
             {
               required: true,
-              message: 'Please input your description!',
+              message: 'Vui lòng nhập mô tả sản phẩm!',
             },
           ]}
         >
@@ -97,7 +97,7 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
           />
         </Form.Item>
 
-        <Form.Item label="Thumbnail" name="thumbnail">
+        <Form.Item label="Hình ảnh" name="thumbnail">
           <CloudinaryMultipleUploader
             multiple
             images={images}
@@ -107,7 +107,7 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            {title}
           </Button>
         </Form.Item>
       </Form>

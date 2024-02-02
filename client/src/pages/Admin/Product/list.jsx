@@ -54,13 +54,13 @@ export const ProductList = () => {
 
   const columns = [
     {
-      title: 'Code',
+      title: 'Mã sản phẩm',
       dataIndex: 'code',
       key: 'code',
       render: (text) => <a>{text}</a>,
     },
     {
-      title: 'Images',
+      title: 'Hình ảnh',
       dataIndex: 'images',
       key: 'images',
       render: (images) => (
@@ -72,39 +72,38 @@ export const ProductList = () => {
       ),
     },
     {
-      title: 'Name',
+      title: 'Tên sản phẩm',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Price',
+      title: 'Giá',
       dataIndex: 'price',
       key: 'price',
     },
     {
-      title: 'Rate',
-      dataIndex: 'rate',
-      key: 'rate',
-    },
-    {
-      title: 'Category',
+      title: 'Danh mục',
       dataIndex: 'categoryId',
       key: 'categoryId',
       render: (category) => category?.name,
     },
     {
-      title: 'Date Create',
+      title: 'Ngày tạo',
       dataIndex: 'dateCreate',
       key: 'dateCreate',
       render: (dateCreate) => new Date(dateCreate).toLocaleString(),
     },
     {
-      title: 'Action',
+      title: 'Hành động',
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <Button type='primary' onClick={() => handleEdit(record.id)}>Edit</Button>
-          <Button danger onClick={() => showDeleteModal(record.id)}>Delete</Button>
+          <Button type="primary" onClick={() => handleEdit(record.id)}>
+            Chỉnh sửa
+          </Button>
+          <Button danger onClick={() => showDeleteModal(record.id)}>
+            Xóa
+          </Button>
         </Space>
       ),
     },
@@ -112,17 +111,26 @@ export const ProductList = () => {
 
   return (
     <>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button
+          type="primary"
+          onClick={() => navigate('/admin/product/create')}
+        >
+          Tạo mới sản phẩm
+        </Button>
+      </div>
+
       <Table columns={columns} dataSource={products} />
 
       <Modal
-        title="Confirm Delete"
+        title="Xác nhận xóa"
         open={deleteModalVisible}
         onOk={handleDelete}
         onCancel={handleCancelDelete}
-        okText="Delete"
-        cancelText="Cancel"
+        okText="Xóa"
+        cancelText="Hủy"
       >
-        <p>Are you sure you want to delete this product?</p>
+        <p>Bạn chắc chắn muốn xóa sản phẩm này ?</p>
       </Modal>
     </>
   );

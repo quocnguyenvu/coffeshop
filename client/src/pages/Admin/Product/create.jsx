@@ -42,15 +42,15 @@ export const ProductCreate = () => {
         images,
       });
 
-      message.success('Product created successfully!');
+      message.success('Tạo sản phẩm thành công!');
       navigate('/admin/product/list');
     } catch (error) {
-      message.error('Product created failed!');
+      message.error('Tạo sản phẩm thất bại!');
     }
   };
   return (
     <ProductCommonForm
-      title="Create Product"
+      title="Tạo sản phẩm mới"
       categories={categories}
       initialValues={{}}
       onSubmit={handleCreateProduct}

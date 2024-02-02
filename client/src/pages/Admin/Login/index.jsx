@@ -33,7 +33,7 @@ export const Login = () => {
               <input
                 type="text"
                 className="login__input"
-                placeholder="Phone Number"
+                placeholder="Nhập số điện thoại của bạn"
                 name="phoneNumber"
               />
             </div>
@@ -42,12 +42,12 @@ export const Login = () => {
               <input
                 type="password"
                 className="login__input"
-                placeholder="Password"
+                placeholder="Nhập mật khẩu của bạn"
                 name="password"
               />
             </div>
             <button className="button login__submit" type="submit">
-              <span className="button__text">Log In Now</span>
+              <span className="button__text">Đăng nhập</span>
               <i className="button__icon fas fa-chevron-right"></i>
             </button>
           </form>

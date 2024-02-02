@@ -15,16 +15,16 @@ export const CategoryCreate = () => {
         description,
       });
 
-      message.success('Category created successfully!');
+      message.success('Tạo mới danh mục thành công!');
       navigate('/admin/category/list');
     } catch (error) {
-      message.error('Category created failed!');
+      message.error('Tạo mới danh mục thất bại!');
     }
   };
 
   return (
     <CategoryCommonForm
-      title="Category Create"
+      title="Tạo danh mục mới"
       initialValues={{}}
       onSubmit={handleCreateCategory}
     />

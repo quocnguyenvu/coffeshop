@@ -51,27 +51,27 @@ export const CategoryList = () => {
 
   const columns = [
     {
-      title: 'Name',
+      title: 'Tên danh mục',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Description',
+      title: 'Mô tả',
       dataIndex: 'description',
       key: 'description',
     },
     {
-      title: 'Date Created',
+      title: 'Ngày tạo',
       dataIndex: 'dateCreated',
       key: 'dateCreated',
     },
     {
-      title: 'Action',
+      title: 'Hành động',
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <Button type="primary" onClick={() => openEditForm(record)}>Edit</Button>
-          <Button danger onClick={() => showDeleteModal(record.id)}>Delete</Button>
+          <Button type="primary" onClick={() => openEditForm(record)}>Chỉnh sửa</Button>
+          <Button danger onClick={() => showDeleteModal(record.id)}>Xóa</Button>
         </Space>
       ),
     },
@@ -81,20 +81,20 @@ export const CategoryList = () => {
     <>
       <div style={{display: 'flex', justifyContent: 'flex-end'}}>
         <Button type="primary" onClick={() => navigate('/admin/category/create')}>
-          Create Category
+          Tạo mới danh mục
         </Button>
       </div>
       <Table columns={columns} dataSource={categories} />
 
       <Modal
-        title="Confirm Delete"
+        title="Xác nhận xóa"
         open={deleteModalVisible}
         onOk={handleDelete}
         onCancel={handleCancelDelete}
-        okText="Delete"
-        cancelText="Cancel"
+        okText="Xóa"
+        cancelText="Hủy"
       >
-        <p>Are you sure you want to delete this category?</p>
+        <p>Bạn có chắc chắn muốn xóa danh mục này?</p>
       </Modal>
     </>
   );

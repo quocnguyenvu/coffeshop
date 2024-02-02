@@ -62,10 +62,10 @@ export const ProductEdit = () => {
         images,
       });
 
-      message.success('Product updated successfully!');
+      message.success('Chỉnh sửa sản phẩm thành công');
       navigate('/admin/product/list');
     } catch (error) {
-      message.error('Product updated failed!');
+      message.error('Chỉnh sửa sản phẩm thất bại!');
     }
   };
   return (
@@ -76,7 +76,7 @@ export const ProductEdit = () => {
         </Spin>
       ) : (
         <ProductCommonForm
-          title="Edit Product"
+          title="Chỉnh sửa sản phẩm"
           categories={categories}
           initialValues={productData}
           onSubmit={handleEditProduct}

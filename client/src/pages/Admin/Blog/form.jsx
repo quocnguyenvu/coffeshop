@@ -34,12 +34,12 @@ export const BlogCommonForm = ({ title, initialValues, onSubmit }) => {
         initialValues={initialValues}
       >
         <Form.Item
-          label="Title"
+          label="Tiêu đề"
           name="title"
           rules={[
             {
               required: true,
-              message: 'Please input your title!',
+              message: 'Vui lòng nhập tiêu đề!',
             },
           ]}
         >
@@ -47,12 +47,12 @@ export const BlogCommonForm = ({ title, initialValues, onSubmit }) => {
         </Form.Item>
 
         <Form.Item
-          label="Description"
+          label="Mô tả"
           name="description"
           rules={[
             {
               required: true,
-              message: 'Please input your description!',
+              message: 'Vui lòng nhập mô tả!',
             },
           ]}
         >
@@ -60,11 +60,11 @@ export const BlogCommonForm = ({ title, initialValues, onSubmit }) => {
         </Form.Item>
 
         <Form.Item
-          label="Content"
+          label="Nội dung"
           rules={[
             {
               required: true,
-              message: 'Please input your content!',
+              message: 'Vui lòng nhập nội dung!',
             },
           ]}
         >
@@ -74,13 +74,13 @@ export const BlogCommonForm = ({ title, initialValues, onSubmit }) => {
           />
         </Form.Item>
 
-        <Form.Item label="Thumbnail" name="thumbnail">
+        <Form.Item label="Ảnh bìa" name="thumbnail">
           <CloudinarySingleUploader image={thumbnail} setImage={setThumbnail} />
         </Form.Item>
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            {title}
           </Button>
         </Form.Item>
       </Form>

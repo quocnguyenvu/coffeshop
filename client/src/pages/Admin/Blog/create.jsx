@@ -16,16 +16,16 @@ export const BlogCreate = () => {
         content,
         thumbnail,
       });
-      message.success('Blog created successfully!');
+      message.success('Tạo mới bài viết thành công!');
       navigate('/admin/blog/list');
     } catch (error) {
-      message.error('Blog created failed!');
+      message.error('Tạo mới bài viết thất bại!');
     }
   };
 
   return (
     <BlogCommonForm
-      title="Blog Create"
+      title="Tạo bài viết mới"
       initialValues={{}}
       onSubmit={handleCreateBlog}
     />

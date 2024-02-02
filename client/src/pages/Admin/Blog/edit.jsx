@@ -39,10 +39,10 @@ export const BlogEdit = () => {
         content,
         thumbnail,
       });
-      message.success('Blog updated successfully!');
+      message.success('Chỉnh sửa bài viết thành công!');
       navigate('/admin/blog/list');
     } catch (error) {
-      message.error('Blog updated failed!');
+      message.error('Chỉnh sửa bài viết thất bại!');
     }
   };
 
@@ -54,7 +54,7 @@ export const BlogEdit = () => {
         </Spin>
       ) : (
         <BlogCommonForm
-          title="Blog Edit"
+          title="Chỉnh sửa bài viết"
           initialValues={blogData}
           onSubmit={handleEditBlog}
         />
