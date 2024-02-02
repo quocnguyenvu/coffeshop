@@ -21,8 +21,21 @@ import { Login } from './pages/Admin/Login';
 import { ProductEdit } from './pages/Admin/Product/edit';
 import { User } from './pages/Admin/User';
 import { CheckoutPage } from './pages/User/CheckoutPage';
+// import { Activity } from './pages/Admin/Content/activity';
+import Aos from 'aos';
+import { useEffect } from 'react';
+
+import 'aos/dist/aos.css';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 function App() {
+  useEffect(() => {
+    Aos.init();
+  }, []);
+
   return (
     <div>
       <Routes>
@@ -54,6 +67,8 @@ function App() {
 
           <Route path="order" element={<OrderList />} />
           <Route path="user" element={<User />} />
+
+          {/* <Route path="content/activity" element={<Activity />} /> */}
         </Route>
 
         <Route path="login" element={<Login />} />

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { API_USER_URL } from '../../../../constants';
 import { useEffect, useState } from 'react';
 import { Container } from '../../../../components/Container';
-import { Button, Divider, Spin } from 'antd';
+import { Button, Divider, Spin, message } from 'antd';
 import { formattedPrice } from '../../../../helper';
 import { Product } from '../../../../components/Product';
 import { Footer } from '../../../../components/Footer';
@@ -67,6 +67,7 @@ export const ProductDetail = () => {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
+    message.success('Thêm sản phẩm vào giỏ hàng thành công');
   };
 
   const handleClickSlideItems = (e) => {

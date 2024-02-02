@@ -4,8 +4,10 @@ import { OurCoffee } from './OurCoffee';
 import { OurBlends } from './OurBlends';
 import { Footer } from '../../../components/Footer';
 import { Plantations } from './Plantations';
+import { Activities } from './Activities';
 
 import './Home.scss';
+import { HomeBlog } from './HomeBlog';
 
 export const HomePage = () => {
   return (
@@ -15,6 +17,8 @@ export const HomePage = () => {
       <OurCoffee />
       <OurBlends />
       <Plantations />
+      <Activities />
+      <HomeBlog />
       <Footer />
     </main>
   );

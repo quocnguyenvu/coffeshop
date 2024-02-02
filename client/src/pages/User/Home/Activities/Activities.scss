@@ -1,0 +1,108 @@
+#home-activities {
+  padding: 120px 0 120px 0;
+
+  .sub-title {
+    color: #b98d58;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 700;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    opacity: 0.9;
+  }
+
+  .title {
+    font-size: 57px;
+    font-weight: 500;
+  }
+
+  .section-header {
+    margin-bottom: 50px;
+    display: flex;
+
+    .dat-title {
+      width: 35%;
+    }
+
+    .description {
+      width: 40%;
+      padding-top: 50px;
+      font-weight: 300;
+      font-style: italic;
+    }
+  }
+
+  .contact {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+  .slide_button {
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+
+    > div {
+      width: 40px;
+      height: 40px;
+      border-radius: 100rem;
+      border: 1px solid #b98d58;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+  .activities-swiper {
+    img {
+      aspect-ratio: 1;
+    }
+    .swiper-item {
+      overflow: hidden;
+      position: relative;
+      .text {
+        position: absolute;
+        transform: translateX(-100%);
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        transition: all 0.25s linear;
+        padding: 40px;
+        text-align: center;
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 0;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: -1;
+          transition: all 0.25s linear;
+        }
+      }
+      &:hover .text {
+        transform: translateX(0);
+        transition: all 0.25s linear;
+      }
+      &:hover .text::before {
+        width: 100%;
+        transition: all 0.25s linear;
+      }
+    }
+  }
+}

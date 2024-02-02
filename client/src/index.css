@@ -4,6 +4,7 @@ html, body {
   margin: 0;
   box-sizing: border-box;
   font-family: 'SVN-Avo',sans-serif;
+  scroll-behavior: smooth;
 }
 body {
   width: 100%;

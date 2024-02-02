@@ -71,7 +71,20 @@ export const AdminPage = () => {
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
-        <div className="demo-logo-vertical" />
+        <div
+          className="admin-logo"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 64,
+            marginBottom: collapsed ? 0 : 16,
+          }}
+        >
+          <span style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>
+            {collapsed ? 'DAT' : 'DAT COFFEE'}
+          </span>
+        </div>
         <Menu
           theme="dark"
           mode="inline"
@@ -133,6 +146,17 @@ export const AdminPage = () => {
               icon: <CreditCardOutlined />,
               label: 'Đơn hàng',
             },
+            // {
+            //   key: 'content',
+            //   icon: <CreditCardOutlined />,
+            //   label: 'Giao diện',
+            //   children: [
+            //     {
+            //       label: 'Nội dung hoạt động',
+            //       key: '/admin/content/activity',
+            //     },
+            //   ],
+            // },
             {
               key: 'user',
               icon: <UploadOutlined />,
