@@ -1,7 +1,8 @@
-import { useNavigate } from 'react-router-dom'
-import axiosClient from '../../../config/axios'
-import CategoryCommonForm from './form'
 import { message } from 'antd'
+import { useNavigate } from 'react-router-dom'
+
+import CategoryCommonForm from './form'
+import axiosClient from '../../../config/axios'
 
 export const CategoryCreate = () => {
   const navigate = useNavigate()
@@ -22,5 +23,5 @@ export const CategoryCreate = () => {
     }
   }
 
-  return <CategoryCommonForm title="Tạo danh mục mới" initialValues={{}} onSubmit={handleCreateCategory} />
+  return <CategoryCommonForm initialValues={{}} title="Tạo danh mục mới" onSubmit={handleCreateCategory} />
 }

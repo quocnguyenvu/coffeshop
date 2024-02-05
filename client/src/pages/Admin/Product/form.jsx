@@ -1,6 +1,7 @@
 import { Form, Input, Button, Select } from 'antd'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
+
 import CKEditorComponent from '@components/CKeditor'
 import CloudinaryMultipleUploader from '@components/CloudinaryMultipleUploader'
 import { Title } from '@components/Title'
@@ -24,11 +25,11 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
     <>
       <Title title={title} />
       <Form
-        style={{ width: '100%', maxWidth: '600px', margin: 'auto' }}
-        initialValues={initialValues}
-        onFinish={handleFormSubmit}
-        layout="vertical"
         autoComplete="off"
+        initialValues={initialValues}
+        layout="vertical"
+        style={{ width: '100%', maxWidth: '600px', margin: 'auto' }}
+        onFinish={handleFormSubmit}
       >
         <Form.Item
           label="Mã sản phẩm"
@@ -72,9 +73,9 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
         <Form.Item label="Danh mục" name="categoryId">
           <Select
             defaultValue={categoryId}
+            options={categories}
             style={{ width: '100%' }}
             onChange={(value) => setCategoryId(value)}
-            options={categories}
           />
         </Form.Item>
 
@@ -95,7 +96,7 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button htmlType="submit" type="primary">
             {title}
           </Button>
         </Form.Item>
@@ -107,8 +108,8 @@ const ProductCommonForm = ({ title, initialValues, categories, onSubmit }) => {
 export default ProductCommonForm
 
 ProductCommonForm.propTypes = {
-  title: PropTypes.string.isRequired,
-  initialValues: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  initialValues: PropTypes.object.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired
 }

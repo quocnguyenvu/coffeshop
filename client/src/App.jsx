@@ -1,29 +1,30 @@
-import { HomePage } from '@user/Home'
-import { BlogsPage } from '@user/Blogs'
-import { CartPage } from '@user/Cart'
-import { ContactPage } from '@user/Contact'
-import { ShopPage } from '@user/Shop'
-import { BlogDetail } from '@user/Blogs/BlogDetail'
-import { ProductDetail } from '@user/Shop/ProductDetail'
-import { Route, Routes } from 'react-router-dom'
 import { AdminPage } from '@admin'
-import { CategoryCreate } from '@admin/Category/create'
-import { CategoryList } from '@admin/Category/list'
-import { ProductCreate } from '@admin/Product/create'
-import { ProductList } from '@admin/Product/list'
-import { OrderList } from '@admin/Order/list'
+import { AdminInfomation } from '@admin/AdminInfomation'
 import { BlogCreate } from '@admin/Blog/create'
-import { BlogList } from '@admin/Blog/list'
 import { BlogEdit } from '@admin/Blog/edit'
-import { Dashboard } from '@admin/Dashboard'
+import { BlogList } from '@admin/Blog/list'
+import { CategoryCreate } from '@admin/Category/create'
 import { CategoryEdit } from '@admin/Category/edit'
+import { CategoryList } from '@admin/Category/list'
+import { ChangePassword } from '@admin/ChangePassword'
+import { CustomerInterface } from '@admin/CustomerInterface'
+import { Dashboard } from '@admin/Dashboard'
 import { Login } from '@admin/Login'
+import { OrderList } from '@admin/Order/list'
+import { ProductCreate } from '@admin/Product/create'
 import { ProductEdit } from '@admin/Product/edit'
-import { User } from '@admin/User'
+import { ProductList } from '@admin/Product/list'
+import { BlogsPage } from '@user/Blogs'
+import { BlogDetail } from '@user/Blogs/BlogDetail'
+import { CartPage } from '@user/Cart'
 import { CheckoutPage } from '@user/CheckoutPage'
-// import { Activity } from '@admin/Content/activity';
+import { ContactPage } from '@user/Contact'
+import { HomePage } from '@user/Home'
+import { ShopPage } from '@user/Shop'
+import { ProductDetail } from '@user/Shop/ProductDetail'
 import Aos from 'aos'
 import { useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 import 'aos/dist/aos.css'
 import 'swiper/css'
@@ -31,6 +32,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
+// eslint-disable-next-line func-style
 function App() {
   useEffect(() => {
     Aos.init()
@@ -41,37 +43,38 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<HomePage />} />
-          <Route path="blogs" element={<BlogsPage />} />
-          <Route path="blog/:blogId" element={<BlogDetail />} />
-          <Route path="cart" element={<CartPage />} />
-          <Route path="contact" element={<ContactPage />} />
-          <Route path="shop" element={<ShopPage />} />
-          <Route path="product/:productId" element={<ProductDetail />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route element={<BlogsPage />} path="blogs" />
+          <Route element={<BlogDetail />} path="blog/:blogId" />
+          <Route element={<CartPage />} path="cart" />
+          <Route element={<ContactPage />} path="contact" />
+          <Route element={<ShopPage />} path="shop" />
+          <Route element={<ProductDetail />} path="product/:productId" />
+          <Route element={<CheckoutPage />} path="/checkout" />
         </Route>
 
-        <Route path="admin" element={<AdminPage />}>
+        <Route element={<AdminPage />} path="admin">
           <Route index element={<Dashboard />} />
 
-          <Route path="blog/create" element={<BlogCreate />} />
-          <Route path="blog/list" element={<BlogList />} />
-          <Route path="blog/edit/:blogId" element={<BlogEdit />} />
+          <Route element={<BlogCreate />} path="blog/create" />
+          <Route element={<BlogList />} path="blog/list" />
+          <Route element={<BlogEdit />} path="blog/edit/:blogId" />
 
-          <Route path="product/create" element={<ProductCreate />} />
-          <Route path="product/list" element={<ProductList />} />
-          <Route path="product/edit/:productId" element={<ProductEdit />} />
+          <Route element={<ProductCreate />} path="product/create" />
+          <Route element={<ProductList />} path="product/list" />
+          <Route element={<ProductEdit />} path="product/edit/:productId" />
 
-          <Route path="category/create" element={<CategoryCreate />} />
-          <Route path="category/list" element={<CategoryList />} />
-          <Route path="category/edit/:categoryId" element={<CategoryEdit />} />
+          <Route element={<CategoryCreate />} path="category/create" />
+          <Route element={<CategoryList />} path="category/list" />
+          <Route element={<CategoryEdit />} path="category/edit/:categoryId" />
 
-          <Route path="order" element={<OrderList />} />
-          <Route path="user" element={<User />} />
+          <Route element={<OrderList />} path="order" />
 
-          {/* <Route path="content/activity" element={<Activity />} /> */}
+          <Route element={<ChangePassword />} path="password/change" />
+          <Route element={<AdminInfomation />} path="infomation" />
+          <Route element={<CustomerInterface />} path="customer-interface" />
         </Route>
 
-        <Route path="login" element={<Login />} />
+        <Route element={<Login />} path="login" />
       </Routes>
     </div>
   )

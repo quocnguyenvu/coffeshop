@@ -1,8 +1,9 @@
-import ProductCommonForm from './form'
-import axiosClient from '../../../config/axios'
+import { Spin, message } from 'antd'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Spin, message } from 'antd'
+
+import ProductCommonForm from './form'
+import axiosClient from '../../../config/axios'
 
 export const ProductEdit = () => {
   const navigate = useNavigate()
@@ -37,12 +38,10 @@ export const ProductEdit = () => {
     const fetchCategories = async () => {
       const response = await axiosClient.get('category')
       setCategories(
-        response.data.categories.map((category) => {
-          return {
-            value: category.id,
-            label: category.name
-          }
-        })
+        response.data.categories.map((category) => ({
+          value: category.id,
+          label: category.name
+        }))
       )
     }
 
@@ -71,14 +70,14 @@ export const ProductEdit = () => {
   return (
     <>
       {loading ? (
-        <Spin tip="Loading" size="large">
+        <Spin size="large" tip="Loading">
           <div className="content" />
         </Spin>
       ) : (
         <ProductCommonForm
-          title="Chỉnh sửa sản phẩm"
           categories={categories}
           initialValues={productData}
+          title="Chỉnh sửa sản phẩm"
           onSubmit={handleEditProduct}
         />
       )}

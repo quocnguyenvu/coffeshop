@@ -1,13 +1,16 @@
+import { message } from 'antd'
 import PropTypes from 'prop-types'
-import { formattedPrice } from '../../helper'
 import { useNavigate } from 'react-router-dom'
 
+import { formattedPrice } from '../../helper'
+
 import './Product.scss'
-import { message } from 'antd'
 
 export const Product = ({ product }) => {
   const navigate = useNavigate()
-  const handleAddToCart = () => {
+
+  const handleAddToCart = (event) => {
+    event.stopPropagation()
     const cart = JSON.parse(localStorage.getItem('cart')) || []
 
     const existingProduct = cart.find((item) => item.productId === product.id)
@@ -29,7 +32,7 @@ export const Product = ({ product }) => {
   return (
     <article className="product" onClick={handleClickItem}>
       <div className="product-image">
-        <img src={product.images[0]} alt={product.name} />
+        <img alt={product.name} src={product.images[0]} />
       </div>
       <div className="product-info">
         <div className="product-name">{product.name}</div>

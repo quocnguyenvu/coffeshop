@@ -1,12 +1,14 @@
+import { Divider, Spin } from 'antd'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { API_USER_URL } from '../../../../constants'
-import { Divider, Spin } from 'antd'
-import { Header } from '@components/Header'
+
+import { BlogItem } from '@components/BlogItem'
 import { Container } from '@components/Container'
 import { Footer } from '@components/Footer'
-import { BlogItem } from '@components/BlogItem'
+import { Header } from '@components/Header'
+
+import { API_USER_URL } from '../../../../constants'
 
 import './BlogDetail.scss'
 
@@ -55,9 +57,9 @@ export const BlogDetail = () => {
         </div>
       ) : (
         <section id="blog-detail">
-          <Header isSticky={false} isScrolling={false} />
+          <Header isScrolling={false} isSticky={false} />
           <div className="blog-thumbnail">
-            <img src={blog.thumbnail} alt={blog.title} />
+            <img alt={blog.title} src={blog.thumbnail} />
           </div>
           <Container>
             <div className="blog_wrap">
@@ -70,14 +72,14 @@ export const BlogDetail = () => {
               </div>
             </div>
             <div className="blog-newest">
-              {blogNewest.length > 0 && (
+              {0 < blogNewest.length && (
                 <>
-                  <Divider style={{ borderColor: '#333' }} orientation="left">
+                  <Divider orientation="left" style={{ borderColor: '#333' }}>
                     <span style={{ fontSize: 24 }}>BÀI VIẾT MỚI NHẤT</span>
                   </Divider>
                   <div className="newest-wrap">
                     {blogNewest.map((blog, index) => (
-                      <BlogItem key={index} blog={blog} />
+                      <BlogItem blog={blog} key={index} />
                     ))}
                   </div>
                 </>

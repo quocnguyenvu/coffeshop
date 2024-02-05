@@ -1,6 +1,7 @@
+import { Space, Table, Modal, Button, message } from 'antd'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Space, Table, Modal, Button, message } from 'antd'
+
 import axiosClient from '../../../config/axios'
 
 export const CategoryList = () => {
@@ -89,12 +90,12 @@ export const CategoryList = () => {
       <Table columns={columns} dataSource={categories} />
 
       <Modal
-        title="Xác nhận xóa"
-        open={deleteModalVisible}
-        onOk={handleDelete}
-        onCancel={handleCancelDelete}
-        okText="Xóa"
         cancelText="Hủy"
+        okText="Xóa"
+        open={deleteModalVisible}
+        title="Xác nhận xóa"
+        onCancel={handleCancelDelete}
+        onOk={handleDelete}
       >
         <p>Bạn có chắc chắn muốn xóa danh mục này?</p>
       </Modal>

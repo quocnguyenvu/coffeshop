@@ -1,15 +1,16 @@
-import { Container } from '@components/Container'
-import { Button, Spin } from 'antd'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination } from 'swiper/modules'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import icon from '@assets/icons/tele.png'
+import slide1 from '@assets/slide/slides1.jpg'
+import { Button, Spin } from 'antd'
+import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { API_USER_URL } from '../../../../constants'
+import { Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
-import slide1 from '@assets/slide/slides1.jpg'
-import icon from '@assets/icons/tele.png'
+import { Container } from '@components/Container'
+
+import { API_USER_URL } from '../../../../constants'
 
 import './Activities.scss'
 
@@ -60,26 +61,26 @@ export const Activities = () => {
         </section>
         <article>
           <Swiper
-            onBeforeInit={(swiper) => {
-              swiperRef.current = swiper
-            }}
+            className="activities-swiper"
+            modules={[Pagination]}
             pagination={{
               dynamicBullets: true
             }}
             slidesPerView={3}
             spaceBetween={10}
-            modules={[Pagination]}
-            className="activities-swiper"
+            onBeforeInit={(swiper) => {
+              swiperRef.current = swiper
+            }}
           >
             {loading ? (
-              <Spin tip="Loading" size="large">
+              <Spin size="large" tip="Loading">
                 <div className="content" />
               </Spin>
             ) : (
               activities.map((activity) => (
                 <SwiperSlide key={activity.id}>
                   <div className="swiper-item">
-                    <img src={activity.image} alt="" />
+                    <img alt="" src={activity.image} />
                     <div className="text">
                       <p>{activity.title}</p>
                     </div>
@@ -89,7 +90,7 @@ export const Activities = () => {
             )}
             <SwiperSlide>
               <div className="swiper-item">
-                <img src={slide1} alt="" />
+                <img alt="" src={slide1} />
                 <div className="text">
                   <p>Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem</p>
                 </div>
@@ -97,7 +98,7 @@ export const Activities = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="swiper-item">
-                <img src={slide1} alt="" />
+                <img alt="" src={slide1} />
                 <div className="text">
                   <p>Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem</p>
                 </div>
@@ -105,7 +106,7 @@ export const Activities = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="swiper-item">
-                <img src={slide1} alt="" />
+                <img alt="" src={slide1} />
                 <div className="text">
                   <p>Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem</p>
                 </div>
@@ -113,7 +114,7 @@ export const Activities = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="swiper-item">
-                <img src={slide1} alt="" />
+                <img alt="" src={slide1} />
                 <div className="text">
                   <p>Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem</p>
                 </div>
@@ -121,7 +122,7 @@ export const Activities = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="swiper-item">
-                <img src={slide1} alt="" />
+                <img alt="" src={slide1} />
                 <div className="text">
                   <p>Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem</p>
                 </div>
@@ -129,7 +130,7 @@ export const Activities = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className="swiper-item">
-                <img src={slide1} alt="" />
+                <img alt="" src={slide1} />
                 <div className="text">
                   <p>Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem</p>
                 </div>
@@ -138,8 +139,8 @@ export const Activities = () => {
           </Swiper>
         </article>
         <article className="contact">
-          <Button danger size="large" obClick={() => navigate('/contact')}>
-            <img width={20} src={icon} alt="" /> Liên hệ với chúng tôi
+          <Button danger obClick={() => navigate('/contact')} size="large">
+            <img alt="" src={icon} width={20} /> Liên hệ với chúng tôi
           </Button>
         </article>
       </Container>

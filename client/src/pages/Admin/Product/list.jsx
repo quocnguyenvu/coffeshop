@@ -1,7 +1,8 @@
 import { Space, Table, Modal, Button, message } from 'antd'
 import { useState, useEffect } from 'react'
-import axiosClient from '../../../config/axios'
 import { useNavigate } from 'react-router-dom'
+
+import axiosClient from '../../../config/axios'
 
 export const ProductList = () => {
   const navigate = useNavigate()
@@ -59,7 +60,7 @@ export const ProductList = () => {
       title: 'Hình ảnh',
       dataIndex: 'images',
       key: 'images',
-      render: (images) => <img src={images[0]} alt="product" style={{ width: '80px', height: '80px', objectFit: 'cover' }} />
+      render: (images) => <img alt="product" src={images[0]} style={{ width: '80px', height: '80px', objectFit: 'cover' }} />
     },
     {
       title: 'Tên sản phẩm',
@@ -110,12 +111,12 @@ export const ProductList = () => {
       <Table columns={columns} dataSource={products} />
 
       <Modal
-        title="Xác nhận xóa"
-        open={deleteModalVisible}
-        onOk={handleDelete}
-        onCancel={handleCancelDelete}
-        okText="Xóa"
         cancelText="Hủy"
+        okText="Xóa"
+        open={deleteModalVisible}
+        title="Xác nhận xóa"
+        onCancel={handleCancelDelete}
+        onOk={handleDelete}
       >
         <p>Bạn chắc chắn muốn xóa sản phẩm này ?</p>
       </Modal>

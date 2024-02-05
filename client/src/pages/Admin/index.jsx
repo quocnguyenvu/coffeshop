@@ -1,4 +1,3 @@
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   UploadOutlined,
   UserOutlined,
@@ -8,9 +7,10 @@ import {
   CreditCardOutlined
 } from '@ant-design/icons'
 import { Layout, Menu, theme, Breadcrumb, Button } from 'antd'
-import { useEffect, useMemo, useState } from 'react'
 import { Footer } from 'antd/es/layout/layout'
 import axios from 'axios'
+import { useEffect, useMemo, useState } from 'react'
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 const { Sider, Content } = Layout
 
@@ -55,11 +55,9 @@ export const AdminPage = () => {
     navigate('/login')
   }
 
-  const breadcrumbs = pathSnippets.map((_, index) => {
-    return {
-      title: pathSnippets[index]
-    }
-  })
+  const breadcrumbs = pathSnippets.map((_, index) => ({
+    title: pathSnippets[index]
+  }))
 
   return isAuth ? (
     <Layout style={{ width: '100vw', height: '100vh' }}>
@@ -77,10 +75,7 @@ export const AdminPage = () => {
           <span style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>{collapsed ? 'DAT' : 'DAT COFFEE'}</span>
         </div>
         <Menu
-          theme="dark"
-          mode="inline"
           defaultSelectedKeys={['1']}
-          onClick={({ key }) => navigate(key)}
           items={[
             {
               key: '/admin',
@@ -137,23 +132,29 @@ export const AdminPage = () => {
               icon: <CreditCardOutlined />,
               label: 'Đơn hàng'
             },
-            // {
-            //   key: 'content',
-            //   icon: <CreditCardOutlined />,
-            //   label: 'Giao diện',
-            //   children: [
-            //     {
-            //       label: 'Nội dung hoạt động',
-            //       key: '/admin/content/activity',
-            //     },
-            //   ],
-            // },
             {
-              key: 'user',
+              key: 'Quản trị viên',
               icon: <UploadOutlined />,
-              label: 'Đổi mật khẩu'
+              label: 'Người dùng',
+              children: [
+                {
+                  key: '/admin/password/change',
+                  label: 'Đổi mật khẩu'
+                }
+                // {
+                //   key: '/admin/infomation',
+                //   label: 'Thông tin cá nhân'
+                // },
+                // {
+                //   key: '/admin/customer-interface',
+                //   label: 'Giao diện khách hàng'
+                // }
+              ]
             }
           ]}
+          mode="inline"
+          theme="dark"
+          onClick={({ key }) => navigate(key)}
         />
       </Sider>
       <Layout style={{ width: collapsed ? 'calc(100% - 80px)' : 'calc(100% - 200px' }}>
@@ -171,7 +172,7 @@ export const AdminPage = () => {
               alignItems: 'center'
             }}
           >
-            <Breadcrumb style={{ margin: '16px 0' }} items={breadcrumbs} />
+            <Breadcrumb items={breadcrumbs} style={{ margin: '16px 0' }} />
             <Button type="primary" onClick={handleLogout}>
               Đăng xuất
             </Button>

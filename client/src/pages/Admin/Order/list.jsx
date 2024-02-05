@@ -1,5 +1,8 @@
 import { Button, Space, Table, Modal, Select, Tag, Collapse, Form, Input, Row, Col, Divider, message } from 'antd'
 import { useEffect, useState } from 'react'
+
+import { CustomerInfomation } from './CustomerInfomation'
+import { OrderProductsInfomation } from './OrderProductsInfomation'
 import axiosClient from '../../../config/axios'
 import { displayStatus, displayStatusColor, formattedPrice } from '../../../helper'
 
@@ -7,8 +10,6 @@ const { Option } = Select
 const { Panel } = Collapse
 
 import './OrderList.scss'
-import { CustomerInfomation } from './CustomerInfomation'
-import { OrderProductsInfomation } from './OrderProductsInfomation'
 
 export const OrderList = () => {
   const [form] = Form.useForm()
@@ -31,7 +32,9 @@ export const OrderList = () => {
         params: {
           ...values,
           page: pagination.current,
-          limit: pagination.pageSize
+          limit: pagination.pageSize,
+          sortBy: 'dateCreate',
+          sortMethod: 'desc'
         }
       })
       setOrders(response.data.orders)
@@ -118,6 +121,12 @@ export const OrderList = () => {
       )
     },
     {
+      title: 'Ngày tạo',
+      dataIndex: 'dateCreate',
+      key: 'dateCreate',
+      render: (createdAt) => new Date(createdAt).toLocaleString()
+    },
+    {
       title: 'Hành động',
       key: 'action',
       render: (_, record) => (
@@ -149,21 +158,21 @@ export const OrderList = () => {
     <>
       <Collapse>
         <Panel header="Tìm kiếm đơn hàng" key="1">
-          <Form form={form} name="control-hooks" onFinish={onFinish} layout="vertical" style={{ width: '100%' }}>
+          <Form form={form} layout="vertical" name="control-hooks" style={{ width: '100%' }} onFinish={onFinish}>
             <Row gutter={16}>
               <Col span={8}>
-                <Form.Item name="customerName" label="Tên khách hàng">
+                <Form.Item label="Tên khách hàng" name="customerName">
                   <Input placeholder="Nhập tên khách hàng" />
                 </Form.Item>
               </Col>
               <Col span={8}>
-                <Form.Item name="phoneNumber" label="Số điện thoại">
+                <Form.Item label="Số điện thoại" name="phoneNumber">
                   <Input placeholder="Nhập số điện thoại" />
                 </Form.Item>
               </Col>
               <Col span={8}>
-                <Form.Item name="status" label="Trạng thái">
-                  <Select style={{ width: '100%' }} placeholder="Chọn trạng thái">
+                <Form.Item label="Trạng thái" name="status">
+                  <Select placeholder="Chọn trạng thái" style={{ width: '100%' }}>
                     <Option value="Confirmed">Đã xác nhận</Option>
                     <Option value="Shipped">Đang vận chuyển</Option>
                     <Option value="Delivered">Đã nhận hàng</Option>
@@ -173,7 +182,7 @@ export const OrderList = () => {
             </Row>
             <Form.Item>
               <Space>
-                <Button type="primary" htmlType="submit">
+                <Button htmlType="submit" type="primary">
                   Tìm kiếm
                 </Button>
                 <Button
@@ -190,8 +199,8 @@ export const OrderList = () => {
         </Panel>
       </Collapse>
       <Table columns={columns} dataSource={orders} pagination={pagination} onChange={handleTableChange} />
-      <Modal title="Chọn trạng thái" open={modalVisible} onOk={changeOrderStatus} onCancel={() => setModalVisible(false)}>
-        <Select style={{ width: '100%' }} placeholder="Chọn trạng thái" onChange={(value) => setSelectedStatus(value)}>
+      <Modal open={modalVisible} title="Chọn trạng thái" onCancel={() => setModalVisible(false)} onOk={changeOrderStatus}>
+        <Select placeholder="Chọn trạng thái" style={{ width: '100%' }} onChange={(value) => setSelectedStatus(value)}>
           <Option value="confirmed">Đã xác nhận</Option>
           <Option value="shipping">Đang vận chuyển</Option>
           <Option value="success">Đã nhận hàng</Option>
@@ -200,23 +209,23 @@ export const OrderList = () => {
       </Modal>
 
       <Modal
-        title="Chi tiết đơn hàng"
-        open={modalDetailVisible}
         okButtonProps={{ style: { display: 'none' } }}
-        onCancel={() => setModalDetailVisible(false)}
+        open={modalDetailVisible}
         style={{
           maxHeight: '80vh',
           overflowY: 'auto'
         }}
+        title="Chi tiết đơn hàng"
+        onCancel={() => setModalDetailVisible(false)}
       >
         <section id="order-detail">
-          <Divider style={{ borderColor: '#333' }} orientation="left">
+          <Divider orientation="left" style={{ borderColor: '#333' }}>
             <span style={{ fontSize: 24 }}>THÔNG TIN SẢN PHẨM</span>
           </Divider>
 
           <OrderProductsInfomation order={selectedOrderDetail} />
 
-          <Divider style={{ borderColor: '#333' }} orientation="left">
+          <Divider orientation="left" style={{ borderColor: '#333' }}>
             <span style={{ fontSize: 24 }}>THÔNG TIN KHÁCH HÀNG</span>
           </Divider>
 

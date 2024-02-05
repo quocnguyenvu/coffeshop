@@ -1,9 +1,11 @@
+import { Button, Divider, Spin } from 'antd'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { API_USER_URL } from '../../../../constants'
-import { Button, Divider, Spin } from 'antd'
+
 import { BlogItem } from '@components/BlogItem'
 import { Container } from '@components/Container'
+
+import { API_USER_URL } from '../../../../constants'
 
 import './HomeBlog.scss'
 export const HomeBlog = () => {
@@ -40,7 +42,7 @@ export const HomeBlog = () => {
         </article>
         <section className="list-blogs">
           {loading ? (
-            <Spin tip="Loading" size="large">
+            <Spin size="large" tip="Loading">
               <div className="content" />
             </Spin>
           ) : (
@@ -48,7 +50,7 @@ export const HomeBlog = () => {
           )}
         </section>
         <article className="view-more">
-          <Button type="primary" ghost>
+          <Button ghost type="primary">
             Xem tất cả
           </Button>
         </article>

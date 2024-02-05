@@ -1,8 +1,9 @@
-import ProductCommonForm from './form'
-import axiosClient from '../../../config/axios'
+import { message } from 'antd'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { message } from 'antd'
+
+import ProductCommonForm from './form'
+import axiosClient from '../../../config/axios'
 
 export const ProductCreate = () => {
   const navigate = useNavigate()
@@ -12,12 +13,10 @@ export const ProductCreate = () => {
     const fetchCategories = async () => {
       const response = await axiosClient.get('category')
       setCategories(
-        response.data.categories.map((category) => {
-          return {
-            value: category.id,
-            label: category.name
-          }
-        })
+        response.data.categories.map((category) => ({
+          value: category.id,
+          label: category.name
+        }))
       )
     }
 
@@ -43,5 +42,5 @@ export const ProductCreate = () => {
       message.error('Tạo sản phẩm thất bại!')
     }
   }
-  return <ProductCommonForm title="Tạo sản phẩm mới" categories={categories} initialValues={{}} onSubmit={handleCreateProduct} />
+  return <ProductCommonForm categories={categories} initialValues={{}} title="Tạo sản phẩm mới" onSubmit={handleCreateProduct} />
 }

@@ -1,15 +1,14 @@
-import { Button } from 'antd'
-import { useRef } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { useNavigate } from 'react-router-dom'
-import { Pagination } from 'swiper/modules'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
-
-import './Banner.scss'
-
 import slide1 from '@assets/slide/slides1.jpg'
 import slide2 from '@assets/slide/slides2.jpg'
 import slide3 from '@assets/slide/slides3.jpg'
+import { Button } from 'antd'
+import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import './Banner.scss'
 
 export const Banner = () => {
   const navigate = useNavigate()

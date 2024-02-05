@@ -58,7 +58,7 @@ exports.getAll = async (req, res, next) => {
     const {
       page = 1,
       limit = 10,
-      sortBy = "createdAt",
+      sortBy = "dateCreate",
       sortMethod = "desc",
       customerName,
       phoneNumber,

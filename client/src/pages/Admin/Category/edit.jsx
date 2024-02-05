@@ -1,8 +1,9 @@
+import { Spin, message } from 'antd'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import axiosClient from '../../../config/axios'
+
 import CategoryCommonForm from './form'
-import { Spin, message } from 'antd'
+import axiosClient from '../../../config/axios'
 
 export const CategoryEdit = () => {
   const navigate = useNavigate()
@@ -46,11 +47,11 @@ export const CategoryEdit = () => {
   return (
     <>
       {loading ? (
-        <Spin tip="Loading" size="large">
+        <Spin size="large" tip="Loading">
           <div className="content" />
         </Spin>
       ) : (
-        <CategoryCommonForm title="Chỉnh sửa danh mục" initialValues={category} onSubmit={handleEditCategory} />
+        <CategoryCommonForm initialValues={category} title="Chỉnh sửa danh mục" onSubmit={handleEditCategory} />
       )}
     </>
   )

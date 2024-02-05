@@ -5,7 +5,8 @@ import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Container } from '../Container'
+import { Container } from '@components/Container'
+
 import './Header.scss'
 
 export const Header = ({ isSticky = true, isScrolling = true }) => {

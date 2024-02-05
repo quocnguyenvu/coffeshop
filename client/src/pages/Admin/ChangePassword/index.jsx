@@ -1,8 +1,10 @@
 import { Form, Input, Button, message } from 'antd'
-import axiosClient from '../../../config/axios'
+
 import { Title } from '@components/Title'
 
-export const User = () => {
+import axiosClient from '../../../config/axios'
+
+export const ChangePassword = () => {
   const onFinish = async (values) => {
     try {
       await axiosClient.put('/change-password', values)
@@ -16,8 +18,8 @@ export const User = () => {
     <>
       <Title title="Thay đổi mật khẩu" />
       <Form
-        name="change-password"
         layout="vertical"
+        name="change-password"
         style={{ width: '100%', maxWidth: '600px', margin: 'auto' }}
         onFinish={onFinish}
       >
@@ -69,7 +71,7 @@ export const User = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button htmlType="submit" type="primary">
             Thay đổi mật khẩu
           </Button>
         </Form.Item>

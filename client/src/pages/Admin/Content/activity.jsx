@@ -1,7 +1,8 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Form, Input, Space } from 'antd'
-import CloudinarySingleUploader from '@components/CloudinarySingleUploader'
 import { useState } from 'react'
+
+import CloudinarySingleUploader from '@components/CloudinarySingleUploader'
 
 export const Activity = () => {
   const [thumbnail, setThumbnail] = useState(null)
@@ -11,26 +12,26 @@ export const Activity = () => {
 
   return (
     <Form
+      autoComplete="off"
       name="dynamic_form_nest_item"
-      onFinish={onFinish}
       style={{
         maxWidth: 600
       }}
-      autoComplete="off"
+      onFinish={onFinish}
     >
       <Form.List name="users">
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
               <Space
+                align="baseline"
                 key={key}
                 style={{
                   display: 'flex',
                   marginBottom: 8
                 }}
-                align="baseline"
               >
-                <Form.Item {...restField} name={[name, 'content']} label="Nội dung">
+                <Form.Item {...restField} label="Nội dung" name={[name, 'content']}>
                   <Input placeholder="Nhập nội dung" />
                 </Form.Item>
                 <Form.Item {...restField} label="Hình ảnh">
@@ -40,7 +41,7 @@ export const Activity = () => {
               </Space>
             ))}
             <Form.Item>
-              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+              <Button block icon={<PlusOutlined />} type="dashed" onClick={() => add()}>
                 Add field
               </Button>
             </Form.Item>
@@ -48,7 +49,7 @@ export const Activity = () => {
         )}
       </Form.List>
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button htmlType="submit" type="primary">
           Submit
         </Button>
       </Form.Item>
