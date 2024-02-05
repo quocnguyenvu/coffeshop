@@ -1,19 +1,21 @@
-import { Link, useLocation } from 'react-router-dom'
-import { Container } from '@components/Container'
 import { Button, Divider, Form, Input, Radio, Space, message } from 'antd'
 import axios from 'axios'
-import { API_USER_URL } from '../../../constants'
 import { useMemo, useState } from 'react'
-import { formattedPrice } from '../../../helper'
+import { Link, useLocation } from 'react-router-dom'
+
+import { Container } from '@components/Container'
 import { Footer } from '@components/Footer'
 import { PageBanner } from '@components/PageBanner'
+
+import { API_USER_URL } from '../../../constants'
+import { formattedPrice } from '../../../helper'
 const { TextArea } = Input
 
 import './CheckoutPage.scss'
 
 export const CheckoutPage = () => {
   const location = useLocation()
-  const cartData = location.state.cartData
+  const { cartData } = location.state
   const [form] = Form.useForm()
   const total = cartData.reduce((total, item) => total + item.amount, 0)
 
@@ -22,13 +24,13 @@ export const CheckoutPage = () => {
   const [paymentMethod, setpaymentMethod] = useState('cod')
 
   const shippingFee = useMemo(() => {
-    if (shipMethod === 'save' && paymentMethod === 'cod') {
+    if ('save' === shipMethod && 'cod' === paymentMethod) {
       return 30000
-    } else if (shipMethod === 'save' && paymentMethod === 'atm') {
+    } else if ('save' === shipMethod && 'atm' === paymentMethod) {
       return 30000
-    } else if (shipMethod === 'fast' && paymentMethod === 'cod') {
+    } else if ('fast' === shipMethod && 'cod' === paymentMethod) {
       return 40000
-    } else if (shipMethod === 'fast' && paymentMethod === 'atm') {
+    } else if ('fast' === shipMethod && 'atm' === paymentMethod) {
       return 40000
     }
     return 0
@@ -64,22 +66,22 @@ export const CheckoutPage = () => {
         <Container>
           <Form
             form={form}
-            name="control-hooks"
-            onFinish={onFinish}
-            layout="vertical"
-            style={{ width: '100%' }}
             initialValues={{
               shipMethod: 'fast',
               paymentMethod: 'cod'
             }}
+            layout="vertical"
+            name="control-hooks"
+            style={{ width: '100%' }}
+            onFinish={onFinish}
           >
             <div className="checkout_wrapper">
               <article className="checkout_info">
                 <div className="checkout_form">
                   <div className="user-info">
                     <Form.Item
-                      name="customerName"
                       label="Họ và tên"
+                      name="customerName"
                       rules={[
                         {
                           required: true,
@@ -90,8 +92,8 @@ export const CheckoutPage = () => {
                       <Input placeholder="Nguyễn Văn A" />
                     </Form.Item>
                     <Form.Item
-                      name="phoneNumber"
                       label="Số điện thoại nhận hàng"
+                      name="phoneNumber"
                       rules={[
                         {
                           required: true,
@@ -101,12 +103,12 @@ export const CheckoutPage = () => {
                     >
                       <Input placeholder="0123456789" />
                     </Form.Item>
-                    <Form.Item name="email" label="Email">
+                    <Form.Item label="Email" name="email">
                       <Input placeholder="nguyenvana@gmail.com" />
                     </Form.Item>
                     <Form.Item
-                      name="address"
                       label="Địa chỉ nhận hàng"
+                      name="address"
                       rules={[
                         {
                           required: true,
@@ -116,12 +118,12 @@ export const CheckoutPage = () => {
                     >
                       <Input placeholder="15 Tôn Đản, Mỹ Khê, Ngũ Hành Sơn, Đà Nẵng" />
                     </Form.Item>
-                    <Form.Item name="note" label="Ghi chú">
-                      <TextArea rows={4} placeholder="Ghi chú" />
+                    <Form.Item label="Ghi chú" name="note">
+                      <TextArea placeholder="Ghi chú" rows={4} />
                     </Form.Item>
                   </div>
                   <div className="payment-info">
-                    <Form.Item name="shipMethod" label="Phương thức vận chuyển">
+                    <Form.Item label="Phương thức vận chuyển" name="shipMethod">
                       <Radio.Group onChange={(e) => setShipMethod(e.target.value)}>
                         <Space direction="vertical">
                           <Radio value="save">Giao hàng tiết kiệm</Radio>
@@ -129,18 +131,18 @@ export const CheckoutPage = () => {
                         </Space>
                       </Radio.Group>
                     </Form.Item>
-                    {shipMethod === 'save' && (
+                    {'save' === shipMethod && (
                       <div className="payment-info-atm">
                         <p>Thời gian giao hàng dự kiến từ 3 - 5 ngày kể từ khi đặt hàng.</p>
                       </div>
                     )}
-                    {shipMethod === 'fast' && (
+                    {'fast' === shipMethod && (
                       <div className="payment-info-atm">
                         <p>Thời gian giao hàng dự kiến từ 1 - 2 ngày kể từ khi đặt hàng.</p>
                       </div>
                     )}
                     <Divider />
-                    <Form.Item name="paymentMethod" label="Phương thức thanh toán">
+                    <Form.Item label="Phương thức thanh toán" name="paymentMethod">
                       <Radio.Group onChange={(e) => setpaymentMethod(e.target.value)}>
                         <Space direction="vertical">
                           <Radio value="cod">Thanh toán khi nhận hàng</Radio>
@@ -149,12 +151,12 @@ export const CheckoutPage = () => {
                       </Radio.Group>
                     </Form.Item>
 
-                    {paymentMethod === 'cod' && (
+                    {'cod' === paymentMethod && (
                       <div className="payment-info-atm">
                         <p>Bạn vui lòng chuẩn bị đủ tiền để thanh toán cho nhân viên giao hàng.</p>
                       </div>
                     )}
-                    {paymentMethod === 'atm' && (
+                    {'atm' === paymentMethod && (
                       <div className="payment-info-atm">
                         <p>Bạn vui lòng chuyển khoản cho chúng tôi theo thông tin dưới đây:</p>
                         <p>
@@ -175,13 +177,13 @@ export const CheckoutPage = () => {
                 </div>
               </article>
               <article className="checkout_product">
-                <div>Đơn hàng {`(${cartData.length} sản phẩm)`} </div>
+                <div>Đơn hàng {`(${cartData?.length} sản phẩm)`} </div>
                 <Divider />
                 <div className="checkout_product_wrap">
                   {cartData.map((item) => (
                     <div className="checkout_product_item" key={item.key}>
                       <div className="checkout_product_item_image">
-                        <img src={item.product.images[0]} alt={item.product.name} />
+                        <img alt={item.product.name} src={item.product.images[0]} />
                       </div>
                       <div className="checkout_product_item_info">
                         <p>{item.product.name}</p>
@@ -227,7 +229,7 @@ export const CheckoutPage = () => {
                             <Link to="/cart">Quay về giỏ hàng</Link>
                           </td>
                           <td>
-                            <Button type="primary" htmlType="submit" loading={loading}>
+                            <Button htmlType="submit" loading={loading} type="primary">
                               Đặt hàng
                             </Button>
                           </td>

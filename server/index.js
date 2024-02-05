@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/static", express.static(path.join(__dirname, "public")));
 app.use(cors());
 
-app.post("/verify", async (req, res) => {
+app.post("app/verify", async (req, res) => {
   try {
     const { token } = req.body;
 
@@ -44,7 +44,11 @@ app.post("/verify", async (req, res) => {
   }
 });
 
-app.use("/api", apiRoute);
-app.use("/user", publicRoute);
+app.get("/app", (req, res) => {
+  res.send("Hello World");
+});
+
+app.use("app/api", apiRoute);
+app.use("app/user", publicRoute);
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

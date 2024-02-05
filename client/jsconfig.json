@@ -5,8 +5,9 @@
     "paths": {
       "@/*": ["*"],
       "@components/*": ["components/*"],
-      "@api/*": ["api/*"],
-      "@hooks/*": ["hooks/*"]
+      "@user/*": ["user/*"],
+      "@admin/*": ["admin/*"],
+      "@assets/*": ["assets/*"]
     }
   }
 }

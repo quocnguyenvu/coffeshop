@@ -1,12 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { Container } from '../Container'
-import { ShoppingCartOutlined } from '@ant-design/icons'
+import { ShoppingCartOutlined, AlignLeftOutlined, CloseOutlined } from '@ant-design/icons'
+import logodark from '@assets/logo/logo-dark.png'
+import logo from '@assets/logo/logo.png'
 import PropTypes from 'prop-types'
-import { AlignLeftOutlined, CloseOutlined } from '@ant-design/icons'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
-import logo from '../../assets/logo/logo.png'
-import logodark from '../../assets/logo/logo-dark.png'
+import { Container } from '../Container'
 import './Header.scss'
 
 export const Header = ({ isSticky = true, isScrolling = true }) => {
@@ -26,12 +25,12 @@ export const Header = ({ isSticky = true, isScrolling = true }) => {
     }
   }, [])
 
-  const totalCartItems = JSON.parse(localStorage.getItem('cart')).length || 0
+  const totalCartItems = JSON.parse(localStorage.getItem('cart'))?.length || 0
 
   useEffect(() => {
     const handleScroll = () => {
       if (isScrolling) {
-        setScrolling(window.scrollY > 0)
+        setScrolling(0 < window.scrollY)
       }
     }
 
@@ -57,7 +56,7 @@ export const Header = ({ isSticky = true, isScrolling = true }) => {
           <section className="header-wrap">
             <div className="header-logo">
               <Link to="/">
-                <img src={scrolling || !isSticky ? logodark : logo} alt="" />
+                <img alt="" src={scrolling || !isSticky ? logodark : logo} />
               </Link>
             </div>
             <ul className="header-menu">
@@ -79,7 +78,7 @@ export const Header = ({ isSticky = true, isScrolling = true }) => {
               <li className="cart-link">
                 <div className="header-inner">
                   <span onClick={() => navigate('/cart')}>
-                    {screenWidth > 1024 ? (
+                    {1024 < screenWidth ? (
                       <>
                         <ShoppingCartOutlined
                           style={{
@@ -114,7 +113,7 @@ export const Header = ({ isSticky = true, isScrolling = true }) => {
                 </div>
               </li>
             </ul>
-            <div className="open-menu" onClick={handleOpenMenu} style={{ color: scrolling || !isSticky ? '#333' : '#fff' }}>
+            <div className="open-menu" style={{ color: scrolling || !isSticky ? '#333' : '#fff' }} onClick={handleOpenMenu}>
               <AlignLeftOutlined />
             </div>
           </section>
@@ -125,6 +124,6 @@ export const Header = ({ isSticky = true, isScrolling = true }) => {
 }
 
 Header.propTypes = {
-  isSticky: PropTypes.bool,
-  isScrolling: PropTypes.bool
+  isScrolling: PropTypes.bool,
+  isSticky: PropTypes.bool
 }

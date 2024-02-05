@@ -1,7 +1,7 @@
+import { message } from 'antd'
 import { CloudinaryContext } from 'cloudinary-react'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import { message } from 'antd'
 
 import './upload.scss'
 
@@ -10,7 +10,7 @@ const CloudinaryMultipleUploader = ({ images, setImages }) => {
 
   const handleImageUpload = async (e) => {
     setLoading(true)
-    const files = e.target.files
+    const { files } = e.target
 
     try {
       const uploadedImages = await Promise.all(
@@ -45,13 +45,13 @@ const CloudinaryMultipleUploader = ({ images, setImages }) => {
 
   return (
     <div>
-      <input type="file" multiple onChange={handleImageUpload} />
+      <input multiple type="file" onChange={handleImageUpload} />
       {loading && <p>Loading...</p>}
-      {images.length > 0 && (
+      {0 < images?.length && (
         <CloudinaryContext style={{ display: 'flex', maxWidth: '100%', gap: 15, marginTop: 15 }}>
           {images.map((imageUrl, index) => (
-            <div key={index} className="upload">
-              <img src={imageUrl} alt="" className="upload__img" />
+            <div className="upload" key={index}>
+              <img alt="" className="upload__img" src={imageUrl} />
               <div className="delete_button" onClick={() => handleImageDelete(index)}>
                 Delete
               </div>

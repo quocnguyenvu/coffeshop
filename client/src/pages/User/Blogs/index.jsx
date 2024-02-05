@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
-import { Container } from '@components/Container'
-import { PageBanner } from '@components/PageBanner'
-import axios from 'axios'
-import { API_USER_URL } from '../../../constants'
 import { Divider, Empty, Pagination, Spin } from 'antd'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+
 import { BlogItem } from '@components/BlogItem'
+import { Container } from '@components/Container'
 import { Footer } from '@components/Footer'
+import { PageBanner } from '@components/PageBanner'
+
+import { API_USER_URL } from '../../../constants'
 
 import './Blogs.scss'
 
@@ -44,7 +46,7 @@ export const BlogsPage = () => {
       <PageBanner title="NHỮNG BÀI VIẾT VỀ CÀ PHÊ" />
       <section id="blogs">
         <Container>
-          <Divider style={{ borderColor: '#333' }} orientation="left">
+          <Divider orientation="left" style={{ borderColor: '#333' }}>
             <span style={{ fontSize: 24 }}>BÀI VIẾT HỮU ÍCH</span>
           </Divider>
 
@@ -64,8 +66,8 @@ export const BlogsPage = () => {
               >
                 <Spin size="large" />
               </div>
-            ) : blogs.length > 0 ? (
-              blogs.map((blog, index) => <BlogItem key={index} blog={blog} />)
+            ) : 0 < blogs?.length ? (
+              blogs.map((blog, index) => <BlogItem blog={blog} key={index} />)
             ) : (
               <div
                 style={{
@@ -81,7 +83,7 @@ export const BlogsPage = () => {
           </div>
           <Divider />
           <div style={{ textAlign: 'center', marginTop: '20px' }}>
-            <Pagination current={currentPage} total={totalPages * 10} pageSize={10} onChange={handlePageChange} />
+            <Pagination current={currentPage} pageSize={10} total={totalPages * 10} onChange={handlePageChange} />
           </div>
         </Container>
       </section>

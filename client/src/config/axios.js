@@ -9,6 +9,7 @@ const axiosClient = axios.create({
   baseURL: apiURL
 })
 
+// eslint-disable-next-line require-await
 axiosClient.interceptors.request.use(async (config) => {
   const token = localStorage.getItem('token')
   const currentConfig = config

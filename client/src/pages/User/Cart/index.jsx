@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react'
 import { Button, Divider, Modal, Space, Table } from 'antd'
-import { Container } from '@components/Container'
-import { PageBanner } from '@components/PageBanner'
-import { API_USER_URL } from '../../../constants'
 import axios from 'axios'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { formattedPrice } from '../../../helper'
+
+import { Container } from '@components/Container'
 import { Footer } from '@components/Footer'
+import { PageBanner } from '@components/PageBanner'
+
+import { API_USER_URL } from '../../../constants'
+import { formattedPrice } from '../../../helper'
 
 const { Column } = Table
 
@@ -25,7 +27,7 @@ export const CartPage = () => {
     const fetchProducts = async () => {
       const storedCart = JSON.parse(localStorage.getItem('cart')) || []
       const productIds = storedCart.map((item) => item.productId)
-      if (productIds.length === 0) {
+      if (0 === productIds?.length) {
         return
       }
       try {
@@ -65,7 +67,7 @@ export const CartPage = () => {
 
   const handleDecreaseQuantity = (record) => {
     const updatedCartData = cartData.map((item) => {
-      if (item.key === record.key && item.quantity > 1) {
+      if (item.key === record.key && 1 < item.quantity) {
         return {
           ...item,
           quantity: item.quantity - 1,
@@ -125,11 +127,11 @@ export const CartPage = () => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || []
     const productIds = storedCart.map((item) => item.productId)
 
-    if (productIds.length === 0) {
+    if (0 === productIds?.length) {
       return
     }
 
-    navigate('/checkout', { state: { cartData: cartData } })
+    navigate('/checkout', { state: { cartData } })
   }
 
   const total = cartData.reduce((total, item) => total + item.amount, 0)
@@ -139,24 +141,23 @@ export const CartPage = () => {
       <PageBanner title="CART" />
       <section id="cart">
         <Container>
-          <Divider style={{ borderColor: '#333' }} orientation="left">
+          <Divider orientation="left" style={{ borderColor: '#333' }}>
             <span style={{ fontSize: 24 }}>GIỎ HÀNG CỦA BẠN</span>
           </Divider>
           <Table dataSource={cartData} loading={loading} pagination={false} scroll={{ x: 800 }}>
             <Column
-              title="Thông tin sản phẩm"
               dataIndex="product"
               key="product"
               render={(_, record) => (
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={record.product?.images[0]} alt={record.product?.name} style={{ width: '100px', height: '100px' }} />
+                  <img alt={record.product?.name} src={record.product?.images[0]} style={{ width: '100px', height: '100px' }} />
                   <span style={{ marginLeft: 20 }}>{record.product?.name}</span>
                 </div>
               )}
+              title="Thông tin sản phẩm"
             />
-            <Column title="Đơn giá" dataIndex="price" key="price" render={(_, record) => formattedPrice(record.price)} />
+            <Column dataIndex="price" key="price" render={(_, record) => formattedPrice(record.price)} title="Đơn giá" />
             <Column
-              title="Số lượng"
               dataIndex="quantity"
               key="quantity"
               render={(_, record) => (
@@ -166,8 +167,9 @@ export const CartPage = () => {
                   <button onClick={() => handleIncreaseQuantity(record)}>+</button>
                 </div>
               )}
+              title="Số lượng"
             />
-            <Column title="Thành tiền" dataIndex="amount" key="amount" render={(_, record) => formattedPrice(record.amount)} />
+            <Column dataIndex="amount" key="amount" render={(_, record) => formattedPrice(record.amount)} title="Thành tiền" />
 
             <Column
               key="action"
@@ -177,10 +179,10 @@ export const CartPage = () => {
                     Delete
                   </Button>
                   <Modal
-                    title="Confirm Delete"
                     open={deleteModalVisible}
-                    onOk={handleDeleteConfirm}
+                    title="Confirm Delete"
                     onCancel={() => setDeleteModalVisible(false)}
+                    onOk={handleDeleteConfirm}
                   >
                     <p>Are you sure you want to delete this item from your cart?</p>
                   </Modal>

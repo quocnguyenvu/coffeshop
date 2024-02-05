@@ -1,12 +1,14 @@
-import { Container } from '@components/Container'
-import { PageBanner } from '@components/PageBanner'
-import { Product } from '@components/Product'
+import { Filters } from '@user/Shop/Filters'
 import { Button, Divider, Empty, Form, Space } from 'antd'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+
+import { Container } from '@components/Container'
 import { Footer } from '@components/Footer'
+import { PageBanner } from '@components/PageBanner'
+import { Product } from '@components/Product'
+
 import { API_USER_URL } from '../../../constants'
-import { Filters } from '@user/Shop/Filters'
 
 import './Shop.scss'
 
@@ -32,7 +34,7 @@ export const ShopPage = () => {
       const response = await axios.get(`${API_USER_URL}/products`, {
         params: {
           name: params?.name,
-          category: params?.category !== 'all' ? params?.category : undefined,
+          category: 'all' !== params?.category ? params?.category : undefined,
           minPrice: params?.minPrice,
           maxPrice: params?.maxPrice,
           sortMethod: params?.sortMethod ?? 'name',
@@ -61,8 +63,8 @@ export const ShopPage = () => {
     try {
       const { name, category, price, sortMethod, sortOrder } = values
 
-      const minPrice = price && price.length >= 1 ? price[0] : undefined
-      const maxPrice = price && price.length === 2 ? price[1] : undefined
+      const minPrice = price && 1 <= price?.length ? price[0] : undefined
+      const maxPrice = price && 2 === price?.length ? price[1] : undefined
 
       await fetchProducts({
         name,
@@ -80,10 +82,10 @@ export const ShopPage = () => {
   return (
     <>
       <section id="shop">
-        <Filters categories={categories} onFinish={onFinish} form={form} loading={loading} open={open} setOpen={setOpen} />
+        <Filters categories={categories} form={form} loading={loading} open={open} setOpen={setOpen} onFinish={onFinish} />
         <PageBanner title="SẢN PHẨM CỦA CHÚNG TÔI" />
         <Container>
-          <Divider style={{ borderColor: '#333' }} orientation="left">
+          <Divider orientation="left" style={{ borderColor: '#333' }}>
             <span style={{ fontSize: 24 }}>SẢN PHẨM</span>
           </Divider>
           <Space
@@ -98,7 +100,7 @@ export const ShopPage = () => {
           </Space>
           <div className="shop_wrapper">
             <article className="list-products">
-              {searchResults && searchResults.length > 0 ? (
+              {searchResults && 0 < searchResults?.length ? (
                 searchResults.map((product, index) => <Product key={index} product={product} />)
               ) : (
                 <div

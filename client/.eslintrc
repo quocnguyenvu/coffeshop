@@ -9,6 +9,7 @@
   ],
   "plugins": ["eslint-plugin-react-hooks", "jsx-a11y", "prettier", "import"],
   "rules": {
+    "react/react-in-jsx-scope": "off",
     "arrow-body-style": ["error", "as-needed"],
     "array-callback-return": ["error"],
     "camelcase": ["error", { "properties": "always" }],
@@ -114,8 +115,9 @@
         "map": [
           ["@", "./src"],
           ["@components", "./src/components"],
-          ["@api", "./src/api"],
-          ["@hooks", "./src/hooks"]
+          ["@admin", "./src/pages/admin"],
+          ["@user", "./src/pages/user"],
+          ["@assets", "./src/assets"]
         ],
         "extensions": [".js", ".jsx"]
       }

@@ -1,11 +1,12 @@
-import { Container } from '@components/Container'
+import background from '@assets/bg/img-home-3.png'
+import { Spin } from 'antd'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Product } from '@components/Product'
-import { API_USER_URL } from '../../../../constants'
-import { Spin } from 'antd'
 
-import background from '../../../../assets/bg/img-home-3.png'
+import { Container } from '@components/Container'
+import { Product } from '@components/Product'
+
+import { API_USER_URL } from '../../../../constants'
 
 import './OurBlends.scss'
 
@@ -30,7 +31,7 @@ export const OurBlends = () => {
 
   return (
     <section id="home-our-blends">
-      <img src={background} alt="" />
+      <img alt="" src={background} />
       <Container>
         <article className="dat-title">
           <span className="sub-title" data-aos="fade-up">
@@ -42,7 +43,7 @@ export const OurBlends = () => {
         </article>
         <section className="list-products">
           {loading ? (
-            <Spin tip="Loading" size="large">
+            <Spin size="large" tip="Loading">
               <div className="content" />
             </Spin>
           ) : (

@@ -1,15 +1,17 @@
-import axios from 'axios'
-import { useParams } from 'react-router-dom'
-import { API_USER_URL } from '../../../../constants'
-import { useEffect, useState } from 'react'
-import { Container } from '@components/Container'
 import { Button, Divider, Spin, message } from 'antd'
-import { formattedPrice } from '../../../../helper'
-import { Product } from '@components/Product'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import { Container } from '@components/Container'
 import { Footer } from '@components/Footer'
 import { Header } from '@components/Header'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Product } from '@components/Product'
+
+import { API_USER_URL } from '../../../../constants'
+import { formattedPrice } from '../../../../helper'
 
 import './ProductDetail.scss'
 import 'swiper/css'
@@ -52,8 +54,8 @@ export const ProductDetail = () => {
     const cart = JSON.parse(localStorage.getItem('cart')) || []
     const productIndex = cart.findIndex((item) => item.productId === product._id)
 
-    if (productIndex === -1) {
-      cart.push({ productId: product._id, quantity: quantity, price: product.price })
+    if (-1 === productIndex) {
+      cart.push({ productId: product._id, quantity, price: product.price })
     } else {
       cart[productIndex].quantity += quantity
     }
@@ -72,26 +74,26 @@ export const ProductDetail = () => {
         <Header isSticky={false} />
         <Container>
           {loading ? (
-            <Spin tip="Loading" size="large">
+            <Spin size="large" tip="Loading">
               <div className="content" />
             </Spin>
           ) : (
             <>
               <article className="product_info">
                 <div className="product_info__img">
-                  {product.images.length === 0 ? (
-                    <img src="https://via.placeholder.com/300x300" alt={product.name} />
-                  ) : product.images.length === 1 ? (
-                    <img src={product.images[0]} alt={product.name} />
+                  {0 === product.images.length ? (
+                    <img alt={product.name} src="https://via.placeholder.com/300x300" />
+                  ) : 1 === product.images?.length ? (
+                    <img alt={product.name} src={product.images[0]} />
                   ) : (
                     <>
                       <div style={{ marginBottom: 25 }}>
-                        <img src={slideActive} alt={product.name} />
+                        <img alt={product.name} src={slideActive} />
                       </div>
-                      <Swiper navigation={true} slidesPerView={3} spaceBetween={10} modules={[Navigation, Pagination]}>
+                      <Swiper modules={[Navigation, Pagination]} navigation={true} slidesPerView={3} spaceBetween={10}>
                         {product.images.map((image, index) => (
                           <SwiperSlide key={index}>
-                            <img src={image} alt={product.name} onClick={handleClickSlideItems} />
+                            <img alt={product.name} src={image} onClick={handleClickSlideItems} />
                           </SwiperSlide>
                         ))}
                       </Swiper>
@@ -99,7 +101,7 @@ export const ProductDetail = () => {
                   )}
                 </div>
                 <div className="product_info__content">
-                  <Divider style={{ borderColor: '#333' }} orientation="left">
+                  <Divider orientation="left" style={{ borderColor: '#333' }}>
                     <span style={{ fontSize: 24 }}>THÔNG TIN SẢN PHẨM</span>
                   </Divider>
                   <table className="product_info__content__table">
@@ -132,7 +134,7 @@ export const ProductDetail = () => {
                   </div>
                   <Divider />
                   <div className="product-desc">
-                    <Divider style={{ borderColor: '#333' }} orientation="left">
+                    <Divider orientation="left" style={{ borderColor: '#333' }}>
                       <span style={{ fontSize: 24 }}>MÔ TẢ SẢN PHẨM</span>
                     </Divider>
                     <div className="product_info__content__desc" dangerouslySetInnerHTML={{ __html: product.description }} />
@@ -140,9 +142,9 @@ export const ProductDetail = () => {
                 </div>
               </article>
               <article className="product_suggest">
-                {productSuggest.length > 0 && (
+                {0 < productSuggest?.length && (
                   <>
-                    <Divider style={{ borderColor: '#333' }} orientation="left">
+                    <Divider orientation="left" style={{ borderColor: '#333' }}>
                       <span style={{ fontSize: 24 }}>SẢN PHẨM TƯƠNG TỰ</span>
                     </Divider>
                     <div className="product_suggest_wrap">
