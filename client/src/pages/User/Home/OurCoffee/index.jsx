@@ -1,4 +1,4 @@
-import img1 from '@assets/img/img-home-1.jpg'
+import img1 from '@assets/img/farm.jpeg'
 import img2 from '@assets/img/img-home-2.jpg'
 
 import { Container } from '@components/Container'

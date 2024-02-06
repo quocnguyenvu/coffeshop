@@ -47,7 +47,11 @@ header {
     }
   }
   .header-logo {
-    width: 200px;
+    width: 150px;
+    background-color: #fff;
+    padding: 15px 10px;
+    border-radius: 8px;
+    transition: all 0.25s linear;
     img {
       width: 100%;
       cursor: pointer;

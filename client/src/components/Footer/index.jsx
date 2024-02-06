@@ -1,4 +1,4 @@
-import logo from '@assets/logo/logo-footer.png'
+import logo from '@assets/logo/datcf.png'
 import { Link } from 'react-router-dom'
 
 import { Container } from '../Container'
@@ -10,7 +10,9 @@ export const Footer = () => (
     <Container>
       <section className="footer">
         <div className="footer__logo">
-          <img alt="" src={logo} />
+          <Link to="/">
+            <img alt="" src={logo} style={{ maxWidth: 200 }} />
+          </Link>
         </div>
         <nav className="footer__nav">
           <ul>

@@ -1,6 +1,5 @@
 import { ShoppingCartOutlined, AlignLeftOutlined, CloseOutlined } from '@ant-design/icons'
-import logodark from '@assets/logo/logo-dark.png'
-import logo from '@assets/logo/logo.png'
+import logo from '@assets/logo/datcf.png'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -57,7 +56,7 @@ export const Header = ({ isSticky = true, isScrolling = true }) => {
           <section className="header-wrap">
             <div className="header-logo">
               <Link to="/">
-                <img alt="" src={scrolling || !isSticky ? logodark : logo} />
+                <img alt="" src={logo} />
               </Link>
             </div>
             <ul className="header-menu">
