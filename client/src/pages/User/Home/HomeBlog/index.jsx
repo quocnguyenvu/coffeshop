@@ -1,6 +1,7 @@
 import { Button, Divider, Spin } from 'antd'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { BlogItem } from '@components/BlogItem'
 import { Container } from '@components/Container'
@@ -9,6 +10,7 @@ import { API_USER_URL } from '../../../../constants'
 
 import './HomeBlog.scss'
 export const HomeBlog = () => {
+  const navigate = useNavigate()
   const [blogs, setBlogs] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -50,7 +52,7 @@ export const HomeBlog = () => {
           )}
         </section>
         <article className="view-more">
-          <Button ghost type="primary">
+          <Button ghost type="primary" onClick={() => navigate('/blogs')}>
             Xem tất cả
           </Button>
         </article>

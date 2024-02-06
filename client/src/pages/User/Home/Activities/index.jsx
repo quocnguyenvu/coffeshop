@@ -1,6 +1,6 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import slide1 from '@assets/blog/images-27-min-1-840x840.jpg'
 import icon from '@assets/icons/tele.png'
-import slide1 from '@assets/slide/slides1.jpg'
 import { Button, Spin } from 'antd'
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
@@ -139,7 +139,7 @@ export const Activities = () => {
           </Swiper>
         </article>
         <article className="contact">
-          <Button danger obClick={() => navigate('/contact')} size="large">
+          <Button danger size="large" onClick={() => navigate('/contact')}>
             <img alt="" src={icon} width={20} /> Liên hệ với chúng tôi
           </Button>
         </article>
